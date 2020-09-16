@@ -11,13 +11,25 @@ DenotativeObject subclass: #I
 I class
 	instanceVariableNames: ''!
 
+!I class methodsFor: 'as yet unclassified' stamp: 'Emi 9/16/2020 18:23:32'!
+* unNumeroDePeano
+	^unNumeroDePeano! !
+
 !I class methodsFor: 'as yet unclassified' stamp: 'Emi 9/14/2020 22:04:56'!
 + unNumeroDePeano
 	^unNumeroDePeano next.! !
 
-!I class methodsFor: 'as yet unclassified' stamp: 'Emi 9/14/2020 22:04:51'!
+!I class methodsFor: 'as yet unclassified' stamp: 'Emi 9/16/2020 18:51:19'!
 - unNumeroDePeano
-	^self error: 'No se puede restar al I'.! !
+	^self error: self descripcionDeErrorDeNumerosNegativosNoSoportados.! !
+
+!I class methodsFor: 'as yet unclassified' stamp: 'Emi 9/16/2020 18:30:36'!
+/ unNumeroDePeano
+	^self! !
+
+!I class methodsFor: 'as yet unclassified' stamp: 'Emi 9/16/2020 18:50:41'!
+descripcionDeErrorDeNumerosNegativosNoSoportados
+	^'No existen numeros negativos ni el cero.'.! !
 
 !I class methodsFor: 'as yet unclassified' stamp: 'Emi 9/14/2020 22:04:42'!
 next
@@ -41,13 +53,29 @@ I subclass: #II
 II class
 	instanceVariableNames: ''!
 
+!II class methodsFor: 'as yet unclassified' stamp: 'Emi 9/16/2020 18:25:57'!
+* unNumeroDePeano
+	^(self previous * unNumeroDePeano) + unNumeroDePeano! !
+
 !II class methodsFor: 'as yet unclassified' stamp: 'Emi 9/14/2020 22:05:05'!
 + unNumeroDePeano
 	^self previous + unNumeroDePeano next.! !
 
-!II class methodsFor: 'as yet unclassified' stamp: 'Emi 9/14/2020 22:05:08'!
+!II class methodsFor: 'as yet unclassified' stamp: 'Emi 9/16/2020 18:17:59'!
 - unNumeroDePeano
-	^ self.! !
+	^I = unNumeroDePeano
+		ifTrue: [^self previous]
+		ifFalse:[^self previous - unNumeroDePeano previous.]! !
+
+!II class methodsFor: 'as yet unclassified' stamp: 'Emi 9/16/2020 18:42:51'!
+/ unNumeroDePeano
+	^self = unNumeroDePeano
+		ifTrue:[^I]
+		ifFalse:[^((self - unNumeroDePeano)/ unNumeroDePeano) next].! !
+
+!II class methodsFor: 'as yet unclassified' stamp: 'Emi 9/16/2020 18:54:33'!
+descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor
+	^'No se puede dividir por un numero mayor al numerador'.! !
 
 !II class methodsFor: 'as yet unclassified' stamp: 'Emi 9/14/2020 22:05:12'!
 previous
@@ -64,6 +92,38 @@ II subclass: #III
 
 !classDefinition: #IIII category: #'Ejercicio Numeros de Peano'!
 III subclass: #IIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio Numeros de Peano'!
+
+
+!classDefinition: #IIIII category: #'Ejercicio Numeros de Peano'!
+IIII subclass: #IIIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio Numeros de Peano'!
+
+
+!classDefinition: #IIIIII category: #'Ejercicio Numeros de Peano'!
+IIIII subclass: #IIIIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio Numeros de Peano'!
+
+
+!classDefinition: #IIIIIII category: #'Ejercicio Numeros de Peano'!
+IIIIII subclass: #IIIIIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio Numeros de Peano'!
+
+
+!classDefinition: #IIIIIIII category: #'Ejercicio Numeros de Peano'!
+IIIIIII subclass: #IIIIIIII
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
