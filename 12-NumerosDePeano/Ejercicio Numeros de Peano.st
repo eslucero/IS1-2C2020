@@ -23,9 +23,15 @@ I class
 - unNumeroDePeano
 	^self error: self descripcionDeErrorDeNumerosNegativosNoSoportados.! !
 
-!I class methodsFor: 'as yet unclassified' stamp: 'Emi 9/16/2020 18:30:36'!
+!I class methodsFor: 'as yet unclassified' stamp: 'Emi 9/16/2020 22:59:26'!
 / unNumeroDePeano
-	^self! !
+	^self = unNumeroDePeano 
+		ifTrue:[^I]
+		ifFalse:[^self error: self descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor].! !
+
+!I class methodsFor: 'as yet unclassified' stamp: 'Emi 9/16/2020 22:28:48'!
+descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor
+	^'No se puede dividir al numerador por un numero mayor'.! !
 
 !I class methodsFor: 'as yet unclassified' stamp: 'Emi 9/16/2020 18:50:41'!
 descripcionDeErrorDeNumerosNegativosNoSoportados
@@ -67,15 +73,13 @@ II class
 		ifTrue: [^self previous]
 		ifFalse:[^self previous - unNumeroDePeano previous.]! !
 
-!II class methodsFor: 'as yet unclassified' stamp: 'Emi 9/16/2020 18:42:51'!
+!II class methodsFor: 'as yet unclassified' stamp: 'Emi 9/16/2020 23:04:20'!
 / unNumeroDePeano
 	^self = unNumeroDePeano
 		ifTrue:[^I]
-		ifFalse:[^((self - unNumeroDePeano)/ unNumeroDePeano) next].! !
-
-!II class methodsFor: 'as yet unclassified' stamp: 'Emi 9/16/2020 18:54:33'!
-descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor
-	^'No se puede dividir por un numero mayor al numerador'.! !
+		ifFalse:[| resta | 
+			[resta _ (self - unNumeroDePeano )] on: self descripcionDeErrorDeNumerosNegativosNoSoportados do: [^self descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor ].
+			^(resta/ unNumeroDePeano) next].! !
 
 !II class methodsFor: 'as yet unclassified' stamp: 'Emi 9/14/2020 22:05:12'!
 previous
