@@ -35,62 +35,66 @@ test02RemovingCustomerShouldNotTakeMoreThan100Milliseconds
 	
 ! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'Emi 9/21/2020 17:11:47'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'Emi 9/23/2020 18:13:13'!
 test03CanNotAddACustomerWithEmptyName 
-	self verSiMetodo: [testCustomerBook addCustomerNamed: ''.] 
+	self verSiBloque: [testCustomerBook addCustomerNamed: ''.] 
 		respondeError: Error 
 		entoncesVerificar: [ :anError | 
 								self assert: anError messageText = CustomerBook customerCanNotBeEmptyErrorMessage.
 								self assert: testCustomerBook isEmpty ].
 	! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'Emi 9/21/2020 17:12:07'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'Emi 9/23/2020 18:13:13'!
 test04CanNotRemoveAnInvalidCustomer
 	testCustomerBook addCustomerNamed: self class nombreJohnLennon .
 	
-	self verSiMetodo: [ testCustomerBook removeCustomerNamed: self class nombrePaulMcCartney .] 
+	self verSiBloque: [ testCustomerBook removeCustomerNamed: self class nombrePaulMcCartney .] 
 		respondeError: NotFound 
 		entoncesVerificar: [ :anError | self assert: (self verificarUnicoClienteDe: testCustomerBook es: self class nombreJohnLennon). ].
 ! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'Emi 9/21/2020 17:12:36'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'Emi 9/23/2020 18:49:06'!
 test05SuspendingACustomerShouldNotRemoveItFromCustomerBook
 	self agregarYSuspenderClienteDe: testCustomerBook conNombre: self class nombrePaulMcCartney .
 	
-	self assert: (self cantidadClientesPorCondicionDe: testCustomerBook  activos: 0  suspendidos: 1).
-	self assert: (testCustomerBook includesCustomerNamed: self class nombrePaulMcCartney ).
+	self assert: (self verificarClientesDe: testCustomerBook conActivos: 0 conSuspendidos: 1 PaulMcCartneyEsta: true).
+
+	"self assert: (self verificarCantidadClientesPorCondicionDe: testCustomerBook  activos: 0  suspendidos: 1).
+	self assert: (testCustomerBook includesCustomerNamed: self class nombrePaulMcCartney )."
 	
 
 	
 ! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'Emi 9/21/2020 17:13:00'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'Emi 9/23/2020 18:45:37'!
 test06RemovingASuspendedCustomerShouldRemoveItFromCustomerBook
 	self agregarYSuspenderClienteDe: testCustomerBook conNombre: self class nombrePaulMcCartney .
 	testCustomerBook removeCustomerNamed: self class nombrePaulMcCartney .
 	
-	self assert: (self cantidadClientesPorCondicionDe: testCustomerBook activos: 0 suspendidos: 0).
-	self deny: (testCustomerBook includesCustomerNamed: self class nombrePaulMcCartney).
+	self assert: (self verificarClientesDe: testCustomerBook conActivos: 0 conSuspendidos: 0 PaulMcCartneyEsta: false).
+	
+	"self assert: (self verificarCantidadClientesPorCondicionDe: testCustomerBook activos: 0 suspendidos: 0).
+	self deny: (testCustomerBook includesCustomerNamed: self class nombrePaulMcCartney)."
 
 
 	
 ! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'Emi 9/21/2020 17:13:17'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'Emi 9/23/2020 18:21:53'!
 test07CanNotSuspendAnInvalidCustomer
 	testCustomerBook addCustomerNamed: self class nombreJohnLennon .
 	
-	self verSiMetodo: [ testCustomerBook suspendCustomerNamed: 'George Harrison'.] 
+	self verSiBloque: [testCustomerBook suspendCustomerNamed: 'George Harrison'.] 
 		respondeError: CantSuspend 
-	 	entoncesVerificar: [ :anError | self assert: (self verificarUnicoClienteDe: testCustomerBook es: self class nombreJohnLennon ).].
+	 	entoncesVerificar: [ :anError | self assert: (self verificarUnicoClienteDe: testCustomerBook es: self class nombreJohnLennon).].
 
 ! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'Emi 9/21/2020 17:13:35'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'Emi 9/23/2020 18:22:00'!
 test08CanNotSuspendAnAlreadySuspendedCustomer
 	self agregarYSuspenderClienteDe: testCustomerBook conNombre: self class nombreJohnLennon.
 	
-	self verSiMetodo:  [testCustomerBook suspendCustomerNamed: self class nombreJohnLennon.]  
+	self verSiBloque: [testCustomerBook suspendCustomerNamed: self class nombreJohnLennon.]  
 		respondeError: CantSuspend  
 		entoncesVerificar: [ :anError | self assert: (self verificarUnicoClienteDe: testCustomerBook es: self class nombreJohnLennon).].
 	
@@ -114,22 +118,33 @@ calcularTiempoDeEjecucionEnMilliDe: unMetodo esMenorA: unTiempoEnMilli
 	
 	^(tiempoFinal - tiempoInicio) < unTiempoEnMilli.! !
 
-!CustomerBookTest methodsFor: 'refactor' stamp: 'Emi 9/20/2020 18:13:38'!
-cantidadClientesPorCondicionDe: unCustomerBook activos: cantidadClientesActivos suspendidos: cantidadClientesSuspendidos
-	^(unCustomerBook numberOfActiveCustomers = cantidadClientesActivos) 
-	and: (unCustomerBook numberOfSuspendedCustomers = cantidadClientesSuspendidos) 
-	and: (unCustomerBook numberOfCustomers = (cantidadClientesActivos + cantidadClientesSuspendidos)).! !
-
 !CustomerBookTest methodsFor: 'refactor' stamp: 'Emi 9/21/2020 17:09:43'!
 setUp
 	testCustomerBook _ CustomerBook new.! !
 
-!CustomerBookTest methodsFor: 'refactor' stamp: 'Emi 9/20/2020 17:44:12'!
-verSiMetodo: unMetodo respondeError: unError entoncesVerificar: unBloque
-	[unMetodo value.
+!CustomerBookTest methodsFor: 'refactor' stamp: 'Emi 9/23/2020 18:14:38'!
+verSiBloque: unBloque respondeError: unError entoncesVerificar: unBloqueDeCondiciones
+	[unBloque value.
 	self fail.]
 		on: unError 
-		do: [ :anError | unBloque value: anError.].! !
+		do: [ :anError | unBloqueDeCondiciones value: anError.].! !
+
+!CustomerBookTest methodsFor: 'refactor' stamp: 'Emi 9/23/2020 18:31:38'!
+verificarCantidadClientesPorCondicionDe: unCustomerBook activos: cantidadClientesActivos suspendidos: cantidadClientesSuspendidos
+	^(unCustomerBook numberOfActiveCustomers = cantidadClientesActivos) 
+	and: (unCustomerBook numberOfSuspendedCustomers = cantidadClientesSuspendidos) 
+	and: (unCustomerBook numberOfCustomers = (cantidadClientesActivos + cantidadClientesSuspendidos)).! !
+
+!CustomerBookTest methodsFor: 'refactor' stamp: 'Emi 9/23/2020 18:49:33'!
+verificarClientesDe: unCustomerBook conActivos: cantActivos conSuspendidos: cantSuspendidos PaulMcCartneyEsta: boolEsta
+
+	| t |
+       t _ self verificarCantidadClientesPorCondicionDe: unCustomerBook  activos: cantActivos  suspendidos: cantSuspendidos.
+	
+	(boolEsta)
+	ifTrue: [^t and: (unCustomerBook includesCustomerNamed: self class nombrePaulMcCartney)] 
+	ifFalse: [^t and: (unCustomerBook includesCustomerNamed: self class nombrePaulMcCartney) not].
+! !
 
 !CustomerBookTest methodsFor: 'refactor' stamp: 'Emi 9/20/2020 19:04:15'!
 verificarUnicoClienteDe: unCustomerBook es: clienteNombreCompleto
