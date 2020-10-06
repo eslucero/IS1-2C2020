@@ -144,108 +144,132 @@ TestCase subclass: #SentenceFinderByPrefixTest
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'EMI 10/4/2020 19:11:15'!
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'EMI 10/5/2020 21:09:40'!
 test01FindDeUnStackVacioEsVacio
-	|finder|	
-	self assert: (finder find:'a' isEmpty).! !
+	|finder stack|	
+	stack _ OOStack new.
+	finder _ SentenceFinderByPrefix with: stack.
+	self assert: (finder find:'a') isEmpty.! !
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'EMI 10/4/2020 18:49:11'!
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'EMI 10/5/2020 21:51:33'!
 test02FindDePrefijoVacioDevuelveError
-	| finder |
-	
+	|finder stack|	
+	stack _ OOStack new.
+	finder _ SentenceFinderByPrefix with: stack.
 	self should: [finder find:''] 
 	      raise: Error 
-	      withExceptionDo:[:anError | anError messageText = SentenceFinderByPrefix class messageEmptyPrefixError].
+	      withExceptionDo:[:anError | anError messageText = SentenceFinderByPrefix messageEmptyPrefixError].
 		! !
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'EMI 10/4/2020 18:56:31'!
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'EMI 10/5/2020 22:05:28'!
 test03FindEsCaseSensitive
-	| finder |
+	|finder stack|	
+	stack _ OOStack new.
+	stack push: 'A'.
+	stack push: 'b'.
+	finder _ SentenceFinderByPrefix with: stack.
 	
-	self assert: (finder find:'a' isEmpty).
-	self assert: (finder find:'B' isEmpty).
+	self assert: (finder find:'a') isEmpty.
+	self assert: (finder find:'B') isEmpty.
 	
-	self deny: (finder find:'A' isEmpty).
-	self deny: (finder find:'b' isEmpty).! !
+	self deny: (finder find:'A') isEmpty.
+	self deny: (finder find:'b') isEmpty.! !
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'EMI 10/4/2020 18:52:11'!
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'EMI 10/5/2020 21:51:45'!
 test04FindDePrefijoConEspaciosDevuelveError
-	| finder |
-	
+	|finder stack|	
+	stack _ OOStack new.
+	finder _ SentenceFinderByPrefix with: stack.
 	self should: [finder find:' '] 
 	      raise: Error 
-	      withExceptionDo:[:anError | anError messageText = SentenceFinderByPrefix class messageHasEmptySpacesError].
-	
+	      withExceptionDo:[:anError | anError messageText = SentenceFinderByPrefix messageHasEmptySpacesError].
+	self should: [finder find:'aa '] 
+	      raise: Error 
+	      withExceptionDo:[:anError | anError messageText = SentenceFinderByPrefix messageHasEmptySpacesError].
+	self should: [finder find:' aa'] 
+	      raise: Error 
+	      withExceptionDo:[:anError | anError messageText = SentenceFinderByPrefix messageHasEmptySpacesError].
 	self should: [finder find:'a a'] 
 	      raise: Error 
-	      withExceptionDo:[:anError | anError messageText = SentenceFinderByPrefix class messageHasEmptySpacesError].! !
+	      withExceptionDo:[:anError | anError messageText = SentenceFinderByPrefix messageHasEmptySpacesError].! !
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'EMI 10/4/2020 19:00:49'!
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'EMI 10/5/2020 21:14:44'!
 test05FindNoModificaElStack
-	| finder stack datos|
-	
-	datos _ #('hola' 'chau' 'chaucha').
+	|finder stack|	
+	stack _ OOStack new.
+	finder _ SentenceFinderByPrefix with: stack.
 	
 	! !
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'EMI 10/4/2020 19:06:22'!
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'EMI 10/5/2020 21:41:32'!
 test06FindDeUnPrefijoPresenteYUnicoLoDevuelve
-	|finder result|
+	|finder stack result|	
+	stack _ OOStack new.
+	stack push:'a'.
+	finder _ SentenceFinderByPrefix with: stack.
 	result _ finder find:'a'.
 	self deny: result isEmpty.
 	self assert: result size = 1.
-	self assert: 'a' isPrefix: (result first).! !
+	self assert: ((result first) beginsWith: 'a').! !
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'EMI 10/4/2020 19:09:37'!
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'EMI 10/5/2020 21:43:25'!
 test07FindDeUnPrefijoPresenteLosDevuelve
-	|finder apariciones result |
+	|finder stack result apariciones|	
+	stack _ OOStack new.
+	stack push:'a'.
+	stack push:'aa'.
+	stack push:'ababa'.
+	apariciones _ 3.
+	finder _ SentenceFinderByPrefix with: stack.
 	result _ finder find:'a'.
 	self deny: result isEmpty.
 	self assert: result size = apariciones.
-	result collect:[:aString | self assert: 'a' isPrefix: aString].! !
+	result do:[:aString | self assert: (aString beginsWith: 'a')].! !
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'EMI 10/4/2020 19:10:35'!
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'EMI 10/5/2020 21:18:09'!
 test08FindDeUnPrefijoAusenteDevuelveVacio
-	|finder|
-	self assert: (finder find:'a' isEmpty).! !
+	|finder stack |	
+	stack _ OOStack new.
+	stack push:'ba'.
+	stack push:'baa'.
+	stack push:'bababa'.
+	finder _ SentenceFinderByPrefix with: stack.
+	self assert: (finder find:'a') isEmpty.! !
 
 
 !classDefinition: #OOStack category: 'Stack-Exercise'!
 Object subclass: #OOStack
-	instanceVariableNames: 'topNode stackSize'
+	instanceVariableNames: 'topBlock'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!OOStack methodsFor: 'as yet unclassified' stamp: 'EMI 10/4/2020 18:00:45'!
+!OOStack methodsFor: 'as yet unclassified' stamp: 'EMI 10/5/2020 21:38:04'!
 initialize
-	topNode _ NullStackNode new.
-	stackSize  _ 0.! !
+	topBlock _ BaseStackableBlock new.! !
 
-!OOStack methodsFor: 'as yet unclassified' stamp: 'EMI 10/4/2020 18:07:41'!
+!OOStack methodsFor: 'as yet unclassified' stamp: 'EMI 10/5/2020 21:37:57'!
 isEmpty
-	^stackSize = 0.! !
+	^self size = 0.! !
 
-!OOStack methodsFor: 'as yet unclassified' stamp: 'EMI 10/4/2020 18:05:40'!
+!OOStack methodsFor: 'as yet unclassified' stamp: 'EMI 10/5/2020 21:37:48'!
 pop
 	|data|
-	data _ topNode getData.
-	topNode _ topNode nextNode.
-	stackSize _ stackSize - 1.
+	data _ topBlock getContainedObject.
+	topBlock _ topBlock nextBlock.
 	^data.! !
 
-!OOStack methodsFor: 'as yet unclassified' stamp: 'EMI 10/4/2020 18:15:58'!
+!OOStack methodsFor: 'as yet unclassified' stamp: 'EMI 10/5/2020 21:37:41'!
 push: anObjectToPush
-	topNode _ ValidStackNode with: anObjectToPush nextNode: topNode.
-	stackSize _ stackSize + 1.! !
+	topBlock _ FilledStackableBlock with: anObjectToPush nextBlock: topBlock.! !
 
-!OOStack methodsFor: 'as yet unclassified' stamp: 'EMI 10/4/2020 17:59:50'!
+!OOStack methodsFor: 'as yet unclassified' stamp: 'EMI 10/5/2020 21:37:32'!
 size
-	^stackSize.! !
+	^topBlock countBlocksUnder.! !
 
-!OOStack methodsFor: 'as yet unclassified' stamp: 'EMI 10/4/2020 18:01:27'!
+!OOStack methodsFor: 'as yet unclassified' stamp: 'EMI 10/5/2020 21:02:05'!
 top
-	^topNode getData! !
+	^topBlock getContainedObject.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -266,10 +290,42 @@ new
 
 !classDefinition: #SentenceFinderByPrefix category: 'Stack-Exercise'!
 Object subclass: #SentenceFinderByPrefix
-	instanceVariableNames: ''
+	instanceVariableNames: 'stack'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
+
+!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'EMI 10/5/2020 22:02:03'!
+find: aPrefix
+	| tempStack resultCollection|
+	(aPrefix = '') ifTrue:[^Error signal: SentenceFinderByPrefix messageEmptyPrefixError].
+	('* *' match: aPrefix ) ifTrue:[^Error signal: SentenceFinderByPrefix messageHasEmptySpacesError].
+
+	tempStack _ OOStack new.
+	resultCollection _ OrderedCollection new.
+	
+	[stack isEmpty not] 
+	whileTrue: [| element |
+		element _ stack pop.
+		tempStack push: element.
+		(element beginsWith: aPrefix) 
+		ifTrue:[
+			resultCollection add: element.
+		].
+	].
+
+	[tempStack isEmpty not] 
+	whileTrue: [
+		stack push: tempStack pop.
+	].
+
+
+	^resultCollection.! !
+
+!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'EMI 10/5/2020 21:08:57'!
+with: aStackToSearch
+	stack _ aStackToSearch.
+	! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -285,65 +341,82 @@ messageEmptyPrefixError
 messageHasEmptySpacesError
 	^'Prefix cannot have empty spaces!!'.! !
 
+
+!SentenceFinderByPrefix class methodsFor: 'as yet unclassified' stamp: 'EMI 10/5/2020 21:08:57'!
+with: aStackToSearch
+	^super new with: aStackToSearch.! !
+
 
-!classDefinition: #StackNode category: 'Stack-Exercise'!
-Object subclass: #StackNode
+!classDefinition: #StackableBlock category: 'Stack-Exercise'!
+Object subclass: #StackableBlock
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!StackNode methodsFor: 'as yet unclassified' stamp: 'EMI 10/4/2020 18:04:24'!
-getData
+!StackableBlock methodsFor: 'as yet unclassified' stamp: 'EMI 10/5/2020 21:35:54'!
+countBlocksUnder
 	^self subclassResponsibility.! !
 
-!StackNode methodsFor: 'as yet unclassified' stamp: 'EMI 10/4/2020 18:05:21'!
-nextNode
+!StackableBlock methodsFor: 'as yet unclassified' stamp: 'EMI 10/5/2020 20:59:39'!
+getContainedObject
+	^self subclassResponsibility.! !
+
+!StackableBlock methodsFor: 'as yet unclassified' stamp: 'EMI 10/5/2020 20:50:26'!
+nextBlock
 	^self subclassResponsibility.! !
 
 
-!classDefinition: #NullStackNode category: 'Stack-Exercise'!
-StackNode subclass: #NullStackNode
+!classDefinition: #BaseStackableBlock category: 'Stack-Exercise'!
+StackableBlock subclass: #BaseStackableBlock
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!NullStackNode methodsFor: 'as yet unclassified' stamp: 'EMI 10/4/2020 18:07:10'!
-getData
+!BaseStackableBlock methodsFor: 'as yet unclassified' stamp: 'EMI 10/5/2020 21:37:11'!
+countBlocksUnder
+	^0.! !
+
+!BaseStackableBlock methodsFor: 'as yet unclassified' stamp: 'EMI 10/5/2020 20:59:39'!
+getContainedObject
 	^Error signal: OOStack stackEmptyErrorDescription.! !
 
-!NullStackNode methodsFor: 'as yet unclassified' stamp: 'EMI 10/4/2020 18:08:59'!
-nextNode
+!BaseStackableBlock methodsFor: 'as yet unclassified' stamp: 'EMI 10/5/2020 20:50:26'!
+nextBlock
 	^Error signal: OOStack stackEmptyErrorDescription.! !
 
 
-!classDefinition: #ValidStackNode category: 'Stack-Exercise'!
-StackNode subclass: #ValidStackNode
-	instanceVariableNames: 'data next'
+!classDefinition: #FilledStackableBlock category: 'Stack-Exercise'!
+StackableBlock subclass: #FilledStackableBlock
+	instanceVariableNames: 'containedObject underBlock'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!ValidStackNode methodsFor: 'as yet unclassified' stamp: 'EMI 10/4/2020 18:13:27'!
-getData
-	^data.! !
+!FilledStackableBlock methodsFor: 'as yet unclassified' stamp: 'EMI 10/5/2020 21:36:59'!
+countBlocksUnder
+	^underBlock countBlocksUnder + 1.! !
 
-!ValidStackNode methodsFor: 'as yet unclassified' stamp: 'EMI 10/4/2020 18:12:53'!
-initialize: anObject withNextNode: previousTopNode
-	data _ anObject.
-	next _ previousTopNode.! !
+!FilledStackableBlock methodsFor: 'as yet unclassified' stamp: 'EMI 10/5/2020 20:59:57'!
+getContainedObject
+	^containedObject.! !
 
-!ValidStackNode methodsFor: 'as yet unclassified' stamp: 'EMI 10/4/2020 18:13:37'!
-nextNode
-	^next.! !
+!FilledStackableBlock methodsFor: 'as yet unclassified' stamp: 'EMI 10/5/2020 21:02:54'!
+initialize: anObjectToContain withNextBlock: previousTopBlock
+	containedObject _ anObjectToContain.
+	underBlock _ previousTopBlock.! !
+
+!FilledStackableBlock methodsFor: 'as yet unclassified' stamp: 'EMI 10/5/2020 21:00:54'!
+nextBlock
+	^underBlock.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'ValidStackNode class' category: 'Stack-Exercise'!
-ValidStackNode class
+!classDefinition: 'FilledStackableBlock class' category: 'Stack-Exercise'!
+FilledStackableBlock class
 	instanceVariableNames: ''!
 
-!ValidStackNode class methodsFor: 'as yet unclassified' stamp: 'EMI 10/4/2020 18:11:34'!
-with: anObject nextNode: previousTopNode
-	^super new initialize: anObject withNextNode: previousTopNode.! !
+!FilledStackableBlock class methodsFor: 'as yet unclassified' stamp: 'EMI 10/5/2020 21:03:11'!
+with: anObjectToContain nextBlock: previousTopBlock
+	^super new initialize: anObjectToContain withNextBlock: previousTopBlock.! !
