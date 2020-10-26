@@ -28,59 +28,90 @@ test03MarsRoverMovesOneStep
 	self assert: (rover position = (0@1)).
 	self assert: (rover orientation = $N).! !
 
-!MarsRoverTests methodsFor: 'tests' stamp: 'EMI 10/24/2020 19:01:47'!
-test04MarsRoverRotates90Degrees
+!MarsRoverTests methodsFor: 'tests' stamp: 'EMI 10/26/2020 16:24:11'!
+test04MarsRoverMovesOneStepBackwards
+	| rover |
+	rover _ MarsRover at: 1@1 withOrientation: $N.
+	rover receiveInstructions: 'b'.
+	self assert: (rover position = (2@1)).
+	self assert: (rover orientation = $N).! !
+
+!MarsRoverTests methodsFor: 'tests' stamp: 'EMI 10/26/2020 16:24:51'!
+test05MarsRoverRotates90DegreesLeft
 	| rover |
 	rover _ MarsRover at: 1@1 withOrientation: $N.
 	rover receiveInstructions: 'l'.
 	self assert: (rover position = (1@1)).
 	self assert: (rover orientation = $W).! !
 
-!MarsRoverTests methodsFor: 'tests' stamp: 'EMI 10/24/2020 19:01:55'!
-test05MarsRoverMovesMoreThanOneStep
+!MarsRoverTests methodsFor: 'tests' stamp: 'EMI 10/26/2020 16:25:36'!
+test06MarsRoverRotates90DegreesRight
+	| rover |
+	rover _ MarsRover at: 1@1 withOrientation: $N.
+	rover receiveInstructions: 'r'.
+	self assert: (rover position = (1@1)).
+	self assert: (rover orientation = $E).! !
+
+!MarsRoverTests methodsFor: 'tests' stamp: 'EMI 10/26/2020 16:25:25'!
+test07MarsRoverMovesMoreThanOneStep
 	| rover |
 	rover _ MarsRover at: 1@1 withOrientation: $N.
 	rover receiveInstructions: 'ff'.
 	self assert: (rover position = (-1@1)).
 	self assert: (rover orientation = $N).! !
 
-!MarsRoverTests methodsFor: 'tests' stamp: 'EMI 10/24/2020 19:02:06'!
-test06MarsRoverRotatesMoreThanOnce
+!MarsRoverTests methodsFor: 'tests' stamp: 'EMI 10/26/2020 16:27:51'!
+test08MarsRoverMovesMoreThanOneStepBackwards
+	| rover |
+	rover _ MarsRover at: 1@1 withOrientation: $N.
+	rover receiveInstructions: 'bb'.
+	self assert: (rover position = (3@1)).
+	self assert: (rover orientation = $N).! !
+
+!MarsRoverTests methodsFor: 'tests' stamp: 'EMI 10/26/2020 16:29:09'!
+test09MarsRoverRotatesLeftMoreThanOnce
 	| rover |
 	rover _ MarsRover at: 1@1 withOrientation: $N.
 	rover receiveInstructions: 'll'.
 	self assert: (rover position = (1@1)).
 	self assert: (rover orientation = $S).! !
 
-!MarsRoverTests methodsFor: 'tests' stamp: 'EMI 10/26/2020 08:57:24'!
-test07MarsRoverStopsProcessingOnInvalidInstruction
+!MarsRoverTests methodsFor: 'tests' stamp: 'EMI 10/26/2020 16:28:52'!
+test10MarsRoverRotatesRightMoreThanOnce
 	| rover |
 	rover _ MarsRover at: 1@1 withOrientation: $N.
-	
-	
-	self should: [rover receiveInstructions: 'er'.] 
-	raise: Error 
-	withExceptionDo: [:anError |
-					self assert: anError messageText = MarsRover invalidInstructionErrorMessage.
-					self assert: (rover position = (1@1)).
-					self assert: (rover orientation = $N)
-				].		! !
+	rover receiveInstructions: 'rr'.
+	self assert: (rover position = (1@1)).
+	self assert: (rover orientation = $S).! !
 
-!MarsRoverTests methodsFor: 'tests' stamp: 'EMI 10/24/2020 19:02:25'!
-test08MarsRoverRotatesAndMovesOneStepOrMore
+!MarsRoverTests methodsFor: 'tests' stamp: 'EMI 10/26/2020 16:29:42'!
+test11MarsRoverRotatesAndMovesOneStepOrMore
 	| rover |
 	rover _ MarsRover at: 1@1 withOrientation: $N.
 	rover receiveInstructions: 'lf'.
 	self assert: (rover position = (1@0)).
 	self assert: (rover orientation = $W).! !
 
-!MarsRoverTests methodsFor: 'tests' stamp: 'EMI 10/24/2020 19:02:39'!
-test09CannotCreateMarsRoverWithWrongOrientation
+!MarsRoverTests methodsFor: 'tests' stamp: 'EMI 10/26/2020 16:29:52'!
+test12CannotCreateMarsRoverWithWrongOrientation
 	self should: [MarsRover at: 1@1 withOrientation: $Z.] 
 		raise: Error
 		withExceptionDo: [:anError| self assert: anError messageText = MarsRover invalidOrientationErrorMessage ].
 	
 ! !
+
+!MarsRoverTests methodsFor: 'tests' stamp: 'EMI 10/26/2020 16:29:59'!
+test13MarsRoverStopsProcessingOnInvalidInstruction
+	| rover |
+	rover _ MarsRover at: 1@1 withOrientation: $N.
+	
+	self should: [rover receiveInstructions: 'ref'.] 
+	raise: Error 
+	withExceptionDo: [:anError |
+					self assert: anError messageText = MarsRover invalidInstructionErrorMessage.
+					self assert: (rover position = (1@1)).
+					self assert: (rover orientation = $E)
+				].		! !
 
 
 !classDefinition: #MarsRover category: 'EjercicioMarsRover'!
@@ -118,9 +149,9 @@ position
 	^position! !
 
 
-!MarsRover methodsFor: 'instructions - private' stamp: 'EMI 10/24/2020 19:13:13'!
-moveOnAxisX: aXAxisOffset andAxisY: aYAxisOffset
-	position _ position + (aXAxisOffset@aYAxisOffset).
+!MarsRover methodsFor: 'instructions - private' stamp: 'EMI 10/26/2020 16:31:41'!
+moveOnAxisX: anXAxisOffset andAxisY: anYAxisOffset
+	position _ position + (anXAxisOffset@anYAxisOffset).
 ! !
 
 !MarsRover methodsFor: 'instructions - private' stamp: 'EMI 10/24/2020 19:18:27'!
