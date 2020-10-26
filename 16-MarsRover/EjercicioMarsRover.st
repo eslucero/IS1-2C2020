@@ -52,13 +52,19 @@ test06MarsRoverRotatesMoreThanOnce
 	self assert: (rover position = (1@1)).
 	self assert: (rover orientation = $S).! !
 
-!MarsRoverTests methodsFor: 'tests' stamp: 'EMI 10/24/2020 19:02:16'!
+!MarsRoverTests methodsFor: 'tests' stamp: 'EMI 10/26/2020 08:57:24'!
 test07MarsRoverStopsProcessingOnInvalidInstruction
 	| rover |
 	rover _ MarsRover at: 1@1 withOrientation: $N.
-	rover receiveInstructions: 'er'.
-	self assert: (rover position = (1@1)).
-	self assert: (rover orientation = $N).! !
+	
+	
+	self should: [rover receiveInstructions: 'er'.] 
+	raise: Error 
+	withExceptionDo: [:anError |
+					self assert: anError messageText = MarsRover invalidInstructionErrorMessage.
+					self assert: (rover position = (1@1)).
+					self assert: (rover orientation = $N)
+				].		! !
 
 !MarsRoverTests methodsFor: 'tests' stamp: 'EMI 10/24/2020 19:02:25'!
 test08MarsRoverRotatesAndMovesOneStepOrMore
@@ -151,12 +157,12 @@ rotateRight
 ! !
 
 
-!MarsRover methodsFor: 'instructions' stamp: 'EMI 10/24/2020 18:05:03'!
+!MarsRover methodsFor: 'instructions' stamp: 'EMI 10/26/2020 08:54:32'!
 receiveInstructions: anInstructionsString
 	anInstructionsString isEmpty 
 	ifFalse:[
 		anInstructionsString do: [:aCharacter |
-			(#($f $b $l $r) includes: aCharacter) ifFalse:[^self].
+			(#($f $b $l $r) includes: aCharacter) ifFalse:[^Error signal: self class invalidInstructionErrorMessage ].
 			aCharacter = $f ifTrue: [self oneStepFoward.].
 			aCharacter = $b ifTrue: [self oneStepBackwards.].
 			aCharacter = $l ifTrue: [self rotateLeft.].
@@ -174,6 +180,10 @@ MarsRover class
 at: aPoint withOrientation: aCardinalCharacter
 	^self new initializeAt: aPoint withOrientation: aCardinalCharacter. ! !
 
+
+!MarsRover class methodsFor: 'error messages' stamp: 'EMI 10/26/2020 08:53:48'!
+invalidInstructionErrorMessage
+	^'Invalid instruction detected'.! !
 
 !MarsRover class methodsFor: 'error messages' stamp: 'EMI 10/24/2020 18:20:02'!
 invalidOrientationErrorMessage

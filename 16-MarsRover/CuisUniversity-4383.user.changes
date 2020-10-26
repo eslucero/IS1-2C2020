@@ -29532,3 +29532,154 @@ PASSED!
 ----SNAPSHOT----(24 October 2020 19:23:21) CuisUniversity-4383.image priorSource: 17376452!
 
 ----QUIT----(24 October 2020 19:23:31) CuisUniversity-4383.image priorSource: 17380813!
+
+----STARTUP---- (26 October 2020 08:52:34) as /home/doraserver/CuisUniversity/CuisUniversity-4383.image!
+
+!MarsRover class methodsFor: 'error messages' stamp: 'EMI 10/26/2020 08:53:48'!
+invalidInstructionErrorMessage
+	^'Invalid instruction detected'.! !
+!MarsRover methodsFor: 'instructions' stamp: 'EMI 10/26/2020 08:54:32' prior: 50873970!
+receiveInstructions: anInstructionsString
+	anInstructionsString isEmpty 
+	ifFalse:[
+		anInstructionsString do: [:aCharacter |
+			(#($f $b $l $r) includes: aCharacter) ifFalse:[^Error signal: self class invalidInstructionErrorMessage ].
+			aCharacter = $f ifTrue: [self oneStepFoward.].
+			aCharacter = $b ifTrue: [self oneStepBackwards.].
+			aCharacter = $l ifTrue: [self rotateLeft.].
+			aCharacter = $r ifTrue: [self rotateRight.].
+		].
+	].! !
+!MarsRoverTests methodsFor: 'tests' stamp: 'EMI 10/26/2020 08:56:00' prior: 50874604!
+test07MarsRoverStopsProcessingOnInvalidInstruction
+	| rover |
+	rover _ MarsRover at: 1@1 withOrientation: $N.
+	
+	
+	self should: [rover receiveInstructions: 'er'.] 
+	raise: Error 
+	withExceptionDo: [
+					self assert: (rover position = (1@1)).
+					self assert: (rover orientation = $N)
+				].		! !
+
+!testRun: #MarsRoverTests #test01MarsRoverReceivingNoInstructionsDoesNotMoveNorRotate stamp: 'EMI 10/26/2020 08:56:03'!
+PASSED!
+
+!testRun: #MarsRoverTests #test02MarsRoverReceivingEmptyInstructionsDoesNotMoveNorRotate stamp: 'EMI 10/26/2020 08:56:03'!
+PASSED!
+
+!testRun: #MarsRoverTests #test03MarsRoverMovesOneStep stamp: 'EMI 10/26/2020 08:56:03'!
+PASSED!
+
+!testRun: #MarsRoverTests #test04MarsRoverRotates90Degrees stamp: 'EMI 10/26/2020 08:56:03'!
+PASSED!
+
+!testRun: #MarsRoverTests #test05MarsRoverMovesMoreThanOneStep stamp: 'EMI 10/26/2020 08:56:03'!
+PASSED!
+
+!testRun: #MarsRoverTests #test06MarsRoverRotatesMoreThanOnce stamp: 'EMI 10/26/2020 08:56:03'!
+PASSED!
+
+!testRun: #MarsRoverTests #test07MarsRoverStopsProcessingOnInvalidInstruction stamp: 'EMI 10/26/2020 08:56:03'!
+ERROR!
+
+!testRun: #MarsRoverTests #test08MarsRoverRotatesAndMovesOneStepOrMore stamp: 'EMI 10/26/2020 08:56:03'!
+PASSED!
+
+!testRun: #MarsRoverTests #test09CannotCreateMarsRoverWithWrongOrientation stamp: 'EMI 10/26/2020 08:56:03'!
+PASSED!
+
+!testRun: #MarsRoverTests #test07MarsRoverStopsProcessingOnInvalidInstruction stamp: 'EMI 10/26/2020 08:56:03'!
+ERROR!
+!MarsRoverTests methodsFor: 'tests' stamp: 'EMI 10/26/2020 08:56:22' prior: 50874832!
+test07MarsRoverStopsProcessingOnInvalidInstruction
+	| rover |
+	rover _ MarsRover at: 1@1 withOrientation: $N.
+	
+	
+	self should: [rover receiveInstructions: 'er'.] 
+	raise: Error 
+	withExceptionDo: [:anError |
+		
+					self assert: (rover position = (1@1)).
+					self assert: (rover orientation = $N)
+				].		! !
+!MarsRoverTests methodsFor: 'tests' stamp: 'EMI 10/26/2020 08:57:24' prior: 50874880!
+test07MarsRoverStopsProcessingOnInvalidInstruction
+	| rover |
+	rover _ MarsRover at: 1@1 withOrientation: $N.
+	
+	
+	self should: [rover receiveInstructions: 'er'.] 
+	raise: Error 
+	withExceptionDo: [:anError |
+					self assert: anError messageText = MarsRover invalidInstructionErrorMessage.
+					self assert: (rover position = (1@1)).
+					self assert: (rover orientation = $N)
+				].		! !
+
+!testRun: #MarsRoverTests #test01MarsRoverReceivingNoInstructionsDoesNotMoveNorRotate stamp: 'EMI 10/26/2020 08:57:29'!
+PASSED!
+
+!testRun: #MarsRoverTests #test02MarsRoverReceivingEmptyInstructionsDoesNotMoveNorRotate stamp: 'EMI 10/26/2020 08:57:29'!
+PASSED!
+
+!testRun: #MarsRoverTests #test03MarsRoverMovesOneStep stamp: 'EMI 10/26/2020 08:57:29'!
+PASSED!
+
+!testRun: #MarsRoverTests #test04MarsRoverRotates90Degrees stamp: 'EMI 10/26/2020 08:57:29'!
+PASSED!
+
+!testRun: #MarsRoverTests #test05MarsRoverMovesMoreThanOneStep stamp: 'EMI 10/26/2020 08:57:29'!
+PASSED!
+
+!testRun: #MarsRoverTests #test06MarsRoverRotatesMoreThanOnce stamp: 'EMI 10/26/2020 08:57:29'!
+PASSED!
+
+!testRun: #MarsRoverTests #test07MarsRoverStopsProcessingOnInvalidInstruction stamp: 'EMI 10/26/2020 08:57:29'!
+PASSED!
+
+!testRun: #MarsRoverTests #test08MarsRoverRotatesAndMovesOneStepOrMore stamp: 'EMI 10/26/2020 08:57:29'!
+PASSED!
+
+!testRun: #MarsRoverTests #test09CannotCreateMarsRoverWithWrongOrientation stamp: 'EMI 10/26/2020 08:57:29'!
+PASSED!
+
+----SNAPSHOT----(26 October 2020 08:57:33) CuisUniversity-4383.image priorSource: 17380906!
+
+----QUIT----(26 October 2020 08:57:36) CuisUniversity-4383.image priorSource: 17385254!
+
+----STARTUP---- (26 October 2020 14:03:33) as /home/doraserver/CuisUniversity/CuisUniversity-4383.image!
+
+
+!testRun: #MarsRoverTests #test01MarsRoverReceivingNoInstructionsDoesNotMoveNorRotate stamp: 'EMI 10/26/2020 14:03:38'!
+PASSED!
+
+!testRun: #MarsRoverTests #test02MarsRoverReceivingEmptyInstructionsDoesNotMoveNorRotate stamp: 'EMI 10/26/2020 14:03:38'!
+PASSED!
+
+!testRun: #MarsRoverTests #test03MarsRoverMovesOneStep stamp: 'EMI 10/26/2020 14:03:38'!
+PASSED!
+
+!testRun: #MarsRoverTests #test04MarsRoverRotates90Degrees stamp: 'EMI 10/26/2020 14:03:38'!
+PASSED!
+
+!testRun: #MarsRoverTests #test05MarsRoverMovesMoreThanOneStep stamp: 'EMI 10/26/2020 14:03:38'!
+PASSED!
+
+!testRun: #MarsRoverTests #test06MarsRoverRotatesMoreThanOnce stamp: 'EMI 10/26/2020 14:03:38'!
+PASSED!
+
+!testRun: #MarsRoverTests #test07MarsRoverStopsProcessingOnInvalidInstruction stamp: 'EMI 10/26/2020 14:03:38'!
+PASSED!
+
+!testRun: #MarsRoverTests #test08MarsRoverRotatesAndMovesOneStepOrMore stamp: 'EMI 10/26/2020 14:03:38'!
+PASSED!
+
+!testRun: #MarsRoverTests #test09CannotCreateMarsRoverWithWrongOrientation stamp: 'EMI 10/26/2020 14:03:38'!
+PASSED!
+
+----SNAPSHOT----(26 October 2020 14:03:42) CuisUniversity-4383.image priorSource: 17385347!
+
+----QUIT----(26 October 2020 14:03:53) CuisUniversity-4383.image priorSource: 17386568!
