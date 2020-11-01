@@ -5,16 +5,16 @@ TestCase subclass: #TerniLapilliTest
 	poolDictionaries: ''
 	category: 'TerniLapilli'!
 
-!TerniLapilliTest methodsFor: 'tests' stamp: 'EMI 10/29/2020 19:23:32'!
-test01TerniLapilliXPlaysFirst
+!TerniLapilliTest methodsFor: 'tests' stamp: 'EMI 11/1/2020 15:07:57'!
+test01PlayerXPlaysFirst
 	| partida |
 	partida _ TerniLapilli newGame.
 	self assert: partida isPlayingX.
 	self deny: partida isPlayingO.
 	self assert: partida countPiecesPlayed equals: 0.! !
 
-!TerniLapilliTest methodsFor: 'tests' stamp: 'EMI 10/29/2020 18:30:04'!
-test02TerniLapilliPlayerOPlaysAfterX
+!TerniLapilliTest methodsFor: 'tests' stamp: 'EMI 11/1/2020 15:08:10'!
+test02PlayerOPlaysAfterX
 	| partida |
 	partida _ TerniLapilli newGame.
 	partida putXAt: 0@0.
@@ -23,8 +23,8 @@ test02TerniLapilliPlayerOPlaysAfterX
 	self assert: partida countPiecesPlayed equals: 1.
 ! !
 
-!TerniLapilliTest methodsFor: 'tests' stamp: 'EMI 10/29/2020 18:30:14'!
-test03TerniLapilliPlayerXPlaysAfterO
+!TerniLapilliTest methodsFor: 'tests' stamp: 'EMI 11/1/2020 15:08:20'!
+test03PlayerXPlaysAfterO
 	| partida |
 	partida _ TerniLapilli newGame.
 	partida putXAt: 0@0.
@@ -34,22 +34,22 @@ test03TerniLapilliPlayerXPlaysAfterO
 	self assert: partida countPiecesPlayed equals: 2.
 ! !
 
-!TerniLapilliTest methodsFor: 'tests' stamp: 'EMI 10/29/2020 18:12:29'!
-test04TerniLapilliNewGameNotOver
+!TerniLapilliTest methodsFor: 'tests' stamp: 'EMI 11/1/2020 15:08:43'!
+test04NewGameCannotBeOver
 	| partida |
 	partida _ TerniLapilli newGame.
 	self deny: partida isOver.
 ! !
 
-!TerniLapilliTest methodsFor: 'tests' stamp: 'EMI 10/29/2020 18:12:41'!
-test05TerniLapilliNewGameHasNoWinner
+!TerniLapilliTest methodsFor: 'tests' stamp: 'EMI 11/1/2020 15:08:52'!
+test05NewGameHasNoWinner
 	| partida |
 	partida _ TerniLapilli newGame.
 	self deny: partida hasPlayerXWon.
 	self deny: partida hasPlayerOWon.! !
 
-!TerniLapilliTest methodsFor: 'tests' stamp: 'EMI 11/1/2020 00:29:10'!
-test06CannotPutMoreThan3PiecesPerPlayer
+!TerniLapilliTest methodsFor: 'tests' stamp: 'EMI 11/1/2020 15:45:42'!
+test06PlayersCannotPutMoreThan3Pieces
 	| partida |
 	partida _ TerniLapilli newGame.
 	partida putXAt: 0@0.
@@ -587,10 +587,46 @@ test29PlayerXCannotMoveOutOfTurn
 	
 	! !
 
+!TerniLapilliTest methodsFor: 'tests' stamp: 'EMI 11/1/2020 15:07:07'!
+test30PlayersCannotPlayAfterGameIsOver
+	| partida |
+	partida _ TerniLapilli newGame.
+	partida putXAt: 0@0.
+	partida putOAt: 1@0.
+	
+	partida putXAt: 0@1.
+	partida putOAt: 1@1.
+	
+	partida putXAt: 2@0.
+	partida putOAt: 1@2.
+	
+	self assert: partida isOver.
+	self assert: partida hasPlayerOWon.
+	self deny: partida hasPlayerXWon.
+	
+	self should: [partida moveXFrom: 0@1 To: 0@2 ] 
+	raise: Error 
+	withExceptionDo: [:anError | 
+		self assert: anError messageText = TerniLapilli cannotPlayWhenGameOver.
+		self assert: partida isOver.
+		self assert: partida hasPlayerOWon.
+		self deny: partida hasPlayerXWon.
+		].
+	
+	self should: [partida moveOFrom: 1@2 To: 2@2 ] 
+	raise: Error 
+	withExceptionDo: [:anError | 
+		self assert: anError messageText = TerniLapilli cannotPlayWhenGameOver.
+		self assert: partida isOver.
+		self assert: partida hasPlayerOWon.
+		self deny: partida hasPlayerXWon.
+		].
+	! !
+
 
 !classDefinition: #TerniLapilli category: 'TerniLapilli'!
 Object subclass: #TerniLapilli
-	instanceVariableNames: 'isXTurn piecesX piecesO gameEnded xIsWinner'
+	instanceVariableNames: 'piecesX piecesO gameState'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TerniLapilli'!
@@ -599,41 +635,60 @@ Object subclass: #TerniLapilli
 countPiecesPlayed
 	^piecesX size + piecesO size.! !
 
-!TerniLapilli methodsFor: 'testing' stamp: 'EMI 10/29/2020 20:28:10'!
+!TerniLapilli methodsFor: 'testing' stamp: 'EMI 11/1/2020 13:15:07'!
 hasPlayerOWon
-	^gameEnded and: [xIsWinner not].! !
+	^gameState hasPlayerOWon.! !
 
-!TerniLapilli methodsFor: 'testing' stamp: 'EMI 10/29/2020 20:27:37'!
+!TerniLapilli methodsFor: 'testing' stamp: 'EMI 11/1/2020 13:15:18'!
 hasPlayerXWon
-	^gameEnded and: [xIsWinner].! !
+	^gameState hasPlayerXWon.! !
 
-!TerniLapilli methodsFor: 'testing' stamp: 'EMI 10/29/2020 20:25:45'!
+!TerniLapilli methodsFor: 'testing' stamp: 'EMI 11/1/2020 13:15:28'!
 isOver
-	^gameEnded.! !
+	^gameState isOver.! !
 
-!TerniLapilli methodsFor: 'testing' stamp: 'EMI 10/29/2020 18:33:46'!
+!TerniLapilli methodsFor: 'testing' stamp: 'EMI 11/1/2020 13:15:40'!
 isPlayingO
-	^isXTurn not.! !
+	^gameState isPlayingO .! !
 
-!TerniLapilli methodsFor: 'testing' stamp: 'EMI 10/29/2020 18:33:35'!
+!TerniLapilli methodsFor: 'testing' stamp: 'EMI 11/1/2020 13:15:48'!
 isPlayingX
-	^isXTurn.! !
+	^gameState isPlayingX.! !
 
 
-!TerniLapilli methodsFor: 'player actions' stamp: 'EMI 10/29/2020 20:58:58'!
+!TerniLapilli methodsFor: 'player actions' stamp: 'EMI 11/1/2020 13:20:35'!
+moveOFrom: aOriginPosition To: aDestinationPosition
+	gameState moveOFrom: aOriginPosition To: aDestinationPosition.
+! !
+
+!TerniLapilli methodsFor: 'player actions' stamp: 'EMI 11/1/2020 13:21:11'!
+moveXFrom: aOriginPosition To: aDestinationPosition
+	gameState moveXFrom: aOriginPosition To: aDestinationPosition .! !
+
+!TerniLapilli methodsFor: 'player actions' stamp: 'EMI 11/1/2020 13:19:36'!
+putOAt: aPosition
+	gameState putOAt: aPosition.
+
+
+	! !
+
+!TerniLapilli methodsFor: 'player actions' stamp: 'EMI 11/1/2020 13:18:47'!
+putXAt: aPosition
+	gameState putXAt: aPosition.! !
+
+
+!TerniLapilli methodsFor: 'board consults - private' stamp: 'EMI 11/1/2020 15:16:07'!
 checkDiagonalLine: aPiecesCollection
-	|center diagonalInversa diagonal |
+	| diagonalInversa diagonal |
 	
 	(aPiecesCollection includes: 1@1) ifFalse:[^false.].
 	
-	center _ 1@1.
-	
-	diagonal  _ (aPiecesCollection includes: (center + (1@1))) and: [aPiecesCollection includes: center - (1@1)].
-	diagonalInversa _ (aPiecesCollection includes: (center + (1@-1))) and: [aPiecesCollection includes: center + (-1@1)].
+	diagonal  _ (aPiecesCollection includes: (2@2)) and: [aPiecesCollection includes: (0@0)].
+	diagonalInversa _ (aPiecesCollection includes: (2@0)) and: [aPiecesCollection includes:  (0@2)].
 	
 	^diagonal or:[diagonalInversa].! !
 
-!TerniLapilli methodsFor: 'player actions' stamp: 'EMI 10/29/2020 20:58:06'!
+!TerniLapilli methodsFor: 'board consults - private' stamp: 'EMI 10/29/2020 20:58:06'!
 checkHorizontalLine: aPiecesCollection
 	|first estanALaIzq estanALaDer estanAmbosLados|
 	first _ aPiecesCollection first.
@@ -644,27 +699,38 @@ checkHorizontalLine: aPiecesCollection
 	
 	^estanAmbosLados or:[estanALaDer or:[estanALaIzq]].! !
 
-!TerniLapilli methodsFor: 'player actions' stamp: 'EMI 11/1/2020 00:13:03'!
-checkIfMoveFrom: aOriginPosition isValidTo: anEmptyDestinationPosition
+!TerniLapilli methodsFor: 'board consults - private' stamp: 'EMI 11/1/2020 15:23:52'!
+checkIfDestination: aOriginPosition isNeighbourOf: anEmptyDestinationPosition
+	^ aOriginPosition eightNeighbors includes: anEmptyDestinationPosition! !
+
+!TerniLapilli methodsFor: 'board consults - private' stamp: 'EMI 11/1/2020 15:23:42'!
+checkIfIsInvalidDiagonalMoveFrom: aOriginPosition To: anEmptyDestinationPosition
 	| invalidDiagonalPositions |
 	invalidDiagonalPositions _ OrderedCollection with: (1@0) with: (0@1)  with:(1@2) with:(2@1).
-	
-	(aOriginPosition eightNeighbors includes: anEmptyDestinationPosition) ifFalse:[^Error signal: self class 	cannotMovePieceMoreThanOneSpace ].
-	
-	((invalidDiagonalPositions includes: aOriginPosition) and:[invalidDiagonalPositions includes: anEmptyDestinationPosition ]) ifTrue:[^Error signal: self class cannotMovePieceByInvalidDiagonal ].
+
+	^(invalidDiagonalPositions includes: aOriginPosition) and:[invalidDiagonalPositions includes: anEmptyDestinationPosition ]
 ! !
 
-!TerniLapilli methodsFor: 'player actions' stamp: 'EMI 10/29/2020 20:52:40'!
+!TerniLapilli methodsFor: 'board consults - private' stamp: 'EMI 11/1/2020 15:23:42'!
+checkIfMoveFrom: aOriginPosition isValidTo: anEmptyDestinationPosition
+	(self checkIfDestination: aOriginPosition isNeighbourOf: anEmptyDestinationPosition) ifFalse:[^Error signal: self class 	cannotMovePieceMoreThanOneSpace ].
+	
+	(self checkIfIsInvalidDiagonalMoveFrom: aOriginPosition To: anEmptyDestinationPosition ) ifTrue:[^Error signal: self class cannotMovePieceByInvalidDiagonal ].
+! !
+
+!TerniLapilli methodsFor: 'board consults - private' stamp: 'EMI 11/1/2020 14:50:37'!
 checkIfPlayerOWon
-	xIsWinner _ ((self checkHorizontalLine: piecesO) or: [(self checkVerticalLine: piecesO) or:[self checkDiagonalLine: piecesO]]) not.
-	gameEnded _ xIsWinner not.! !
+	^self checkIfPlayerWon: piecesO.! !
 
-!TerniLapilli methodsFor: 'player actions' stamp: 'EMI 10/29/2020 20:52:21'!
+!TerniLapilli methodsFor: 'board consults - private' stamp: 'EMI 11/1/2020 14:50:10'!
+checkIfPlayerWon: aPlayerPiecesCollection
+	^((self checkHorizontalLine: aPlayerPiecesCollection) or: [(self checkVerticalLine: aPlayerPiecesCollection) or:[self checkDiagonalLine: aPlayerPiecesCollection]]).! !
+
+!TerniLapilli methodsFor: 'board consults - private' stamp: 'EMI 11/1/2020 14:50:28'!
 checkIfPlayerXWon
-	xIsWinner _ (self checkHorizontalLine: piecesX) or: [(self checkVerticalLine: piecesX) or:[self checkDiagonalLine: piecesX]].
-	gameEnded _ xIsWinner.! !
+	^self checkIfPlayerWon: piecesX.! !
 
-!TerniLapilli methodsFor: 'player actions' stamp: 'EMI 10/29/2020 20:58:35'!
+!TerniLapilli methodsFor: 'board consults - private' stamp: 'EMI 10/29/2020 20:58:35'!
 checkVerticalLine: aPiecesCollection
 	|first estanArriba estanAbajo estanAmbosLados|
 	first _ aPiecesCollection first.
@@ -675,89 +741,75 @@ checkVerticalLine: aPiecesCollection
 	
 	^estanAmbosLados or:[estanAbajo or:[estanArriba]].! !
 
-!TerniLapilli methodsFor: 'player actions' stamp: 'EMI 11/1/2020 00:43:23'!
-doPlayerOAction: aBlock
-	isXTurn ifTrue: [^Error signal: self class cannotPlayOutOfTurn ].
-	
-	aBlock value.
-	
-	isXTurn _ true.
-	self checkIfPlayerOWon.
-
-	! !
-
-!TerniLapilli methodsFor: 'player actions' stamp: 'EMI 11/1/2020 00:40:33'!
-doPlayerXAction: aBlock
-	isXTurn ifFalse: [^Error signal: self class cannotPlayOutOfTurn ].
-	
-	aBlock value.
-	
-	isXTurn _ false.
-	self checkIfPlayerXWon.! !
-
-!TerniLapilli methodsFor: 'player actions' stamp: 'EMI 11/1/2020 00:04:51'!
-hasEnoughPiecesToMove: aPiecesCollection
-	aPiecesCollection size < 3 ifTrue: [^Error signal: self class cannotMovePieceBeforePlacingAllPieces ].! !
-
-!TerniLapilli methodsFor: 'player actions' stamp: 'EMI 11/1/2020 00:23:37'!
-hasRemainingPiecesToPlace: aPiecesCollection
-	aPiecesCollection size = 3 ifTrue: [^Error signal: self class cannotPlaceMoreThan3PiecesError ].! !
-
-!TerniLapilli methodsFor: 'player actions' stamp: 'EMI 10/31/2020 20:37:59'!
+!TerniLapilli methodsFor: 'board consults - private' stamp: 'EMI 10/31/2020 20:37:59'!
 isInsideBoard: aPosition
 	^ ((aPosition x) between: 0 and: 2) and: [(aPosition y) between: 0 and: 2].! !
 
-!TerniLapilli methodsFor: 'player actions' stamp: 'EMI 11/1/2020 00:14:12'!
+!TerniLapilli methodsFor: 'board consults - private' stamp: 'EMI 11/1/2020 15:42:06'!
 isPositionEmpty: aPosition
-	((piecesO includes: aPosition ) or: [piecesX includes: aPosition ]) ifTrue: [^Error signal: self class cannotPlacePieceInOccupiedPosition ].
+	^((piecesO includes: aPosition ) or: [piecesX includes: aPosition ]).
 ! !
 
-!TerniLapilli methodsFor: 'player actions' stamp: 'EMI 11/1/2020 00:43:58'!
-moveOFrom: aOriginPosition To: aDestinationPosition
-	self doPlayerOAction: [self movePieceOf: piecesO From: aOriginPosition To: aDestinationPosition].
+
+!TerniLapilli methodsFor: 'initialize - private' stamp: 'EMI 11/1/2020 14:57:14'!
+initialize
+	piecesX _ OrderedCollection new.
+	piecesO _ OrderedCollection new.
+	gameState _ TerniLapilliPlayerXPutPieceState ofGame: self.! !
+
+
+!TerniLapilli methodsFor: 'player actions - private' stamp: 'EMI 11/1/2020 14:55:23'!
+moveOWhenPlayerIsOFrom: aOriginPosition To: aDestinationPosition
+	self movePieceOf: piecesO From: aOriginPosition To: aDestinationPosition.
+	self checkIfPlayerOWon 
+	ifTrue: [gameState _ TerniLapilliGameOverState ofGame: self hasXWon: false.]
+	ifFalse: [gameState _ TerniLapilliPlayerXMovePieceState ofGame: self.]
 ! !
 
-!TerniLapilli methodsFor: 'player actions' stamp: 'EMI 11/1/2020 00:13:18'!
+!TerniLapilli methodsFor: 'player actions - private' stamp: 'EMI 11/1/2020 15:42:49'!
 movePieceOf: aPiecesCollection From: aOriginPosition To: aDestinationPosition
-	self hasEnoughPiecesToMove: aPiecesCollection.
 	(self isInsideBoard: aDestinationPosition ) ifFalse:[^Error signal: self class cannotPlacePiecesOutsideBoard ].
 	(aPiecesCollection includes: aOriginPosition) ifFalse: [^Error signal: self class cannotMovePiecesPlayerDoesntOwn].
-	self isPositionEmpty: aDestinationPosition.
+	(self isPositionEmpty: aDestinationPosition)  ifTrue: [^Error signal: self class cannotPlacePieceInOccupiedPosition ].
 	self checkIfMoveFrom: aOriginPosition isValidTo: aDestinationPosition.
 	
 	aPiecesCollection remove: aOriginPosition.
 	aPiecesCollection add: aDestinationPosition.! !
 
-!TerniLapilli methodsFor: 'player actions' stamp: 'EMI 11/1/2020 00:41:42'!
-moveXFrom: aOriginPosition To: aDestinationPosition
-	self doPlayerXAction: [ self movePieceOf: piecesX From: aOriginPosition To: aDestinationPosition].! !
+!TerniLapilli methodsFor: 'player actions - private' stamp: 'EMI 11/1/2020 14:54:47'!
+moveXWhenPlayerIsXFrom: aOriginPosition To: aDestinationPosition
+	self movePieceOf: piecesX From: aOriginPosition To: aDestinationPosition.
+	self checkIfPlayerXWon 
+	ifTrue: [gameState _ TerniLapilliGameOverState ofGame: self hasXWon: true.]
+	ifFalse: [gameState _ TerniLapilliPlayerOMovePieceState ofGame: self.]! !
 
-!TerniLapilli methodsFor: 'player actions' stamp: 'EMI 11/1/2020 00:31:37'!
+!TerniLapilli methodsFor: 'player actions - private' stamp: 'EMI 11/1/2020 15:42:29'!
 put: aPosition into: aPiecesCollection
-	self hasRemainingPiecesToPlace: aPiecesCollection .
 	(self isInsideBoard: aPosition) ifFalse:[^Error signal: self class cannotPlacePiecesOutsideBoard ].
-	self isPositionEmpty: aPosition.
+	(self isPositionEmpty: aPosition) ifTrue: [^Error signal: self class cannotPlacePieceInOccupiedPosition ].
+	
 	aPiecesCollection add: aPosition.! !
 
-!TerniLapilli methodsFor: 'player actions' stamp: 'EMI 11/1/2020 00:43:40'!
-putOAt: aPosition
-	self doPlayerOAction: [self put: aPosition into: piecesO].
+!TerniLapilli methodsFor: 'player actions - private' stamp: 'EMI 11/1/2020 14:52:38'!
+putOWhenPlayerIsOAt: aPosition
+	self put: aPosition into: piecesO.
+	self checkIfPlayerOWon 
+	ifTrue: [gameState _ TerniLapilliGameOverState ofGame: self hasXWon: false]
+	ifFalse: [
+		piecesX size = 3 
+		ifTrue:[gameState _ TerniLapilliPlayerXMovePieceState ofGame: self]
+		ifFalse:[gameState _ TerniLapilliPlayerXPutPieceState ofGame: self]
+	].
 
 
 	! !
 
-!TerniLapilli methodsFor: 'player actions' stamp: 'EMI 11/1/2020 00:41:13'!
-putXAt: aPosition
-	self doPlayerXAction:[self put: aPosition into: piecesX].! !
-
-
-!TerniLapilli methodsFor: 'private' stamp: 'EMI 10/29/2020 20:54:28'!
-initialize
-	isXTurn _ true.
-	piecesX _ OrderedCollection new.
-	piecesO _ OrderedCollection new.
-	gameEnded _ false.
-	xIsWinner _ false.! !
+!TerniLapilli methodsFor: 'player actions - private' stamp: 'EMI 11/1/2020 14:47:21'!
+putXWhenPlayerIsXAt: aPosition
+	self put: aPosition into: piecesX.
+	self checkIfPlayerXWon 
+	ifTrue:[gameState _ TerniLapilliGameOverState ofGame: self hasXWon: true]
+	ifFalse:[gameState _ TerniLapilliPlayerOPutPieceState ofGame: self].! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -801,3 +853,351 @@ cannotPlacePiecesOutsideBoard
 !TerniLapilli class methodsFor: 'error messages' stamp: 'EMI 11/1/2020 00:09:33'!
 cannotPlayOutOfTurn
 	^'Cannot place piece out of turn'.! !
+
+!TerniLapilli class methodsFor: 'error messages' stamp: 'EMI 11/1/2020 15:02:34'!
+cannotPlayWhenGameOver
+	^'Cannot put piece or move piece when game is over'.! !
+
+
+!classDefinition: #TerniLapilliState category: 'TerniLapilli'!
+Object subclass: #TerniLapilliState
+	instanceVariableNames: 'game'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TerniLapilli'!
+
+!TerniLapilliState methodsFor: 'testing' stamp: 'EMI 11/1/2020 12:32:36'!
+hasPlayerOWon
+	^self subclassResponsibility.! !
+
+!TerniLapilliState methodsFor: 'testing' stamp: 'EMI 11/1/2020 12:32:33'!
+hasPlayerXWon
+	^self subclassResponsibility.! !
+
+!TerniLapilliState methodsFor: 'testing' stamp: 'EMI 11/1/2020 12:32:13'!
+isOver
+	^self subclassResponsibility.! !
+
+!TerniLapilliState methodsFor: 'testing' stamp: 'EMI 11/1/2020 12:32:19'!
+isPlayingO
+	^self subclassResponsibility.! !
+
+!TerniLapilliState methodsFor: 'testing' stamp: 'EMI 11/1/2020 12:32:23'!
+isPlayingX
+	^self subclassResponsibility.! !
+
+
+!TerniLapilliState methodsFor: 'player actions' stamp: 'EMI 11/1/2020 12:35:27'!
+moveOFrom: aOriginPosition To: aDestinationPosition
+	^self subclassResponsibility.! !
+
+!TerniLapilliState methodsFor: 'player actions' stamp: 'EMI 11/1/2020 12:35:24'!
+moveXFrom: aOriginPosition To: aDestinationPosition
+	^self subclassResponsibility.! !
+
+!TerniLapilliState methodsFor: 'player actions' stamp: 'EMI 11/1/2020 12:35:01'!
+putOAt: aPosition
+	^self subclassResponsibility.! !
+
+!TerniLapilliState methodsFor: 'player actions' stamp: 'EMI 11/1/2020 12:34:59'!
+putXAt: aPosition
+	^self subclassResponsibility.! !
+
+
+!TerniLapilliState methodsFor: 'initialization - private' stamp: 'EMI 11/1/2020 12:57:09'!
+initialize: aTerniLapilliGame
+	game _ aTerniLapilliGame.! !
+
+
+!classDefinition: #TerniLapilliGameOverState category: 'TerniLapilli'!
+TerniLapilliState subclass: #TerniLapilliGameOverState
+	instanceVariableNames: 'xWon'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TerniLapilli'!
+
+!TerniLapilliGameOverState methodsFor: 'testing' stamp: 'EMI 11/1/2020 12:38:34'!
+hasPlayerOWon
+	^xWon not.! !
+
+!TerniLapilliGameOverState methodsFor: 'testing' stamp: 'EMI 11/1/2020 12:38:22'!
+hasPlayerXWon
+	^xWon.! !
+
+!TerniLapilliGameOverState methodsFor: 'testing' stamp: 'EMI 11/1/2020 12:37:05'!
+isOver
+	^true.! !
+
+!TerniLapilliGameOverState methodsFor: 'testing' stamp: 'EMI 11/1/2020 12:37:20'!
+isPlayingO
+	^false.! !
+
+!TerniLapilliGameOverState methodsFor: 'testing' stamp: 'EMI 11/1/2020 12:37:16'!
+isPlayingX
+	^false.! !
+
+
+!TerniLapilliGameOverState methodsFor: 'player actions' stamp: 'EMI 11/1/2020 15:03:01'!
+moveOFrom: aOriginPosition To: aDestinationPosition
+	^Error signal: game class cannotPlayWhenGameOver.! !
+
+!TerniLapilliGameOverState methodsFor: 'player actions' stamp: 'EMI 11/1/2020 15:03:06'!
+moveXFrom: aOriginPosition To: aDestinationPosition
+	^Error signal: game class cannotPlayWhenGameOver.! !
+
+!TerniLapilliGameOverState methodsFor: 'player actions' stamp: 'EMI 11/1/2020 15:03:10'!
+putOAt: aPosition
+	^Error signal: game class cannotPlayWhenGameOver.! !
+
+!TerniLapilliGameOverState methodsFor: 'player actions' stamp: 'EMI 11/1/2020 15:03:16'!
+putXAt: aPosition
+	^Error signal: game class cannotPlayWhenGameOver.! !
+
+
+!TerniLapilliGameOverState methodsFor: 'initialize' stamp: 'EMI 11/1/2020 12:51:20'!
+initialize: aTerniLapilliGame hasXWon: xIsWinnerBoolean 
+	game _ aTerniLapilliGame.
+	xWon _ xIsWinnerBoolean.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'TerniLapilliGameOverState class' category: 'TerniLapilli'!
+TerniLapilliGameOverState class
+	instanceVariableNames: ''!
+
+!TerniLapilliGameOverState class methodsFor: 'as yet unclassified' stamp: 'EMI 11/1/2020 12:49:12'!
+ofGame: aTerniLapilliGame hasXWon: xIsWinnerBoolean
+	^self new initialize: aTerniLapilliGame hasXWon: xIsWinnerBoolean.
+	! !
+
+
+!classDefinition: #TerniLapilliPlayerOMovePieceState category: 'TerniLapilli'!
+TerniLapilliState subclass: #TerniLapilliPlayerOMovePieceState
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TerniLapilli'!
+
+!TerniLapilliPlayerOMovePieceState methodsFor: 'testing' stamp: 'EMI 11/1/2020 13:06:57'!
+hasPlayerOWon
+	^false! !
+
+!TerniLapilliPlayerOMovePieceState methodsFor: 'testing' stamp: 'EMI 11/1/2020 13:06:54'!
+hasPlayerXWon
+	^false! !
+
+!TerniLapilliPlayerOMovePieceState methodsFor: 'testing' stamp: 'EMI 11/1/2020 13:06:49'!
+isOver
+	^false! !
+
+!TerniLapilliPlayerOMovePieceState methodsFor: 'testing' stamp: 'EMI 11/1/2020 13:07:10'!
+isPlayingO
+	^true! !
+
+!TerniLapilliPlayerOMovePieceState methodsFor: 'testing' stamp: 'EMI 11/1/2020 13:06:45'!
+isPlayingX
+	^false! !
+
+
+!TerniLapilliPlayerOMovePieceState methodsFor: 'player actions' stamp: 'EMI 11/1/2020 13:21:56'!
+moveOFrom: aOriginPosition To: aDestinationPosition
+	game moveOWhenPlayerIsOFrom: aOriginPosition To: aDestinationPosition.! !
+
+!TerniLapilliPlayerOMovePieceState methodsFor: 'player actions' stamp: 'EMI 11/1/2020 13:08:22'!
+moveXFrom: aOriginPosition To: aDestinationPosition
+	^Error signal: game class cannotPlayOutOfTurn.! !
+
+!TerniLapilliPlayerOMovePieceState methodsFor: 'player actions' stamp: 'EMI 11/1/2020 13:07:54'!
+putOAt: aPosition
+	^Error signal: game class cannotPlaceMoreThan3PiecesError.! !
+
+!TerniLapilliPlayerOMovePieceState methodsFor: 'player actions' stamp: 'EMI 11/1/2020 13:07:40'!
+putXAt: aPosition
+	^Error signal: game class cannotPlayOutOfTurn.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'TerniLapilliPlayerOMovePieceState class' category: 'TerniLapilli'!
+TerniLapilliPlayerOMovePieceState class
+	instanceVariableNames: ''!
+
+!TerniLapilliPlayerOMovePieceState class methodsFor: 'initialize' stamp: 'EMI 11/1/2020 13:09:07'!
+ofGame: aTerniLapilliGame
+	^self new initialize: aTerniLapilliGame.! !
+
+
+!classDefinition: #TerniLapilliPlayerOPutPieceState category: 'TerniLapilli'!
+TerniLapilliState subclass: #TerniLapilliPlayerOPutPieceState
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TerniLapilli'!
+
+!TerniLapilliPlayerOPutPieceState methodsFor: 'testing' stamp: 'EMI 11/1/2020 12:59:26'!
+hasPlayerOWon
+	^false.! !
+
+!TerniLapilliPlayerOPutPieceState methodsFor: 'testing' stamp: 'EMI 11/1/2020 12:59:23'!
+hasPlayerXWon
+	^false.! !
+
+!TerniLapilliPlayerOPutPieceState methodsFor: 'testing' stamp: 'EMI 11/1/2020 12:58:34'!
+isOver
+	^false.! !
+
+!TerniLapilliPlayerOPutPieceState methodsFor: 'testing' stamp: 'EMI 11/1/2020 12:59:13'!
+isPlayingO
+	^true.! !
+
+!TerniLapilliPlayerOPutPieceState methodsFor: 'testing' stamp: 'EMI 11/1/2020 12:59:03'!
+isPlayingX
+	^false.! !
+
+
+!TerniLapilliPlayerOPutPieceState methodsFor: 'player actions' stamp: 'EMI 11/1/2020 13:01:19'!
+moveOFrom: aOriginPosition To: aDestinationPosition
+	^Error signal: game class cannotMovePieceBeforePlacingAllPieces.
+	
+	! !
+
+!TerniLapilliPlayerOPutPieceState methodsFor: 'player actions' stamp: 'EMI 11/1/2020 13:01:10'!
+moveXFrom: aOriginPosition To: aDestinationPosition
+	^Error signal: game class cannotPlayOutOfTurn.
+	
+	! !
+
+!TerniLapilliPlayerOPutPieceState methodsFor: 'player actions' stamp: 'EMI 11/1/2020 13:19:50'!
+putOAt: aPosition
+	game putOWhenPlayerIsOAt: aPosition.! !
+
+!TerniLapilliPlayerOPutPieceState methodsFor: 'player actions' stamp: 'EMI 11/1/2020 13:00:11'!
+putXAt: aPosition
+	^Error signal: game class cannotPlayOutOfTurn.
+	! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'TerniLapilliPlayerOPutPieceState class' category: 'TerniLapilli'!
+TerniLapilliPlayerOPutPieceState class
+	instanceVariableNames: ''!
+
+!TerniLapilliPlayerOPutPieceState class methodsFor: 'initialization' stamp: 'EMI 11/1/2020 13:02:15'!
+ofGame: aTerniLapilliGame
+	^self new initialize: aTerniLapilliGame.! !
+
+
+!classDefinition: #TerniLapilliPlayerXMovePieceState category: 'TerniLapilli'!
+TerniLapilliState subclass: #TerniLapilliPlayerXMovePieceState
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TerniLapilli'!
+
+!TerniLapilliPlayerXMovePieceState methodsFor: 'testing' stamp: 'EMI 11/1/2020 13:02:57'!
+hasPlayerOWon
+	^false! !
+
+!TerniLapilliPlayerXMovePieceState methodsFor: 'testing' stamp: 'EMI 11/1/2020 13:02:54'!
+hasPlayerXWon
+	^false! !
+
+!TerniLapilliPlayerXMovePieceState methodsFor: 'testing' stamp: 'EMI 11/1/2020 13:02:48'!
+isOver
+	^false! !
+
+!TerniLapilliPlayerXMovePieceState methodsFor: 'testing' stamp: 'EMI 11/1/2020 13:03:05'!
+isPlayingO
+	^false! !
+
+!TerniLapilliPlayerXMovePieceState methodsFor: 'testing' stamp: 'EMI 11/1/2020 13:03:09'!
+isPlayingX
+	^true! !
+
+
+!TerniLapilliPlayerXMovePieceState methodsFor: 'player actions' stamp: 'EMI 11/1/2020 13:04:57'!
+moveOFrom: aOriginPosition To: aDestinationPosition
+	^Error signal: game class cannotPlayOutOfTurn.
+	! !
+
+!TerniLapilliPlayerXMovePieceState methodsFor: 'player actions' stamp: 'EMI 11/1/2020 13:21:43'!
+moveXFrom: aOriginPosition To: aDestinationPosition
+	game moveXWhenPlayerIsXFrom: aOriginPosition To: aDestinationPosition.
+	! !
+
+!TerniLapilliPlayerXMovePieceState methodsFor: 'player actions' stamp: 'EMI 11/1/2020 13:04:23'!
+putOAt: aPosition
+	^Error signal: game class cannotPlayOutOfTurn.
+	! !
+
+!TerniLapilliPlayerXMovePieceState methodsFor: 'player actions' stamp: 'EMI 11/1/2020 13:04:06'!
+putXAt: aPosition
+	^Error signal: game class cannotPlaceMoreThan3PiecesError
+	! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'TerniLapilliPlayerXMovePieceState class' category: 'TerniLapilli'!
+TerniLapilliPlayerXMovePieceState class
+	instanceVariableNames: ''!
+
+!TerniLapilliPlayerXMovePieceState class methodsFor: 'initialization' stamp: 'EMI 11/1/2020 13:05:48'!
+ofGame: aTerniLapilliGame
+	^self new initialize: aTerniLapilliGame.! !
+
+
+!classDefinition: #TerniLapilliPlayerXPutPieceState category: 'TerniLapilli'!
+TerniLapilliState subclass: #TerniLapilliPlayerXPutPieceState
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TerniLapilli'!
+
+!TerniLapilliPlayerXPutPieceState methodsFor: 'testing' stamp: 'EMI 11/1/2020 12:44:57'!
+hasPlayerOWon
+	^false.! !
+
+!TerniLapilliPlayerXPutPieceState methodsFor: 'testing' stamp: 'EMI 11/1/2020 12:44:53'!
+hasPlayerXWon
+	^false.! !
+
+!TerniLapilliPlayerXPutPieceState methodsFor: 'testing' stamp: 'EMI 11/1/2020 12:44:30'!
+isOver
+	^false.! !
+
+!TerniLapilliPlayerXPutPieceState methodsFor: 'testing' stamp: 'EMI 11/1/2020 12:44:45'!
+isPlayingO
+	^false.! !
+
+!TerniLapilliPlayerXPutPieceState methodsFor: 'testing' stamp: 'EMI 11/1/2020 12:44:40'!
+isPlayingX
+	^true.! !
+
+
+!TerniLapilliPlayerXPutPieceState methodsFor: 'player actions' stamp: 'EMI 11/1/2020 12:54:10'!
+moveOFrom: aOriginPosition To: aDestinationPosition
+	^Error signal: game class cannotPlayOutOfTurn.
+	! !
+
+!TerniLapilliPlayerXPutPieceState methodsFor: 'player actions' stamp: 'EMI 11/1/2020 13:01:38'!
+moveXFrom: aOriginPosition To: aDestinationPosition
+	^Error signal: game class cannotMovePieceBeforePlacingAllPieces.
+	! !
+
+!TerniLapilliPlayerXPutPieceState methodsFor: 'player actions' stamp: 'EMI 11/1/2020 12:52:56'!
+putOAt: aPosition
+	^Error signal: game class cannotPlayOutOfTurn.
+	! !
+
+!TerniLapilliPlayerXPutPieceState methodsFor: 'player actions' stamp: 'EMI 11/1/2020 13:18:28'!
+putXAt: aPosition
+	game putXWhenPlayerIsXAt: aPosition.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'TerniLapilliPlayerXPutPieceState class' category: 'TerniLapilli'!
+TerniLapilliPlayerXPutPieceState class
+	instanceVariableNames: ''!
+
+!TerniLapilliPlayerXPutPieceState class methodsFor: 'as yet unclassified' stamp: 'EMI 11/1/2020 12:55:40'!
+ofGame: aTerniLapilliGame
+	^self new initialize: aTerniLapilliGame.! !
