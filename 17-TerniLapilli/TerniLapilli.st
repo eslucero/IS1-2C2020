@@ -677,14 +677,14 @@ putXAt: aPosition
 	gameState putXAt: aPosition.! !
 
 
-!TerniLapilli methodsFor: 'board consults - private' stamp: 'EMI 11/1/2020 15:16:07'!
+!TerniLapilli methodsFor: 'board consults - private' stamp: 'EMI 11/2/2020 16:27:00'!
 checkDiagonalLine: aPiecesCollection
 	| diagonalInversa diagonal |
 	
-	(aPiecesCollection includes: 1@1) ifFalse:[^false.].
+	(aPiecesCollection includes: self class centerPosition) ifFalse:[^false.].
 	
-	diagonal  _ (aPiecesCollection includes: (2@2)) and: [aPiecesCollection includes: (0@0)].
-	diagonalInversa _ (aPiecesCollection includes: (2@0)) and: [aPiecesCollection includes:  (0@2)].
+	diagonal  _ (aPiecesCollection includes: (self class bottomRightPosition)) and: [aPiecesCollection includes: (self class topLeftPosition)].
+	diagonalInversa _ (aPiecesCollection includes: (self class bottomLeftPosition)) and: [aPiecesCollection includes:  (self class topRightPosition)].
 	
 	^diagonal or:[diagonalInversa].! !
 
@@ -699,21 +699,14 @@ checkHorizontalLine: aPiecesCollection
 	
 	^estanAmbosLados or:[estanALaDer or:[estanALaIzq]].! !
 
-!TerniLapilli methodsFor: 'board consults - private' stamp: 'EMI 11/1/2020 15:23:52'!
-checkIfDestination: aOriginPosition isNeighbourOf: anEmptyDestinationPosition
-	^ aOriginPosition eightNeighbors includes: anEmptyDestinationPosition! !
-
-!TerniLapilli methodsFor: 'board consults - private' stamp: 'EMI 11/1/2020 15:23:42'!
+!TerniLapilli methodsFor: 'board consults - private' stamp: 'EMI 11/2/2020 16:29:03'!
 checkIfIsInvalidDiagonalMoveFrom: aOriginPosition To: anEmptyDestinationPosition
-	| invalidDiagonalPositions |
-	invalidDiagonalPositions _ OrderedCollection with: (1@0) with: (0@1)  with:(1@2) with:(2@1).
-
-	^(invalidDiagonalPositions includes: aOriginPosition) and:[invalidDiagonalPositions includes: anEmptyDestinationPosition ]
+	^(self class invalidDiagonalPositions includes: aOriginPosition) and:[self class invalidDiagonalPositions includes: anEmptyDestinationPosition ]
 ! !
 
-!TerniLapilli methodsFor: 'board consults - private' stamp: 'EMI 11/1/2020 15:23:42'!
-checkIfMoveFrom: aOriginPosition isValidTo: anEmptyDestinationPosition
-	(self checkIfDestination: aOriginPosition isNeighbourOf: anEmptyDestinationPosition) ifFalse:[^Error signal: self class 	cannotMovePieceMoreThanOneSpace ].
+!TerniLapilli methodsFor: 'board consults - private' stamp: 'EMI 11/2/2020 16:38:29'!
+checkIfMoveIsValidFrom: aOriginPosition To: anEmptyDestinationPosition
+	(self checkIfPosition: aOriginPosition isNeighbourOf: anEmptyDestinationPosition) ifFalse:[^Error signal: self class 	cannotMovePieceMoreThanOneSpace ].
 	
 	(self checkIfIsInvalidDiagonalMoveFrom: aOriginPosition To: anEmptyDestinationPosition ) ifTrue:[^Error signal: self class cannotMovePieceByInvalidDiagonal ].
 ! !
@@ -730,6 +723,10 @@ checkIfPlayerWon: aPlayerPiecesCollection
 checkIfPlayerXWon
 	^self checkIfPlayerWon: piecesX.! !
 
+!TerniLapilli methodsFor: 'board consults - private' stamp: 'EMI 11/2/2020 16:38:29'!
+checkIfPosition: aOriginPosition isNeighbourOf: anEmptyDestinationPosition
+	^ aOriginPosition eightNeighbors includes: anEmptyDestinationPosition! !
+
 !TerniLapilli methodsFor: 'board consults - private' stamp: 'EMI 10/29/2020 20:58:35'!
 checkVerticalLine: aPiecesCollection
 	|first estanArriba estanAbajo estanAmbosLados|
@@ -740,6 +737,11 @@ checkVerticalLine: aPiecesCollection
 	estanArriba _ (aPiecesCollection includes: (first - (1@0))) and: [aPiecesCollection includes: first - (2@0)].
 	
 	^estanAmbosLados or:[estanAbajo or:[estanArriba]].! !
+
+!TerniLapilli methodsFor: 'board consults - private' stamp: 'EMI 11/2/2020 16:03:40'!
+hasPlayerXPlacedAllPieces
+
+	^ piecesX size = 3! !
 
 !TerniLapilli methodsFor: 'board consults - private' stamp: 'EMI 10/31/2020 20:37:59'!
 isInsideBoard: aPosition
@@ -766,12 +768,12 @@ moveOWhenPlayerIsOFrom: aOriginPosition To: aDestinationPosition
 	ifFalse: [gameState _ TerniLapilliPlayerXMovePieceState ofGame: self.]
 ! !
 
-!TerniLapilli methodsFor: 'player actions - private' stamp: 'EMI 11/1/2020 15:42:49'!
+!TerniLapilli methodsFor: 'player actions - private' stamp: 'EMI 11/2/2020 16:37:24'!
 movePieceOf: aPiecesCollection From: aOriginPosition To: aDestinationPosition
 	(self isInsideBoard: aDestinationPosition ) ifFalse:[^Error signal: self class cannotPlacePiecesOutsideBoard ].
 	(aPiecesCollection includes: aOriginPosition) ifFalse: [^Error signal: self class cannotMovePiecesPlayerDoesntOwn].
 	(self isPositionEmpty: aDestinationPosition)  ifTrue: [^Error signal: self class cannotPlacePieceInOccupiedPosition ].
-	self checkIfMoveFrom: aOriginPosition isValidTo: aDestinationPosition.
+	self checkIfMoveIsValidFrom: aOriginPosition To: aDestinationPosition.
 	
 	aPiecesCollection remove: aOriginPosition.
 	aPiecesCollection add: aDestinationPosition.! !
@@ -783,20 +785,13 @@ moveXWhenPlayerIsXFrom: aOriginPosition To: aDestinationPosition
 	ifTrue: [gameState _ TerniLapilliGameOverState ofGame: self hasXWon: true.]
 	ifFalse: [gameState _ TerniLapilliPlayerOMovePieceState ofGame: self.]! !
 
-!TerniLapilli methodsFor: 'player actions - private' stamp: 'EMI 11/1/2020 15:42:29'!
-put: aPosition into: aPiecesCollection
-	(self isInsideBoard: aPosition) ifFalse:[^Error signal: self class cannotPlacePiecesOutsideBoard ].
-	(self isPositionEmpty: aPosition) ifTrue: [^Error signal: self class cannotPlacePieceInOccupiedPosition ].
-	
-	aPiecesCollection add: aPosition.! !
-
-!TerniLapilli methodsFor: 'player actions - private' stamp: 'EMI 11/1/2020 14:52:38'!
+!TerniLapilli methodsFor: 'player actions - private' stamp: 'EMI 11/2/2020 16:35:07'!
 putOWhenPlayerIsOAt: aPosition
-	self put: aPosition into: piecesO.
+	self putValidPiece: aPosition In: piecesO.
 	self checkIfPlayerOWon 
 	ifTrue: [gameState _ TerniLapilliGameOverState ofGame: self hasXWon: false]
 	ifFalse: [
-		piecesX size = 3 
+		self hasPlayerXPlacedAllPieces 
 		ifTrue:[gameState _ TerniLapilliPlayerXMovePieceState ofGame: self]
 		ifFalse:[gameState _ TerniLapilliPlayerXPutPieceState ofGame: self]
 	].
@@ -804,9 +799,16 @@ putOWhenPlayerIsOAt: aPosition
 
 	! !
 
-!TerniLapilli methodsFor: 'player actions - private' stamp: 'EMI 11/1/2020 14:47:21'!
+!TerniLapilli methodsFor: 'player actions - private' stamp: 'EMI 11/2/2020 16:35:07'!
+putValidPiece: aPosition In: aPiecesCollection
+	(self isInsideBoard: aPosition) ifFalse:[^Error signal: self class cannotPlacePiecesOutsideBoard ].
+	(self isPositionEmpty: aPosition) ifTrue: [^Error signal: self class cannotPlacePieceInOccupiedPosition ].
+	
+	aPiecesCollection add: aPosition.! !
+
+!TerniLapilli methodsFor: 'player actions - private' stamp: 'EMI 11/2/2020 16:35:07'!
 putXWhenPlayerIsXAt: aPosition
-	self put: aPosition into: piecesX.
+	self putValidPiece: aPosition In: piecesX.
 	self checkIfPlayerXWon 
 	ifTrue:[gameState _ TerniLapilliGameOverState ofGame: self hasXWon: true]
 	ifFalse:[gameState _ TerniLapilliPlayerOPutPieceState ofGame: self].! !
@@ -857,6 +859,56 @@ cannotPlayOutOfTurn
 !TerniLapilli class methodsFor: 'error messages' stamp: 'EMI 11/1/2020 15:02:34'!
 cannotPlayWhenGameOver
 	^'Cannot put piece or move piece when game is over'.! !
+
+
+!TerniLapilli class methodsFor: 'constants - private' stamp: 'EMI 11/2/2020 16:24:13'!
+bottomCenterPosition
+
+	^ 2@1! !
+
+!TerniLapilli class methodsFor: 'constants - private' stamp: 'EMI 11/2/2020 16:24:37'!
+bottomLeftPosition
+
+	^ 2@0! !
+
+!TerniLapilli class methodsFor: 'constants - private' stamp: 'EMI 11/2/2020 16:24:46'!
+bottomRightPosition
+
+	^ 2@2! !
+
+!TerniLapilli class methodsFor: 'constants - private' stamp: 'EMI 11/2/2020 16:24:57'!
+centerLeftPosition
+
+	^ 1@0! !
+
+!TerniLapilli class methodsFor: 'constants - private' stamp: 'EMI 11/2/2020 16:25:05'!
+centerPosition
+
+	^ 1@1! !
+
+!TerniLapilli class methodsFor: 'constants - private' stamp: 'EMI 11/2/2020 16:25:11'!
+centerRightPosition
+
+	^ 1@2! !
+
+!TerniLapilli class methodsFor: 'constants - private' stamp: 'EMI 11/2/2020 16:30:19'!
+invalidDiagonalPositions
+	^OrderedCollection with: (self centerLeftPosition) with: (self topCenterPosition)  with:(self centerRightPosition) with:(self bottomCenterPosition).! !
+
+!TerniLapilli class methodsFor: 'constants - private' stamp: 'EMI 11/2/2020 16:25:22'!
+topCenterPosition
+
+	^ 0@1! !
+
+!TerniLapilli class methodsFor: 'constants - private' stamp: 'EMI 11/2/2020 16:25:28'!
+topLeftPosition
+
+	^ 0@0! !
+
+!TerniLapilli class methodsFor: 'constants - private' stamp: 'EMI 11/2/2020 16:25:34'!
+topRightPosition
+
+	^ 0@2! !
 
 
 !classDefinition: #TerniLapilliState category: 'TerniLapilli'!
