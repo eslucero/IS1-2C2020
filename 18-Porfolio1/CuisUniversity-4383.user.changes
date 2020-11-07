@@ -48842,3 +48842,224 @@ hasAsset: anAsset
 ----SNAPSHOT----(7 November 2020 18:51:11) CuisUniversity-4383.image priorSource: 18143331!
 
 ----QUIT----(7 November 2020 18:51:15) CuisUniversity-4383.image priorSource: 18143424!
+
+----STARTUP---- (7 November 2020 18:55:00) as /home/doraserver/CuisUniversity/CuisUniversity-4383.image!
+
+
+!testRun: #PortfolioTest #test01NewPortfolioHasNoAccountsAndNoPortfolios stamp: 'EMI 11/7/2020 18:56:28'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioAddEmptyAccount stamp: 'EMI 11/7/2020 18:56:28'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioAddEmptyPortfolio stamp: 'EMI 11/7/2020 18:56:28'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioHasNoRegisteredTransactions stamp: 'EMI 11/7/2020 18:56:28'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOneAccountWithOneRegisteredTransaction stamp: 'EMI 11/7/2020 18:56:28'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioMoreThanOneAccountWithRegisteredTransactions stamp: 'EMI 11/7/2020 18:56:28'!
+ERROR!
+
+!testRun: #PortfolioTest #test07EmptyPortfolioHasNoTransactions stamp: 'EMI 11/7/2020 18:56:28'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioWithOneAccountHasOneTransaction stamp: 'EMI 11/7/2020 18:56:28'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithMoreThanOneAccountHasMoreThanOneTransactions stamp: 'EMI 11/7/2020 18:56:28'!
+ERROR!
+
+!testRun: #PortfolioTest #test10PortfolioHasOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/7/2020 18:56:28'!
+ERROR!
+
+!testRun: #PortfolioTest #test11PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/7/2020 18:56:28'!
+ERROR!
+
+!testRun: #PortfolioTest #test12PortfolioHasOneChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/7/2020 18:56:28'!
+ERROR!
+
+!testRun: #PortfolioTest #test13PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/7/2020 18:56:28'!
+ERROR!
+
+!testRun: #PortfolioTest #test14PortfolioCannotAddSameEmptyAssetTwice stamp: 'EMI 11/7/2020 18:56:29'!
+ERROR!
+
+!testRun: #PortfolioTest #test15PortfolioCannotAddChildPortfolioWithSameAccount stamp: 'EMI 11/7/2020 18:56:29'!
+ERROR!
+
+!testRun: #PortfolioTest #test16PortfolioCannotAddBothChildrenPortfoliosWithSameAccount stamp: 'EMI 11/7/2020 18:56:29'!
+ERROR!
+
+!testRun: #PortfolioTest #test17PortfolioCannotAddBothGrandChildrenPortfoliosWithSameAccount stamp: 'EMI 11/7/2020 18:56:29'!
+ERROR!
+
+!testRun: #PortfolioTest #test18PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount stamp: 'EMI 11/7/2020 18:56:29'!
+ERROR!
+
+!testRun: #PortfolioTest #test19PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithAParentWithSameAccount stamp: 'EMI 11/7/2020 18:56:29'!
+ERROR!
+
+!testRun: #PortfolioTest #test20PortfolioWith2GrandChildrenPortfoliosCannotAddAThirdWithAGrandParentWithSameAccount stamp: 'EMI 11/7/2020 18:56:29'!
+ERROR!
+
+!testRun: #PortfolioTest #test21TwoPortfoliosCanUseSameAccount stamp: 'EMI 11/7/2020 18:56:29'!
+ERROR!
+
+!testRun: #PortfolioTest #test22CannotUniteTwoPortfoliosWithSameAccount stamp: 'EMI 11/7/2020 18:56:29'!
+ERROR!
+
+!testRun: #PortfolioTest #test06PortfolioMoreThanOneAccountWithRegisteredTransactions stamp: 'EMI 11/7/2020 18:56:33'!
+ERROR!
+
+!testRun: #PortfolioTest #test06PortfolioMoreThanOneAccountWithRegisteredTransactions stamp: 'EMI 11/7/2020 18:57:36'!
+ERROR!
+!Asset methodsFor: 'nil' stamp: 'EMI 11/7/2020 18:58:04'!
+hasAssetIntersectionWith: anAsset
+	^(self hasAsset: anAsset) or: [anAsset hasAsset: self].! !
+
+!methodRemoval: Portfolio #hasAssetIntersectionWith: stamp: 'EMI 11/7/2020 18:58:13'!
+hasAssetIntersectionWith: anAsset
+	^(self hasAsset: anAsset) or: [anAsset hasAsset: self].
+	!
+
+----SNAPSHOT----(7 November 2020 18:58:16) CuisUniversity-4383.image priorSource: 18143517!
+
+!testRun: #PortfolioTest #test01NewPortfolioHasNoAccountsAndNoPortfolios stamp: 'EMI 11/7/2020 18:58:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioAddEmptyAccount stamp: 'EMI 11/7/2020 18:58:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioAddEmptyPortfolio stamp: 'EMI 11/7/2020 18:58:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioHasNoRegisteredTransactions stamp: 'EMI 11/7/2020 18:58:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOneAccountWithOneRegisteredTransaction stamp: 'EMI 11/7/2020 18:58:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioMoreThanOneAccountWithRegisteredTransactions stamp: 'EMI 11/7/2020 18:58:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test07EmptyPortfolioHasNoTransactions stamp: 'EMI 11/7/2020 18:58:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioWithOneAccountHasOneTransaction stamp: 'EMI 11/7/2020 18:58:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithMoreThanOneAccountHasMoreThanOneTransactions stamp: 'EMI 11/7/2020 18:58:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioHasOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/7/2020 18:58:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/7/2020 18:58:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioHasOneChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/7/2020 18:58:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/7/2020 18:58:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioCannotAddSameEmptyAssetTwice stamp: 'EMI 11/7/2020 18:58:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCannotAddChildPortfolioWithSameAccount stamp: 'EMI 11/7/2020 18:58:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCannotAddBothChildrenPortfoliosWithSameAccount stamp: 'EMI 11/7/2020 18:58:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioCannotAddBothGrandChildrenPortfoliosWithSameAccount stamp: 'EMI 11/7/2020 18:58:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test18PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount stamp: 'EMI 11/7/2020 18:58:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test19PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithAParentWithSameAccount stamp: 'EMI 11/7/2020 18:58:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test20PortfolioWith2GrandChildrenPortfoliosCannotAddAThirdWithAGrandParentWithSameAccount stamp: 'EMI 11/7/2020 18:58:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test21TwoPortfoliosCanUseSameAccount stamp: 'EMI 11/7/2020 18:58:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test22CannotUniteTwoPortfoliosWithSameAccount stamp: 'EMI 11/7/2020 18:58:19'!
+PASSED!
+
+----SNAPSHOT----(7 November 2020 18:58:22) CuisUniversity-4383.image priorSource: 18147026!
+
+!testRun: #PortfolioTest #test01NewPortfolioHasNoAccountsAndNoPortfolios stamp: 'EMI 11/7/2020 18:58:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioAddEmptyAccount stamp: 'EMI 11/7/2020 18:58:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioAddEmptyPortfolio stamp: 'EMI 11/7/2020 18:58:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioHasNoRegisteredTransactions stamp: 'EMI 11/7/2020 18:58:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOneAccountWithOneRegisteredTransaction stamp: 'EMI 11/7/2020 18:58:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioMoreThanOneAccountWithRegisteredTransactions stamp: 'EMI 11/7/2020 18:58:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test07EmptyPortfolioHasNoTransactions stamp: 'EMI 11/7/2020 18:58:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioWithOneAccountHasOneTransaction stamp: 'EMI 11/7/2020 18:58:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithMoreThanOneAccountHasMoreThanOneTransactions stamp: 'EMI 11/7/2020 18:58:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioHasOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/7/2020 18:58:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/7/2020 18:58:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioHasOneChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/7/2020 18:58:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/7/2020 18:58:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioCannotAddSameEmptyAssetTwice stamp: 'EMI 11/7/2020 18:58:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCannotAddChildPortfolioWithSameAccount stamp: 'EMI 11/7/2020 18:58:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCannotAddBothChildrenPortfoliosWithSameAccount stamp: 'EMI 11/7/2020 18:58:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioCannotAddBothGrandChildrenPortfoliosWithSameAccount stamp: 'EMI 11/7/2020 18:58:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test18PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount stamp: 'EMI 11/7/2020 18:58:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test19PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithAParentWithSameAccount stamp: 'EMI 11/7/2020 18:58:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test20PortfolioWith2GrandChildrenPortfoliosCannotAddAThirdWithAGrandParentWithSameAccount stamp: 'EMI 11/7/2020 18:58:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test21TwoPortfoliosCanUseSameAccount stamp: 'EMI 11/7/2020 18:58:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test22CannotUniteTwoPortfoliosWithSameAccount stamp: 'EMI 11/7/2020 18:58:33'!
+PASSED!
+
+----QUIT----(7 November 2020 18:58:40) CuisUniversity-4383.image priorSource: 18149860!

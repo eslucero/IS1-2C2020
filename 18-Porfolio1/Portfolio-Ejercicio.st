@@ -617,6 +617,10 @@ assetTreeRoots
 
 	^rootParents.! !
 
+!Asset methodsFor: 'tree operations' stamp: 'EMI 11/7/2020 18:58:04'!
+hasAssetIntersectionWith: anAsset
+	^(self hasAsset: anAsset) or: [anAsset hasAsset: self].! !
+
 !Asset methodsFor: 'tree operations' stamp: 'EMI 11/7/2020 18:38:57'!
 parentAssets
 	^parents! !
@@ -638,11 +642,6 @@ hasAsset: anAsset
 	| estaEnMisHijosDirectos |
 	estaEnMisHijosDirectos _ assets includes: anAsset.
 	^estaEnMisHijosDirectos or: [(assets select: [:aChildAsset | aChildAsset hasAssetIntersectionWith: anAsset]) isEmpty not.].
-	! !
-
-!Portfolio methodsFor: 'testing' stamp: 'EMI 11/7/2020 18:48:13'!
-hasAssetIntersectionWith: anAsset
-	^(self hasAsset: anAsset) or: [anAsset hasAsset: self].
 	! !
 
 !Portfolio methodsFor: 'testing' stamp: 'EMI 11/6/2020 19:55:28'!
