@@ -49063,3 +49063,4453 @@ PASSED!
 PASSED!
 
 ----QUIT----(7 November 2020 18:58:40) CuisUniversity-4383.image priorSource: 18149860!
+
+----STARTUP---- (8 November 2020 16:58:09) as /home/doraserver/CuisUniversity/CuisUniversity-4383.image!
+
+!PortfolioTest methodsFor: 'tests' stamp: 'EMI 11/8/2020 17:16:50'!
+test17bisPortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild
+	| portfolio portfolioChildLeft portfolioChildRight portfolioGrandChildLeft portfolioGrandChildRight account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildLeft _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	
+	portfolioGrandChildLeft _ Portfolio new.
+	self assert: (portfolioGrandChildLeft add: account).
+	
+	portfolioGrandChildRight _ Portfolio new.
+	self assert: (portfolioGrandChildRight add: account).
+	
+	self assert: (portfolio add: portfolioChildLeft).
+	self assert: (portfolio add: portfolioChildRight).
+	self assert: (portfolioChildLeft add: portfolioGrandChildLeft).
+	self deny: (portfolioChildRight add: portfolioGrandChildRight).
+
+
+	 
+! !
+!PortfolioTest methodsFor: 'tests' stamp: 'EMI 11/8/2020 17:17:36' prior: 50898928!
+test17bisPortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild
+	| portfolio portfolioChildLeft portfolioChildRight portfolioGrandChildRight account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildLeft _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	
+	self assert: (portfolioChildLeft add: account).
+	
+	portfolioGrandChildRight _ Portfolio new.
+	self assert: (portfolioGrandChildRight add: account).
+	
+	self assert: (portfolio add: portfolioChildLeft).
+	self assert: (portfolio add: portfolioChildRight).
+	self deny: (portfolioChildRight add: portfolioGrandChildRight).
+
+
+	 
+! !
+
+----SNAPSHOT----(8 November 2020 17:17:41) CuisUniversity-4383.image priorSource: 18152694!
+
+!testRun: #PortfolioTest #test01NewPortfolioHasNoAccountsAndNoPortfolios stamp: 'EMI 11/8/2020 17:17:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioAddEmptyAccount stamp: 'EMI 11/8/2020 17:17:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioAddEmptyPortfolio stamp: 'EMI 11/8/2020 17:17:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioHasNoRegisteredTransactions stamp: 'EMI 11/8/2020 17:17:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOneAccountWithOneRegisteredTransaction stamp: 'EMI 11/8/2020 17:17:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioMoreThanOneAccountWithRegisteredTransactions stamp: 'EMI 11/8/2020 17:17:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test07EmptyPortfolioHasNoTransactions stamp: 'EMI 11/8/2020 17:17:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioWithOneAccountHasOneTransaction stamp: 'EMI 11/8/2020 17:17:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithMoreThanOneAccountHasMoreThanOneTransactions stamp: 'EMI 11/8/2020 17:17:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioHasOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 17:17:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 17:17:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioHasOneChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 17:17:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 17:17:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioCannotAddSameEmptyAssetTwice stamp: 'EMI 11/8/2020 17:17:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCannotAddChildPortfolioWithSameAccount stamp: 'EMI 11/8/2020 17:17:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCannotAddBothChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 17:17:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioCannotAddBothGrandChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 17:17:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test17bisPortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild stamp: 'EMI 11/8/2020 17:17:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test18PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount stamp: 'EMI 11/8/2020 17:17:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test19PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithAParentWithSameAccount stamp: 'EMI 11/8/2020 17:17:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test20PortfolioWith2GrandChildrenPortfoliosCannotAddAThirdWithAGrandParentWithSameAccount stamp: 'EMI 11/8/2020 17:17:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test21TwoPortfoliosCanUseSameAccount stamp: 'EMI 11/8/2020 17:17:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test22CannotUniteTwoPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 17:17:44'!
+PASSED!
+!PortfolioTest methodsFor: 'tests' stamp: 'EMI 11/8/2020 17:19:22'!
+test16bisPortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount
+	| portfolioRoot portfolioChildWithAccount portfolioChildWithoutAccount portfolioToAddWithSameAccount account|
+	portfolioRoot _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildWithoutAccount _ Portfolio new.
+	
+	portfolioChildWithAccount _ Portfolio new.
+	self assert: (portfolioChildWithAccount add: account).
+	
+	portfolioToAddWithSameAccount _ Portfolio new.
+	self assert: (portfolioToAddWithSameAccount add: account).
+	
+	self assert: (portfolioRoot add: portfolioChildWithoutAccount).
+	self assert: (portfolioRoot add: portfolioChildWithAccount).
+	self deny: (portfolioRoot add: portfolioToAddWithSameAccount).
+
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test18PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount stamp: 'EMI 11/8/2020 17:19:22'!
+test18PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount
+	| portfolioRoot portfolioChildWithAccount portfolioChildWithoutAccount portfolioToAddWithSameAccount account|
+	portfolioRoot _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildWithoutAccount _ Portfolio new.
+	
+	portfolioChildWithAccount _ Portfolio new.
+	self assert: (portfolioChildWithAccount add: account).
+	
+	portfolioToAddWithSameAccount _ Portfolio new.
+	self assert: (portfolioToAddWithSameAccount add: account).
+	
+	self assert: (portfolioRoot add: portfolioChildWithoutAccount).
+	self assert: (portfolioRoot add: portfolioChildWithAccount).
+	self deny: (portfolioRoot add: portfolioToAddWithSameAccount).
+
+
+	 
+!
+!PortfolioTest methodsFor: 'tests' stamp: 'EMI 11/8/2020 17:22:19'!
+test21TwoDisjointPortfoliosCanUseSameAccount
+	| portfolio portfolio2 account|
+	
+	portfolio _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account _ ReceptiveAccount new.
+	
+	self assert: (portfolio add: account).
+	self assert: (portfolio2 add: account).
+	self assert: account parentAssets includes: portfolio.
+	self assert: account parentAssets includes: portfolio2.
+	
+
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test21TwoPortfoliosCanUseSameAccount stamp: 'EMI 11/8/2020 17:22:19'!
+test21TwoPortfoliosCanUseSameAccount
+	| portfolio portfolio2 account|
+	
+	portfolio _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account _ ReceptiveAccount new.
+	
+	self assert: (portfolio add: account).
+	self assert: (portfolio2 add: account).
+	self assert: account parentAssets includes: portfolio.
+	self assert: account parentAssets includes: portfolio2.
+	
+
+
+	 
+!
+!PortfolioTest methodsFor: 'tests' stamp: 'EMI 11/8/2020 17:22:34'!
+test22CannotUniteTwoDisjointPortfoliosWithSameAccount
+	| portfolio portfolio2 portfolioRoot account|
+	
+	portfolio _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	portfolioRoot _ Portfolio new.
+	account _ ReceptiveAccount new.
+	
+	self assert: (portfolio add: account).
+	self assert: (portfolio2 add: account).
+	self assert: (portfolioRoot add: portfolio).
+	self deny: (portfolioRoot add: portfolio2).
+	
+
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test22CannotUniteTwoPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 17:22:34'!
+test22CannotUniteTwoPortfoliosWithSameAccount
+	| portfolio portfolio2 portfolioRoot account|
+	
+	portfolio _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	portfolioRoot _ Portfolio new.
+	account _ ReceptiveAccount new.
+	
+	self assert: (portfolio add: account).
+	self assert: (portfolio2 add: account).
+	self assert: (portfolioRoot add: portfolio).
+	self deny: (portfolioRoot add: portfolio2).
+	
+
+
+	 
+!
+!PortfolioTest methodsFor: 'tests' stamp: 'EMI 11/8/2020 17:31:05'!
+test23TwoDisjointPortfoliosCanHaveSameChildPortfolio
+	| portfolio portfolio2 portfolioChild|
+	
+	portfolio _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	portfolioChild _ Portfolio new.
+	
+	self assert: (portfolio add: portfolioChild).
+	self assert: (portfolio2 add: portfolioChild).
+	self assert: portfolioChild parentAssets includes: portfolio.
+	self assert: portfolioChild parentAssets includes: portfolio2.
+	
+
+
+	 
+! !
+
+----SNAPSHOT----(8 November 2020 17:31:09) CuisUniversity-4383.image priorSource: 18154447!
+
+!testRun: #PortfolioTest #test01NewPortfolioHasNoAccountsAndNoPortfolios stamp: 'EMI 11/8/2020 17:31:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioAddEmptyAccount stamp: 'EMI 11/8/2020 17:31:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioAddEmptyPortfolio stamp: 'EMI 11/8/2020 17:31:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioHasNoRegisteredTransactions stamp: 'EMI 11/8/2020 17:31:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOneAccountWithOneRegisteredTransaction stamp: 'EMI 11/8/2020 17:31:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioMoreThanOneAccountWithRegisteredTransactions stamp: 'EMI 11/8/2020 17:31:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test07EmptyPortfolioHasNoTransactions stamp: 'EMI 11/8/2020 17:31:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioWithOneAccountHasOneTransaction stamp: 'EMI 11/8/2020 17:31:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithMoreThanOneAccountHasMoreThanOneTransactions stamp: 'EMI 11/8/2020 17:31:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioHasOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 17:31:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 17:31:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioHasOneChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 17:31:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 17:31:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioCannotAddSameEmptyAssetTwice stamp: 'EMI 11/8/2020 17:31:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCannotAddChildPortfolioWithSameAccount stamp: 'EMI 11/8/2020 17:31:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCannotAddBothChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 17:31:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test16bisPortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount stamp: 'EMI 11/8/2020 17:31:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioCannotAddBothGrandChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 17:31:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test17bisPortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild stamp: 'EMI 11/8/2020 17:31:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test19PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithAParentWithSameAccount stamp: 'EMI 11/8/2020 17:31:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test20PortfolioWith2GrandChildrenPortfoliosCannotAddAThirdWithAGrandParentWithSameAccount stamp: 'EMI 11/8/2020 17:31:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test21TwoDisjointPortfoliosCanUseSameAccount stamp: 'EMI 11/8/2020 17:31:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test22CannotUniteTwoDisjointPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 17:31:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test23TwoDisjointPortfoliosCanHaveSameChildPortfolio stamp: 'EMI 11/8/2020 17:31:11'!
+PASSED!
+!PortfolioTest methodsFor: 'tests' stamp: 'EMI 11/8/2020 17:32:41'!
+test24CannotUniteTwoDisjointPortfoliosWithSameChildPortfolio
+	| portfolio portfolio2 portfolioRoot portfolioChild |
+	
+	portfolio _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	portfolioRoot _ Portfolio new.
+	portfolioChild _ Portfolio new.
+	
+	self assert: (portfolio add: portfolioChild).
+	self assert: (portfolio2 add: portfolioChild).
+	self assert: (portfolioRoot add: portfolio).
+	self deny: (portfolioRoot add: portfolio2).
+	
+
+
+	 
+! !
+!PortfolioTest methodsFor: 'tests' stamp: 'EMI 11/8/2020 17:33:51'!
+test16bis2TwoDisjointPortfoliosCanUseSameAccount
+	| portfolio portfolio2 account|
+	
+	portfolio _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account _ ReceptiveAccount new.
+	
+	self assert: (portfolio add: account).
+	self assert: (portfolio2 add: account).
+	self assert: account parentAssets includes: portfolio.
+	self assert: account parentAssets includes: portfolio2.
+	
+
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test21TwoDisjointPortfoliosCanUseSameAccount stamp: 'EMI 11/8/2020 17:33:51'!
+test21TwoDisjointPortfoliosCanUseSameAccount
+	| portfolio portfolio2 account|
+	
+	portfolio _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account _ ReceptiveAccount new.
+	
+	self assert: (portfolio add: account).
+	self assert: (portfolio2 add: account).
+	self assert: account parentAssets includes: portfolio.
+	self assert: account parentAssets includes: portfolio2.
+	
+
+
+	 
+!
+!PortfolioTest methodsFor: 'tests' stamp: 'EMI 11/8/2020 17:34:05'!
+test16bis3CannotUniteTwoDisjointPortfoliosWithSameAccount
+	| portfolio portfolio2 portfolioRoot account|
+	
+	portfolio _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	portfolioRoot _ Portfolio new.
+	account _ ReceptiveAccount new.
+	
+	self assert: (portfolio add: account).
+	self assert: (portfolio2 add: account).
+	self assert: (portfolioRoot add: portfolio).
+	self deny: (portfolioRoot add: portfolio2).
+	
+
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test22CannotUniteTwoDisjointPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 17:34:05'!
+test22CannotUniteTwoDisjointPortfoliosWithSameAccount
+	| portfolio portfolio2 portfolioRoot account|
+	
+	portfolio _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	portfolioRoot _ Portfolio new.
+	account _ ReceptiveAccount new.
+	
+	self assert: (portfolio add: account).
+	self assert: (portfolio2 add: account).
+	self assert: (portfolioRoot add: portfolio).
+	self deny: (portfolioRoot add: portfolio2).
+	
+
+
+	 
+!
+!PortfolioTest methodsFor: 'tests' stamp: 'EMI 11/8/2020 17:34:20'!
+test16bis4TwoDisjointPortfoliosCanHaveSameChildPortfolio
+	| portfolio portfolio2 portfolioChild|
+	
+	portfolio _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	portfolioChild _ Portfolio new.
+	
+	self assert: (portfolio add: portfolioChild).
+	self assert: (portfolio2 add: portfolioChild).
+	self assert: portfolioChild parentAssets includes: portfolio.
+	self assert: portfolioChild parentAssets includes: portfolio2.
+	
+
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test23TwoDisjointPortfoliosCanHaveSameChildPortfolio stamp: 'EMI 11/8/2020 17:34:20'!
+test23TwoDisjointPortfoliosCanHaveSameChildPortfolio
+	| portfolio portfolio2 portfolioChild|
+	
+	portfolio _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	portfolioChild _ Portfolio new.
+	
+	self assert: (portfolio add: portfolioChild).
+	self assert: (portfolio2 add: portfolioChild).
+	self assert: portfolioChild parentAssets includes: portfolio.
+	self assert: portfolioChild parentAssets includes: portfolio2.
+	
+
+
+	 
+!
+!PortfolioTest methodsFor: 'tests' stamp: 'EMI 11/8/2020 17:34:33'!
+test16bis5CannotUniteTwoDisjointPortfoliosWithSameChildPortfolio
+	| portfolio portfolio2 portfolioRoot portfolioChild |
+	
+	portfolio _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	portfolioRoot _ Portfolio new.
+	portfolioChild _ Portfolio new.
+	
+	self assert: (portfolio add: portfolioChild).
+	self assert: (portfolio2 add: portfolioChild).
+	self assert: (portfolioRoot add: portfolio).
+	self deny: (portfolioRoot add: portfolio2).
+	
+
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test24CannotUniteTwoDisjointPortfoliosWithSameChildPortfolio stamp: 'EMI 11/8/2020 17:34:33'!
+test24CannotUniteTwoDisjointPortfoliosWithSameChildPortfolio
+	| portfolio portfolio2 portfolioRoot portfolioChild |
+	
+	portfolio _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	portfolioRoot _ Portfolio new.
+	portfolioChild _ Portfolio new.
+	
+	self assert: (portfolio add: portfolioChild).
+	self assert: (portfolio2 add: portfolioChild).
+	self assert: (portfolioRoot add: portfolio).
+	self deny: (portfolioRoot add: portfolio2).
+	
+
+
+	 
+!
+!PortfolioTest methodsFor: 'tests' stamp: 'EMI 11/8/2020 17:34:47'!
+test16bis1PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount
+	| portfolioRoot portfolioChildWithAccount portfolioChildWithoutAccount portfolioToAddWithSameAccount account|
+	portfolioRoot _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildWithoutAccount _ Portfolio new.
+	
+	portfolioChildWithAccount _ Portfolio new.
+	self assert: (portfolioChildWithAccount add: account).
+	
+	portfolioToAddWithSameAccount _ Portfolio new.
+	self assert: (portfolioToAddWithSameAccount add: account).
+	
+	self assert: (portfolioRoot add: portfolioChildWithoutAccount).
+	self assert: (portfolioRoot add: portfolioChildWithAccount).
+	self deny: (portfolioRoot add: portfolioToAddWithSameAccount).
+
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test16bisPortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount stamp: 'EMI 11/8/2020 17:34:47'!
+test16bisPortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount
+	| portfolioRoot portfolioChildWithAccount portfolioChildWithoutAccount portfolioToAddWithSameAccount account|
+	portfolioRoot _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildWithoutAccount _ Portfolio new.
+	
+	portfolioChildWithAccount _ Portfolio new.
+	self assert: (portfolioChildWithAccount add: account).
+	
+	portfolioToAddWithSameAccount _ Portfolio new.
+	self assert: (portfolioToAddWithSameAccount add: account).
+	
+	self assert: (portfolioRoot add: portfolioChildWithoutAccount).
+	self assert: (portfolioRoot add: portfolioChildWithAccount).
+	self deny: (portfolioRoot add: portfolioToAddWithSameAccount).
+
+
+	 
+!
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 17:38:51'!
+test23PortfolioCannotAddBothGrandChildrenPortfoliosWithSameAccount
+	| portfolio portfolioChildLeft portfolioChildRight portfolioGrandChildLeft portfolioGrandChildRight account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildLeft _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	
+	portfolioGrandChildLeft _ Portfolio new.
+	self assert: (portfolioGrandChildLeft add: account).
+	
+	portfolioGrandChildRight _ Portfolio new.
+	self assert: (portfolioGrandChildRight add: account).
+	
+	self assert: (portfolio add: portfolioChildLeft).
+	self assert: (portfolio add: portfolioChildRight).
+	self assert: (portfolioChildLeft add: portfolioGrandChildLeft).
+	self deny: (portfolioChildRight add: portfolioGrandChildRight).
+
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test17PortfolioCannotAddBothGrandChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 17:38:51'!
+test17PortfolioCannotAddBothGrandChildrenPortfoliosWithSameAccount
+	| portfolio portfolioChildLeft portfolioChildRight portfolioGrandChildLeft portfolioGrandChildRight account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildLeft _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	
+	portfolioGrandChildLeft _ Portfolio new.
+	self assert: (portfolioGrandChildLeft add: account).
+	
+	portfolioGrandChildRight _ Portfolio new.
+	self assert: (portfolioGrandChildRight add: account).
+	
+	self assert: (portfolio add: portfolioChildLeft).
+	self assert: (portfolio add: portfolioChildRight).
+	self assert: (portfolioChildLeft add: portfolioGrandChildLeft).
+	self deny: (portfolioChildRight add: portfolioGrandChildRight).
+
+
+	 
+!
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 17:39:00'!
+test24bisPortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild
+	| portfolio portfolioChildLeft portfolioChildRight portfolioGrandChildRight account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildLeft _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	
+	self assert: (portfolioChildLeft add: account).
+	
+	portfolioGrandChildRight _ Portfolio new.
+	self assert: (portfolioGrandChildRight add: account).
+	
+	self assert: (portfolio add: portfolioChildLeft).
+	self assert: (portfolio add: portfolioChildRight).
+	self deny: (portfolioChildRight add: portfolioGrandChildRight).
+
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test17bisPortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild stamp: 'EMI 11/8/2020 17:39:00'!
+test17bisPortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild
+	| portfolio portfolioChildLeft portfolioChildRight portfolioGrandChildRight account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildLeft _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	
+	self assert: (portfolioChildLeft add: account).
+	
+	portfolioGrandChildRight _ Portfolio new.
+	self assert: (portfolioGrandChildRight add: account).
+	
+	self assert: (portfolio add: portfolioChildLeft).
+	self assert: (portfolio add: portfolioChildRight).
+	self deny: (portfolioChildRight add: portfolioGrandChildRight).
+
+
+	 
+!
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 17:39:10'!
+test24PortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild
+	| portfolio portfolioChildLeft portfolioChildRight portfolioGrandChildRight account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildLeft _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	
+	self assert: (portfolioChildLeft add: account).
+	
+	portfolioGrandChildRight _ Portfolio new.
+	self assert: (portfolioGrandChildRight add: account).
+	
+	self assert: (portfolio add: portfolioChildLeft).
+	self assert: (portfolio add: portfolioChildRight).
+	self deny: (portfolioChildRight add: portfolioGrandChildRight).
+
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test24bisPortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild stamp: 'EMI 11/8/2020 17:39:10'!
+test24bisPortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild
+	| portfolio portfolioChildLeft portfolioChildRight portfolioGrandChildRight account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildLeft _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	
+	self assert: (portfolioChildLeft add: account).
+	
+	portfolioGrandChildRight _ Portfolio new.
+	self assert: (portfolioGrandChildRight add: account).
+	
+	self assert: (portfolio add: portfolioChildLeft).
+	self assert: (portfolio add: portfolioChildRight).
+	self deny: (portfolioChildRight add: portfolioGrandChildRight).
+
+
+	 
+!
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 17:39:19'!
+test25PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithAParentWithSameAccount
+	| portfolioRoot portfolioChildWithAccount portfolioChildWithoutAccount 
+	portfolioToAdd portfolioWithSameAccount account|
+	
+	portfolioRoot _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildWithoutAccount _ Portfolio new.
+	
+	portfolioChildWithAccount _ Portfolio new.
+	self assert: (portfolioChildWithAccount add: account).
+	
+	portfolioToAdd _ Portfolio new.
+	portfolioWithSameAccount _ Portfolio new.
+	self assert: (portfolioWithSameAccount add: account).
+	self assert: (portfolioWithSameAccount add: portfolioToAdd).
+	
+	self assert: (portfolioRoot add: portfolioChildWithoutAccount).
+	self assert: (portfolioRoot add: portfolioChildWithAccount).
+	self deny: (portfolioRoot add: portfolioToAdd).
+
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test19PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithAParentWithSameAccount stamp: 'EMI 11/8/2020 17:39:19'!
+test19PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithAParentWithSameAccount
+	| portfolioRoot portfolioChildWithAccount portfolioChildWithoutAccount 
+	portfolioToAdd portfolioWithSameAccount account|
+	
+	portfolioRoot _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildWithoutAccount _ Portfolio new.
+	
+	portfolioChildWithAccount _ Portfolio new.
+	self assert: (portfolioChildWithAccount add: account).
+	
+	portfolioToAdd _ Portfolio new.
+	portfolioWithSameAccount _ Portfolio new.
+	self assert: (portfolioWithSameAccount add: account).
+	self assert: (portfolioWithSameAccount add: portfolioToAdd).
+	
+	self assert: (portfolioRoot add: portfolioChildWithoutAccount).
+	self assert: (portfolioRoot add: portfolioChildWithAccount).
+	self deny: (portfolioRoot add: portfolioToAdd).
+
+
+	 
+!
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 17:39:28'!
+test26PortfolioWith2GrandChildrenPortfoliosCannotAddAThirdWithAGrandParentWithSameAccount
+	| portfolioRoot portfolioChildLeft portfolioChildRight 
+	portfolioGrandChildRight portfolioGrandChildLeft 
+	portfolioRootAnotherTree portfolioChildAnotherTree portfolioGrandChildAnotherTree account|
+	
+	portfolioRoot _ Portfolio new.
+	portfolioRootAnotherTree  _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	self assert: (portfolioRoot add: account).
+	self assert: (portfolioRootAnotherTree add: account).
+	
+	portfolioChildLeft  _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	self assert: (portfolioRoot add: portfolioChildLeft).
+	self assert: (portfolioRoot add: portfolioChildRight).
+	
+	portfolioGrandChildLeft _ Portfolio new.
+	portfolioGrandChildRight _ Portfolio new.
+	self assert: (portfolioChildLeft add: portfolioGrandChildLeft ).
+	self assert: (portfolioChildRight add: portfolioGrandChildRight).
+	
+	portfolioChildAnotherTree _ Portfolio new.
+	self assert: (portfolioRootAnotherTree add: portfolioChildAnotherTree).
+	
+	portfolioGrandChildAnotherTree _ Portfolio new.
+	self assert: (portfolioChildAnotherTree add: portfolioGrandChildAnotherTree ).
+	
+	self deny: (portfolioGrandChildRight add: portfolioGrandChildAnotherTree).
+	
+
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test20PortfolioWith2GrandChildrenPortfoliosCannotAddAThirdWithAGrandParentWithSameAccount stamp: 'EMI 11/8/2020 17:39:28'!
+test20PortfolioWith2GrandChildrenPortfoliosCannotAddAThirdWithAGrandParentWithSameAccount
+	| portfolioRoot portfolioChildLeft portfolioChildRight 
+	portfolioGrandChildRight portfolioGrandChildLeft 
+	portfolioRootAnotherTree portfolioChildAnotherTree portfolioGrandChildAnotherTree account|
+	
+	portfolioRoot _ Portfolio new.
+	portfolioRootAnotherTree  _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	self assert: (portfolioRoot add: account).
+	self assert: (portfolioRootAnotherTree add: account).
+	
+	portfolioChildLeft  _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	self assert: (portfolioRoot add: portfolioChildLeft).
+	self assert: (portfolioRoot add: portfolioChildRight).
+	
+	portfolioGrandChildLeft _ Portfolio new.
+	portfolioGrandChildRight _ Portfolio new.
+	self assert: (portfolioChildLeft add: portfolioGrandChildLeft ).
+	self assert: (portfolioChildRight add: portfolioGrandChildRight).
+	
+	portfolioChildAnotherTree _ Portfolio new.
+	self assert: (portfolioRootAnotherTree add: portfolioChildAnotherTree).
+	
+	portfolioGrandChildAnotherTree _ Portfolio new.
+	self assert: (portfolioChildAnotherTree add: portfolioGrandChildAnotherTree ).
+	
+	self deny: (portfolioGrandChildRight add: portfolioGrandChildAnotherTree).
+	
+
+
+	 
+!
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 17:40:13'!
+test17PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount
+	| portfolioRoot portfolioChildWithAccount portfolioChildWithoutAccount portfolioToAddWithSameAccount account|
+	portfolioRoot _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildWithoutAccount _ Portfolio new.
+	
+	portfolioChildWithAccount _ Portfolio new.
+	self assert: (portfolioChildWithAccount add: account).
+	
+	portfolioToAddWithSameAccount _ Portfolio new.
+	self assert: (portfolioToAddWithSameAccount add: account).
+	
+	self assert: (portfolioRoot add: portfolioChildWithoutAccount).
+	self assert: (portfolioRoot add: portfolioChildWithAccount).
+	self deny: (portfolioRoot add: portfolioToAddWithSameAccount).
+
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test16bis1PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount stamp: 'EMI 11/8/2020 17:40:13'!
+test16bis1PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount
+	| portfolioRoot portfolioChildWithAccount portfolioChildWithoutAccount portfolioToAddWithSameAccount account|
+	portfolioRoot _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildWithoutAccount _ Portfolio new.
+	
+	portfolioChildWithAccount _ Portfolio new.
+	self assert: (portfolioChildWithAccount add: account).
+	
+	portfolioToAddWithSameAccount _ Portfolio new.
+	self assert: (portfolioToAddWithSameAccount add: account).
+	
+	self assert: (portfolioRoot add: portfolioChildWithoutAccount).
+	self assert: (portfolioRoot add: portfolioChildWithAccount).
+	self deny: (portfolioRoot add: portfolioToAddWithSameAccount).
+
+
+	 
+!
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 17:40:24'!
+test18TwoDisjointPortfoliosCanUseSameAccount
+	| portfolio portfolio2 account|
+	
+	portfolio _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account _ ReceptiveAccount new.
+	
+	self assert: (portfolio add: account).
+	self assert: (portfolio2 add: account).
+	self assert: account parentAssets includes: portfolio.
+	self assert: account parentAssets includes: portfolio2.
+	
+
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test16bis2TwoDisjointPortfoliosCanUseSameAccount stamp: 'EMI 11/8/2020 17:40:24'!
+test16bis2TwoDisjointPortfoliosCanUseSameAccount
+	| portfolio portfolio2 account|
+	
+	portfolio _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account _ ReceptiveAccount new.
+	
+	self assert: (portfolio add: account).
+	self assert: (portfolio2 add: account).
+	self assert: account parentAssets includes: portfolio.
+	self assert: account parentAssets includes: portfolio2.
+	
+
+
+	 
+!
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 17:40:42'!
+test19CannotUniteTwoDisjointPortfoliosWithSameAccount
+	| portfolio portfolio2 portfolioRoot account|
+	
+	portfolio _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	portfolioRoot _ Portfolio new.
+	account _ ReceptiveAccount new.
+	
+	self assert: (portfolio add: account).
+	self assert: (portfolio2 add: account).
+	self assert: (portfolioRoot add: portfolio).
+	self deny: (portfolioRoot add: portfolio2).
+	
+
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test16bis3CannotUniteTwoDisjointPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 17:40:42'!
+test16bis3CannotUniteTwoDisjointPortfoliosWithSameAccount
+	| portfolio portfolio2 portfolioRoot account|
+	
+	portfolio _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	portfolioRoot _ Portfolio new.
+	account _ ReceptiveAccount new.
+	
+	self assert: (portfolio add: account).
+	self assert: (portfolio2 add: account).
+	self assert: (portfolioRoot add: portfolio).
+	self deny: (portfolioRoot add: portfolio2).
+	
+
+
+	 
+!
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 17:40:51'!
+test20TwoDisjointPortfoliosCanHaveSameChildPortfolio
+	| portfolio portfolio2 portfolioChild|
+	
+	portfolio _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	portfolioChild _ Portfolio new.
+	
+	self assert: (portfolio add: portfolioChild).
+	self assert: (portfolio2 add: portfolioChild).
+	self assert: portfolioChild parentAssets includes: portfolio.
+	self assert: portfolioChild parentAssets includes: portfolio2.
+	
+
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test16bis4TwoDisjointPortfoliosCanHaveSameChildPortfolio stamp: 'EMI 11/8/2020 17:40:51'!
+test16bis4TwoDisjointPortfoliosCanHaveSameChildPortfolio
+	| portfolio portfolio2 portfolioChild|
+	
+	portfolio _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	portfolioChild _ Portfolio new.
+	
+	self assert: (portfolio add: portfolioChild).
+	self assert: (portfolio2 add: portfolioChild).
+	self assert: portfolioChild parentAssets includes: portfolio.
+	self assert: portfolioChild parentAssets includes: portfolio2.
+	
+
+
+	 
+!
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 17:41:01'!
+test21CannotUniteTwoDisjointPortfoliosWithSameChildPortfolio
+	| portfolio portfolio2 portfolioRoot portfolioChild |
+	
+	portfolio _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	portfolioRoot _ Portfolio new.
+	portfolioChild _ Portfolio new.
+	
+	self assert: (portfolio add: portfolioChild).
+	self assert: (portfolio2 add: portfolioChild).
+	self assert: (portfolioRoot add: portfolio).
+	self deny: (portfolioRoot add: portfolio2).
+	
+
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test16bis5CannotUniteTwoDisjointPortfoliosWithSameChildPortfolio stamp: 'EMI 11/8/2020 17:41:01'!
+test16bis5CannotUniteTwoDisjointPortfoliosWithSameChildPortfolio
+	| portfolio portfolio2 portfolioRoot portfolioChild |
+	
+	portfolio _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	portfolioRoot _ Portfolio new.
+	portfolioChild _ Portfolio new.
+	
+	self assert: (portfolio add: portfolioChild).
+	self assert: (portfolio2 add: portfolioChild).
+	self assert: (portfolioRoot add: portfolio).
+	self deny: (portfolioRoot add: portfolio2).
+	
+
+
+	 
+!
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 17:41:32'!
+test22PortfolioCannotAddBothGrandChildrenPortfoliosWithSameAccount
+	| portfolio portfolioChildLeft portfolioChildRight portfolioGrandChildLeft portfolioGrandChildRight account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildLeft _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	
+	portfolioGrandChildLeft _ Portfolio new.
+	self assert: (portfolioGrandChildLeft add: account).
+	
+	portfolioGrandChildRight _ Portfolio new.
+	self assert: (portfolioGrandChildRight add: account).
+	
+	self assert: (portfolio add: portfolioChildLeft).
+	self assert: (portfolio add: portfolioChildRight).
+	self assert: (portfolioChildLeft add: portfolioGrandChildLeft).
+	self deny: (portfolioChildRight add: portfolioGrandChildRight).
+
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test23PortfolioCannotAddBothGrandChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 17:41:32'!
+test23PortfolioCannotAddBothGrandChildrenPortfoliosWithSameAccount
+	| portfolio portfolioChildLeft portfolioChildRight portfolioGrandChildLeft portfolioGrandChildRight account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildLeft _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	
+	portfolioGrandChildLeft _ Portfolio new.
+	self assert: (portfolioGrandChildLeft add: account).
+	
+	portfolioGrandChildRight _ Portfolio new.
+	self assert: (portfolioGrandChildRight add: account).
+	
+	self assert: (portfolio add: portfolioChildLeft).
+	self assert: (portfolio add: portfolioChildRight).
+	self assert: (portfolioChildLeft add: portfolioGrandChildLeft).
+	self deny: (portfolioChildRight add: portfolioGrandChildRight).
+
+
+	 
+!
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 17:41:39'!
+test23PortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild
+	| portfolio portfolioChildLeft portfolioChildRight portfolioGrandChildRight account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildLeft _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	
+	self assert: (portfolioChildLeft add: account).
+	
+	portfolioGrandChildRight _ Portfolio new.
+	self assert: (portfolioGrandChildRight add: account).
+	
+	self assert: (portfolio add: portfolioChildLeft).
+	self assert: (portfolio add: portfolioChildRight).
+	self deny: (portfolioChildRight add: portfolioGrandChildRight).
+
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test24PortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild stamp: 'EMI 11/8/2020 17:41:39'!
+test24PortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild
+	| portfolio portfolioChildLeft portfolioChildRight portfolioGrandChildRight account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildLeft _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	
+	self assert: (portfolioChildLeft add: account).
+	
+	portfolioGrandChildRight _ Portfolio new.
+	self assert: (portfolioGrandChildRight add: account).
+	
+	self assert: (portfolio add: portfolioChildLeft).
+	self assert: (portfolio add: portfolioChildRight).
+	self deny: (portfolioChildRight add: portfolioGrandChildRight).
+
+
+	 
+!
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 17:41:46'!
+test24PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithAParentWithSameAccount
+	| portfolioRoot portfolioChildWithAccount portfolioChildWithoutAccount 
+	portfolioToAdd portfolioWithSameAccount account|
+	
+	portfolioRoot _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildWithoutAccount _ Portfolio new.
+	
+	portfolioChildWithAccount _ Portfolio new.
+	self assert: (portfolioChildWithAccount add: account).
+	
+	portfolioToAdd _ Portfolio new.
+	portfolioWithSameAccount _ Portfolio new.
+	self assert: (portfolioWithSameAccount add: account).
+	self assert: (portfolioWithSameAccount add: portfolioToAdd).
+	
+	self assert: (portfolioRoot add: portfolioChildWithoutAccount).
+	self assert: (portfolioRoot add: portfolioChildWithAccount).
+	self deny: (portfolioRoot add: portfolioToAdd).
+
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test25PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithAParentWithSameAccount stamp: 'EMI 11/8/2020 17:41:46'!
+test25PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithAParentWithSameAccount
+	| portfolioRoot portfolioChildWithAccount portfolioChildWithoutAccount 
+	portfolioToAdd portfolioWithSameAccount account|
+	
+	portfolioRoot _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildWithoutAccount _ Portfolio new.
+	
+	portfolioChildWithAccount _ Portfolio new.
+	self assert: (portfolioChildWithAccount add: account).
+	
+	portfolioToAdd _ Portfolio new.
+	portfolioWithSameAccount _ Portfolio new.
+	self assert: (portfolioWithSameAccount add: account).
+	self assert: (portfolioWithSameAccount add: portfolioToAdd).
+	
+	self assert: (portfolioRoot add: portfolioChildWithoutAccount).
+	self assert: (portfolioRoot add: portfolioChildWithAccount).
+	self deny: (portfolioRoot add: portfolioToAdd).
+
+
+	 
+!
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 17:41:54'!
+test25PortfolioWith2GrandChildrenPortfoliosCannotAddAThirdWithAGrandParentWithSameAccount
+	| portfolioRoot portfolioChildLeft portfolioChildRight 
+	portfolioGrandChildRight portfolioGrandChildLeft 
+	portfolioRootAnotherTree portfolioChildAnotherTree portfolioGrandChildAnotherTree account|
+	
+	portfolioRoot _ Portfolio new.
+	portfolioRootAnotherTree  _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	self assert: (portfolioRoot add: account).
+	self assert: (portfolioRootAnotherTree add: account).
+	
+	portfolioChildLeft  _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	self assert: (portfolioRoot add: portfolioChildLeft).
+	self assert: (portfolioRoot add: portfolioChildRight).
+	
+	portfolioGrandChildLeft _ Portfolio new.
+	portfolioGrandChildRight _ Portfolio new.
+	self assert: (portfolioChildLeft add: portfolioGrandChildLeft ).
+	self assert: (portfolioChildRight add: portfolioGrandChildRight).
+	
+	portfolioChildAnotherTree _ Portfolio new.
+	self assert: (portfolioRootAnotherTree add: portfolioChildAnotherTree).
+	
+	portfolioGrandChildAnotherTree _ Portfolio new.
+	self assert: (portfolioChildAnotherTree add: portfolioGrandChildAnotherTree ).
+	
+	self deny: (portfolioGrandChildRight add: portfolioGrandChildAnotherTree).
+	
+
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test26PortfolioWith2GrandChildrenPortfoliosCannotAddAThirdWithAGrandParentWithSameAccount stamp: 'EMI 11/8/2020 17:41:54'!
+test26PortfolioWith2GrandChildrenPortfoliosCannotAddAThirdWithAGrandParentWithSameAccount
+	| portfolioRoot portfolioChildLeft portfolioChildRight 
+	portfolioGrandChildRight portfolioGrandChildLeft 
+	portfolioRootAnotherTree portfolioChildAnotherTree portfolioGrandChildAnotherTree account|
+	
+	portfolioRoot _ Portfolio new.
+	portfolioRootAnotherTree  _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	self assert: (portfolioRoot add: account).
+	self assert: (portfolioRootAnotherTree add: account).
+	
+	portfolioChildLeft  _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	self assert: (portfolioRoot add: portfolioChildLeft).
+	self assert: (portfolioRoot add: portfolioChildRight).
+	
+	portfolioGrandChildLeft _ Portfolio new.
+	portfolioGrandChildRight _ Portfolio new.
+	self assert: (portfolioChildLeft add: portfolioGrandChildLeft ).
+	self assert: (portfolioChildRight add: portfolioGrandChildRight).
+	
+	portfolioChildAnotherTree _ Portfolio new.
+	self assert: (portfolioRootAnotherTree add: portfolioChildAnotherTree).
+	
+	portfolioGrandChildAnotherTree _ Portfolio new.
+	self assert: (portfolioChildAnotherTree add: portfolioGrandChildAnotherTree ).
+	
+	self deny: (portfolioGrandChildRight add: portfolioGrandChildAnotherTree).
+	
+
+
+	 
+!
+
+----SNAPSHOT----(8 November 2020 17:41:57) CuisUniversity-4383.image priorSource: 18161475!
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 17:45:32'!
+test12bisPortfolioHasOneGrandChildPortfolioWithAnAccountAndADepositRegistered
+	| portfolio portfolioChild account transaction |
+	portfolio _ Portfolio new.
+	portfolioChild _ Portfolio new.
+	account _  ReceptiveAccount new.
+	transaction _ Deposit register: 100 on: account. 
+	
+	self assert: (portfolioChild add: account).
+	self assert: (portfolio add: portfolioChild).
+	self assert: (portfolio hasRegistered: transaction).
+	self assert: (portfolio transactions size) equals: 1.
+	self assert: (portfolio transactions includes: transaction).
+
+	 
+! !
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 17:46:29' prior: 50900213!
+test12bisPortfolioHasOneGrandChildPortfolioWithAnAccountAndADepositRegistered
+	| portfolio portfolioChild portfolioGrandChildLeft portfolioGrandChildRight account transaction |
+	portfolio _ Portfolio new.
+	portfolioChild _ Portfolio new.
+	portfolioGrandChildLeft _ Portfolio new.
+	portfolioGrandChildRight _ Portfolio new.
+	account _  ReceptiveAccount new.
+	transaction _ Deposit register: 100 on: account. 
+	
+	self assert: (portfolioChild add: account).
+	self assert: (portfolio add: portfolioChild).
+	self assert: (portfolio hasRegistered: transaction).
+	self assert: (portfolio transactions size) equals: 1.
+	self assert: (portfolio transactions includes: transaction).
+
+	 
+! !
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 17:47:55' prior: 50900234!
+test12bisPortfolioHasOneGrandChildPortfolioWithAnAccountAndADepositRegistered
+	| portfolio portfolioChild portfolioGrandChild account transaction |
+	portfolio _ Portfolio new.
+	portfolioChild _ Portfolio new.
+	portfolioGrandChild _ Portfolio new.
+	account _  ReceptiveAccount new.
+	transaction _ Deposit register: 100 on: account. 
+	
+	self assert: (portfolioGrandChild add: account).
+	self assert: (portfolioChild add: portfolioGrandChild).
+	self assert: (portfolio add: portfolioChild).
+	self assert: (portfolio hasRegistered: transaction).
+	self assert: (portfolio transactions size) equals: 1.
+	self assert: (portfolio transactions includes: transaction).
+
+	 
+! !
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 17:48:32' prior: 50900259!
+test12bisPortfolioHasOneGrandChildPortfolioWithAnAccountAndADepositRegistered
+	| portfolio portfolioChild portfolioGrandChild account transaction |
+	portfolio _ Portfolio new.
+	portfolioChild _ Portfolio new.
+	portfolioGrandChild _ Portfolio new.
+	account _  ReceptiveAccount new.
+	transaction _ Deposit register: 100 on: account. 
+	
+	self assert: (portfolioGrandChild add: account).
+	self assert: (portfolioChild add: portfolioGrandChild).
+	self assert: (portfolio add: portfolioChild).
+	self assert: (portfolio balance ) equals: 100.
+	self assert: (portfolio hasRegistered: transaction).
+	self assert: (portfolio transactions size) equals: 1.
+	self assert: (portfolio transactions includes: transaction).
+
+	 
+! !
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 17:50:19'!
+test13bisPortfolioHasMoreThanOneGrandChildPortfolioWithAnAccountAndADepositRegistered
+	| portfolio portfolioChildLeft  portfolioChildRight account1 account2 transaction1 transaction2|
+	portfolio _ Portfolio new.
+	portfolioChildLeft _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	account1 _  ReceptiveAccount new.
+	account2 _  ReceptiveAccount new.
+	transaction1 _ Deposit register: 100 on: account1.
+	transaction2 _ Deposit register: 100 on: account2.
+	
+	self assert: (portfolioChildLeft add: account1).
+	self assert: (portfolioChildRight add: account2).
+	self assert: (portfolio add: portfolioChildLeft).
+	self assert: (portfolio add: portfolioChildRight).
+	self assert: (portfolio hasRegistered: transaction1).
+	self assert: (portfolio hasRegistered: transaction2).
+	self assert: (portfolio transactions size) equals: 2.
+	self assert: (portfolio transactions includes: transaction1).
+	self assert: (portfolio transactions includes: transaction2).
+	 
+! !
+
+!methodRemoval: PortfolioTest #test13PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 17:50:19'!
+test13PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADepositRegistered
+	| portfolio portfolioChildLeft  portfolioChildRight account1 account2 transaction1 transaction2|
+	portfolio _ Portfolio new.
+	portfolioChildLeft _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	account1 _  ReceptiveAccount new.
+	account2 _  ReceptiveAccount new.
+	transaction1 _ Deposit register: 100 on: account1.
+	transaction2 _ Deposit register: 100 on: account2.
+	
+	self assert: (portfolioChildLeft add: account1).
+	self assert: (portfolioChildRight add: account2).
+	self assert: (portfolio add: portfolioChildLeft).
+	self assert: (portfolio add: portfolioChildRight).
+	self assert: (portfolio hasRegistered: transaction1).
+	self assert: (portfolio hasRegistered: transaction2).
+	self assert: (portfolio transactions size) equals: 2.
+	self assert: (portfolio transactions includes: transaction1).
+	self assert: (portfolio transactions includes: transaction2).
+	 
+!
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 17:52:54' prior: 50900308!
+test13bisPortfolioHasMoreThanOneGrandChildPortfolioWithAnAccountAndADepositRegistered
+	| portfolio portfolioChild portfolioGrandChildLeft  portfolioGrandChildRight account1 account2 transaction1 transaction2|
+	portfolio _ Portfolio new.
+	portfolioChild _ Portfolio new.
+	portfolioGrandChildLeft _ Portfolio new.
+	portfolioGrandChildRight _ Portfolio new.
+	account1 _  ReceptiveAccount new.
+	account2 _  ReceptiveAccount new.
+	transaction1 _ Deposit register: 100 on: account1.
+	transaction2 _ Deposit register: 100 on: account2.
+	
+	self assert: (portfolioGrandChildLeft add: account1).
+	self assert: (portfolioGrandChildRight add: account2).
+	self assert: (portfolioChild add: portfolioGrandChildLeft ).
+	self assert: (portfolioChild add: portfolioGrandChildRight ).
+	self assert: (portfolio add: portfolioChild).
+	self assert: (portfolio balance ) equals: 200.
+	self assert: (portfolio hasRegistered: transaction1).
+	self assert: (portfolio hasRegistered: transaction2).
+	self assert: (portfolio transactions size) equals: 2.
+	self assert: (portfolio transactions includes: transaction1).
+	self assert: (portfolio transactions includes: transaction2).
+	 
+! !
+
+----SNAPSHOT----(8 November 2020 17:53:04) CuisUniversity-4383.image priorSource: 18193886!
+
+!testRun: #PortfolioTest #test01NewPortfolioHasNoAccountsAndNoPortfolios stamp: 'EMI 11/8/2020 17:53:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioAddEmptyAccount stamp: 'EMI 11/8/2020 17:53:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioAddEmptyPortfolio stamp: 'EMI 11/8/2020 17:53:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioHasNoRegisteredTransactions stamp: 'EMI 11/8/2020 17:53:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOneAccountWithOneRegisteredTransaction stamp: 'EMI 11/8/2020 17:53:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioMoreThanOneAccountWithRegisteredTransactions stamp: 'EMI 11/8/2020 17:53:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test07EmptyPortfolioHasNoTransactions stamp: 'EMI 11/8/2020 17:53:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioWithOneAccountHasOneTransaction stamp: 'EMI 11/8/2020 17:53:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithMoreThanOneAccountHasMoreThanOneTransactions stamp: 'EMI 11/8/2020 17:53:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioHasOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 17:53:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 17:53:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioHasOneChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 17:53:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test12bisPortfolioHasOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 17:53:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test13bisPortfolioHasMoreThanOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 17:53:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioCannotAddSameEmptyAssetTwice stamp: 'EMI 11/8/2020 17:53:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCannotAddChildPortfolioWithSameAccount stamp: 'EMI 11/8/2020 17:53:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCannotAddBothChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 17:53:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount stamp: 'EMI 11/8/2020 17:53:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test18TwoDisjointPortfoliosCanUseSameAccount stamp: 'EMI 11/8/2020 17:53:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotUniteTwoDisjointPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 17:53:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test20TwoDisjointPortfoliosCanHaveSameChildPortfolio stamp: 'EMI 11/8/2020 17:53:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test21CannotUniteTwoDisjointPortfoliosWithSameChildPortfolio stamp: 'EMI 11/8/2020 17:53:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test22PortfolioCannotAddBothGrandChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 17:53:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test23PortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild stamp: 'EMI 11/8/2020 17:53:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test24PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithAParentWithSameAccount stamp: 'EMI 11/8/2020 17:53:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test25PortfolioWith2GrandChildrenPortfoliosCannotAddAThirdWithAGrandParentWithSameAccount stamp: 'EMI 11/8/2020 17:53:08'!
+PASSED!
+!PortfolioTest methodsFor: 'private' stamp: 'EMI 11/8/2020 17:54:24'!
+assertAdd: anAsset To: anotherAsset
+	self assert: (anotherAsset add: anAsset).! !
+!PortfolioTest methodsFor: 'private' stamp: 'EMI 11/8/2020 17:54:59'!
+denyAdd: anAsset To: anotherAsset
+	self deny: (anotherAsset add: anAsset).! !
+!PortfolioTest methodsFor: 'test initialization' stamp: 'EMI 11/8/2020 17:55:24' prior: 50898482!
+test02PortfolioAddEmptyAccount
+	| portfolio account|
+	portfolio _ Portfolio new.
+	account _ ReceptiveAccount new.
+	
+	self assertAdd: account To: portfolio.
+	self assert: portfolio balance equals: 0.
+	self assert: portfolio parentAssets isEmpty.
+	self assert: account parentAssets size equals: 1.
+	self assert: account parentAssets includes: portfolio.! !
+
+!testRun: #PortfolioTest #test02PortfolioAddEmptyAccount stamp: 'EMI 11/8/2020 17:55:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test01NewPortfolioHasNoAccountsAndNoPortfolios stamp: 'EMI 11/8/2020 17:55:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioAddEmptyAccount stamp: 'EMI 11/8/2020 17:55:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioAddEmptyPortfolio stamp: 'EMI 11/8/2020 17:55:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioHasNoRegisteredTransactions stamp: 'EMI 11/8/2020 17:55:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOneAccountWithOneRegisteredTransaction stamp: 'EMI 11/8/2020 17:55:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioMoreThanOneAccountWithRegisteredTransactions stamp: 'EMI 11/8/2020 17:55:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test07EmptyPortfolioHasNoTransactions stamp: 'EMI 11/8/2020 17:55:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioWithOneAccountHasOneTransaction stamp: 'EMI 11/8/2020 17:55:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithMoreThanOneAccountHasMoreThanOneTransactions stamp: 'EMI 11/8/2020 17:55:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioHasOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 17:55:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 17:55:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioHasOneChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 17:55:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test12bisPortfolioHasOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 17:55:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test13bisPortfolioHasMoreThanOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 17:55:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioCannotAddSameEmptyAssetTwice stamp: 'EMI 11/8/2020 17:55:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCannotAddChildPortfolioWithSameAccount stamp: 'EMI 11/8/2020 17:55:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCannotAddBothChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 17:55:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount stamp: 'EMI 11/8/2020 17:55:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test18TwoDisjointPortfoliosCanUseSameAccount stamp: 'EMI 11/8/2020 17:55:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotUniteTwoDisjointPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 17:55:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test20TwoDisjointPortfoliosCanHaveSameChildPortfolio stamp: 'EMI 11/8/2020 17:55:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test21CannotUniteTwoDisjointPortfoliosWithSameChildPortfolio stamp: 'EMI 11/8/2020 17:55:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test22PortfolioCannotAddBothGrandChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 17:55:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test23PortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild stamp: 'EMI 11/8/2020 17:55:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test24PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithAParentWithSameAccount stamp: 'EMI 11/8/2020 17:55:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test25PortfolioWith2GrandChildrenPortfoliosCannotAddAThirdWithAGrandParentWithSameAccount stamp: 'EMI 11/8/2020 17:55:26'!
+PASSED!
+!PortfolioTest methodsFor: 'test initialization' stamp: 'EMI 11/8/2020 17:55:49' prior: 50898496!
+test03PortfolioAddEmptyPortfolio
+	| portfolio portfolioChild |
+	portfolio _ Portfolio new.
+	portfolioChild _ Portfolio new.
+	
+	self assertAdd: portfolioChild To: portfolio.
+	self assert: portfolio balance equals: 0.
+	self assert: portfolio parentAssets isEmpty.
+	self assert: portfolioChild parentAssets size equals: 1.
+	self assert: portfolioChild parentAssets includes: portfolio.! !
+
+!testRun: #PortfolioTest #test03PortfolioAddEmptyPortfolio stamp: 'EMI 11/8/2020 17:55:50'!
+PASSED!
+
+!testRun: #PortfolioTest #test01NewPortfolioHasNoAccountsAndNoPortfolios stamp: 'EMI 11/8/2020 17:55:50'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioAddEmptyAccount stamp: 'EMI 11/8/2020 17:55:50'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioAddEmptyPortfolio stamp: 'EMI 11/8/2020 17:55:50'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioHasNoRegisteredTransactions stamp: 'EMI 11/8/2020 17:55:50'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOneAccountWithOneRegisteredTransaction stamp: 'EMI 11/8/2020 17:55:50'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioMoreThanOneAccountWithRegisteredTransactions stamp: 'EMI 11/8/2020 17:55:50'!
+PASSED!
+
+!testRun: #PortfolioTest #test07EmptyPortfolioHasNoTransactions stamp: 'EMI 11/8/2020 17:55:50'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioWithOneAccountHasOneTransaction stamp: 'EMI 11/8/2020 17:55:50'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithMoreThanOneAccountHasMoreThanOneTransactions stamp: 'EMI 11/8/2020 17:55:50'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioHasOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 17:55:50'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 17:55:50'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioHasOneChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 17:55:50'!
+PASSED!
+
+!testRun: #PortfolioTest #test12bisPortfolioHasOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 17:55:50'!
+PASSED!
+
+!testRun: #PortfolioTest #test13bisPortfolioHasMoreThanOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 17:55:50'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioCannotAddSameEmptyAssetTwice stamp: 'EMI 11/8/2020 17:55:50'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCannotAddChildPortfolioWithSameAccount stamp: 'EMI 11/8/2020 17:55:50'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCannotAddBothChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 17:55:50'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount stamp: 'EMI 11/8/2020 17:55:50'!
+PASSED!
+
+!testRun: #PortfolioTest #test18TwoDisjointPortfoliosCanUseSameAccount stamp: 'EMI 11/8/2020 17:55:50'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotUniteTwoDisjointPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 17:55:50'!
+PASSED!
+
+!testRun: #PortfolioTest #test20TwoDisjointPortfoliosCanHaveSameChildPortfolio stamp: 'EMI 11/8/2020 17:55:50'!
+PASSED!
+
+!testRun: #PortfolioTest #test21CannotUniteTwoDisjointPortfoliosWithSameChildPortfolio stamp: 'EMI 11/8/2020 17:55:50'!
+PASSED!
+
+!testRun: #PortfolioTest #test22PortfolioCannotAddBothGrandChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 17:55:50'!
+PASSED!
+
+!testRun: #PortfolioTest #test23PortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild stamp: 'EMI 11/8/2020 17:55:50'!
+PASSED!
+
+!testRun: #PortfolioTest #test24PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithAParentWithSameAccount stamp: 'EMI 11/8/2020 17:55:50'!
+PASSED!
+
+!testRun: #PortfolioTest #test25PortfolioWith2GrandChildrenPortfoliosCannotAddAThirdWithAGrandParentWithSameAccount stamp: 'EMI 11/8/2020 17:55:50'!
+PASSED!
+!PortfolioTest methodsFor: 'tests has registered' stamp: 'EMI 11/8/2020 17:56:42' prior: 50892124!
+test05PortfolioHasOneAccountWithOneRegisteredTransaction
+	| portfolio account transaction|
+	portfolio _ Portfolio new.
+	account _ ReceptiveAccount new.
+	transaction _ Deposit register: 100 on: account.
+	
+	self assertAdd: account To: portfolio.
+	self assert: (portfolio hasRegistered: transaction).
+	self assert: portfolio balance equals: 100.! !
+
+!testRun: #PortfolioTest #test05PortfolioHasOneAccountWithOneRegisteredTransaction stamp: 'EMI 11/8/2020 17:56:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test01NewPortfolioHasNoAccountsAndNoPortfolios stamp: 'EMI 11/8/2020 17:56:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioAddEmptyAccount stamp: 'EMI 11/8/2020 17:56:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioAddEmptyPortfolio stamp: 'EMI 11/8/2020 17:56:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioHasNoRegisteredTransactions stamp: 'EMI 11/8/2020 17:56:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOneAccountWithOneRegisteredTransaction stamp: 'EMI 11/8/2020 17:56:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioMoreThanOneAccountWithRegisteredTransactions stamp: 'EMI 11/8/2020 17:56:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test07EmptyPortfolioHasNoTransactions stamp: 'EMI 11/8/2020 17:56:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioWithOneAccountHasOneTransaction stamp: 'EMI 11/8/2020 17:56:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithMoreThanOneAccountHasMoreThanOneTransactions stamp: 'EMI 11/8/2020 17:56:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioHasOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 17:56:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 17:56:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioHasOneChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 17:56:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test12bisPortfolioHasOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 17:56:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test13bisPortfolioHasMoreThanOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 17:56:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioCannotAddSameEmptyAssetTwice stamp: 'EMI 11/8/2020 17:56:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCannotAddChildPortfolioWithSameAccount stamp: 'EMI 11/8/2020 17:56:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCannotAddBothChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 17:56:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount stamp: 'EMI 11/8/2020 17:56:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test18TwoDisjointPortfoliosCanUseSameAccount stamp: 'EMI 11/8/2020 17:56:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotUniteTwoDisjointPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 17:56:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test20TwoDisjointPortfoliosCanHaveSameChildPortfolio stamp: 'EMI 11/8/2020 17:56:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test21CannotUniteTwoDisjointPortfoliosWithSameChildPortfolio stamp: 'EMI 11/8/2020 17:56:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test22PortfolioCannotAddBothGrandChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 17:56:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test23PortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild stamp: 'EMI 11/8/2020 17:56:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test24PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithAParentWithSameAccount stamp: 'EMI 11/8/2020 17:56:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test25PortfolioWith2GrandChildrenPortfoliosCannotAddAThirdWithAGrandParentWithSameAccount stamp: 'EMI 11/8/2020 17:56:44'!
+PASSED!
+!PortfolioTest methodsFor: 'tests has registered' stamp: 'EMI 11/8/2020 17:57:10' prior: 50897577!
+test06PortfolioMoreThanOneAccountWithRegisteredTransactions
+	| portfolio account1 account2 transaction1 transaction2|
+	portfolio _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	account2 _ ReceptiveAccount new.
+	transaction1 _ Deposit register: 100 on: account1.
+	transaction2 _ Deposit register: 50 on: account2.
+	
+	self assertAdd: account1 To: portfolio.
+	self assertAdd: account2 To: portfolio.
+	self assert: (portfolio hasRegistered: transaction1).
+	self assert: (portfolio hasRegistered: transaction2).
+	self assert: portfolio balance equals: 150.! !
+!PortfolioTest methodsFor: 'tests transactions' stamp: 'EMI 11/8/2020 17:57:31' prior: 50892158!
+test08PortfolioWithOneAccountHasOneTransaction
+	| portfolio account deposit |
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	deposit _ Deposit register: 100 on: account.
+	
+	self assertAdd: account To: portfolio.
+	self assert: portfolio transactions size equals: 1.
+	self assert: (portfolio transactions includes: deposit).
+	self assert: portfolio balance equals: 100.! !
+!PortfolioTest methodsFor: 'tests transactions' stamp: 'EMI 11/8/2020 17:57:54' prior: 50892173!
+test09PortfolioWithMoreThanOneAccountHasMoreThanOneTransactions
+	| portfolio account1 account2 deposit withdraw |
+	portfolio _ Portfolio new.
+	account1 _  ReceptiveAccount new.
+	account2 _  ReceptiveAccount new.
+	deposit _ Deposit register: 100 on: account1.
+	withdraw _ Withdraw register: 50 on: account2.
+	
+	self assertAdd: account1 To: portfolio.
+	self assertAdd: account2 To: portfolio.
+	self assert: portfolio transactions size equals: 2.
+	self assert: (portfolio transactions includes: deposit).
+	self assert: (portfolio transactions includes: withdraw ).
+	self assert: portfolio balance equals: 50.! !
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 17:59:05' prior: 50897598!
+test10PortfolioHasOneChildPortfolioWithAnAccountAndADeposit
+	| portfolio portfolioChild account|
+	portfolio _ Portfolio new.
+	portfolioChild _ Portfolio new.
+	account _  ReceptiveAccount new.
+	Deposit register: 100 on: account. 
+	
+	self assertAdd: account To: portfolioChild. 
+	self assertAdd: portfolioChild To: portfolio.
+	self assert: portfolioChild balance equals: 100.
+	self assert: portfolio balance equals: 100.
+
+	 
+! !
+
+!testRun: #PortfolioTest #test10PortfolioHasOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 17:59:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test01NewPortfolioHasNoAccountsAndNoPortfolios stamp: 'EMI 11/8/2020 17:59:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioAddEmptyAccount stamp: 'EMI 11/8/2020 17:59:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioAddEmptyPortfolio stamp: 'EMI 11/8/2020 17:59:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioHasNoRegisteredTransactions stamp: 'EMI 11/8/2020 17:59:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOneAccountWithOneRegisteredTransaction stamp: 'EMI 11/8/2020 17:59:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioMoreThanOneAccountWithRegisteredTransactions stamp: 'EMI 11/8/2020 17:59:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test07EmptyPortfolioHasNoTransactions stamp: 'EMI 11/8/2020 17:59:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioWithOneAccountHasOneTransaction stamp: 'EMI 11/8/2020 17:59:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithMoreThanOneAccountHasMoreThanOneTransactions stamp: 'EMI 11/8/2020 17:59:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioHasOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 17:59:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 17:59:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioHasOneChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 17:59:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test12bisPortfolioHasOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 17:59:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test13bisPortfolioHasMoreThanOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 17:59:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioCannotAddSameEmptyAssetTwice stamp: 'EMI 11/8/2020 17:59:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCannotAddChildPortfolioWithSameAccount stamp: 'EMI 11/8/2020 17:59:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCannotAddBothChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 17:59:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount stamp: 'EMI 11/8/2020 17:59:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test18TwoDisjointPortfoliosCanUseSameAccount stamp: 'EMI 11/8/2020 17:59:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotUniteTwoDisjointPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 17:59:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test20TwoDisjointPortfoliosCanHaveSameChildPortfolio stamp: 'EMI 11/8/2020 17:59:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test21CannotUniteTwoDisjointPortfoliosWithSameChildPortfolio stamp: 'EMI 11/8/2020 17:59:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test22PortfolioCannotAddBothGrandChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 17:59:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test23PortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild stamp: 'EMI 11/8/2020 17:59:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test24PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithAParentWithSameAccount stamp: 'EMI 11/8/2020 17:59:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test25PortfolioWith2GrandChildrenPortfoliosCannotAddAThirdWithAGrandParentWithSameAccount stamp: 'EMI 11/8/2020 17:59:05'!
+PASSED!
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 18:00:30' prior: 50897690!
+test11PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADeposit
+	| portfolio portfolioChildLeft  portfolioChildRight account account2|
+	portfolio _ Portfolio new.
+	portfolioChildLeft _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	account _  ReceptiveAccount new.
+	account2 _  ReceptiveAccount new.
+	Deposit register: 100 on: account.
+	Deposit register: 100 on: account2.
+	
+	self assertAdd: account To: portfolioChildLeft. 
+	self assertAdd: account2 To: portfolioChildRight.
+	self assertAdd: portfolioChildLeft To: portfolio.
+	self assertAdd: portfolioChildRight To: portfolio.
+	self assert: portfolioChildLeft balance equals: 100.
+	self assert: portfolioChildRight balance equals: 100.
+	self assert: portfolio balance equals: 200.
+	 
+! !
+
+!testRun: #PortfolioTest #test11PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 18:00:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test01NewPortfolioHasNoAccountsAndNoPortfolios stamp: 'EMI 11/8/2020 18:00:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioAddEmptyAccount stamp: 'EMI 11/8/2020 18:00:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioAddEmptyPortfolio stamp: 'EMI 11/8/2020 18:00:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioHasNoRegisteredTransactions stamp: 'EMI 11/8/2020 18:00:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOneAccountWithOneRegisteredTransaction stamp: 'EMI 11/8/2020 18:00:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioMoreThanOneAccountWithRegisteredTransactions stamp: 'EMI 11/8/2020 18:00:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test07EmptyPortfolioHasNoTransactions stamp: 'EMI 11/8/2020 18:00:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioWithOneAccountHasOneTransaction stamp: 'EMI 11/8/2020 18:00:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithMoreThanOneAccountHasMoreThanOneTransactions stamp: 'EMI 11/8/2020 18:00:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioHasOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 18:00:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 18:00:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioHasOneChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:00:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test12bisPortfolioHasOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:00:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test13bisPortfolioHasMoreThanOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:00:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioCannotAddSameEmptyAssetTwice stamp: 'EMI 11/8/2020 18:00:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCannotAddChildPortfolioWithSameAccount stamp: 'EMI 11/8/2020 18:00:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCannotAddBothChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:00:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount stamp: 'EMI 11/8/2020 18:00:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test18TwoDisjointPortfoliosCanUseSameAccount stamp: 'EMI 11/8/2020 18:00:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotUniteTwoDisjointPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:00:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test20TwoDisjointPortfoliosCanHaveSameChildPortfolio stamp: 'EMI 11/8/2020 18:00:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test21CannotUniteTwoDisjointPortfoliosWithSameChildPortfolio stamp: 'EMI 11/8/2020 18:00:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test22PortfolioCannotAddBothGrandChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:00:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test23PortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild stamp: 'EMI 11/8/2020 18:00:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test24PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithAParentWithSameAccount stamp: 'EMI 11/8/2020 18:00:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test25PortfolioWith2GrandChildrenPortfoliosCannotAddAThirdWithAGrandParentWithSameAccount stamp: 'EMI 11/8/2020 18:00:31'!
+PASSED!
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 18:01:12' prior: 50897717!
+test12PortfolioHasOneChildPortfolioWithAnAccountAndADepositRegistered
+	| portfolio portfolioChild account transaction |
+	portfolio _ Portfolio new.
+	portfolioChild _ Portfolio new.
+	account _  ReceptiveAccount new.
+	transaction _ Deposit register: 100 on: account. 
+	
+	self assertAdd: account To: portfolioChild.
+	self assertAdd: portfolioChild To: portfolio.
+	self assert: (portfolio hasRegistered: transaction).
+	self assert: (portfolio transactions size) equals: 1.
+	self assert: (portfolio transactions includes: transaction).
+
+	 
+! !
+
+!testRun: #PortfolioTest #test12PortfolioHasOneChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:01:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test01NewPortfolioHasNoAccountsAndNoPortfolios stamp: 'EMI 11/8/2020 18:01:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioAddEmptyAccount stamp: 'EMI 11/8/2020 18:01:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioAddEmptyPortfolio stamp: 'EMI 11/8/2020 18:01:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioHasNoRegisteredTransactions stamp: 'EMI 11/8/2020 18:01:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOneAccountWithOneRegisteredTransaction stamp: 'EMI 11/8/2020 18:01:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioMoreThanOneAccountWithRegisteredTransactions stamp: 'EMI 11/8/2020 18:01:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test07EmptyPortfolioHasNoTransactions stamp: 'EMI 11/8/2020 18:01:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioWithOneAccountHasOneTransaction stamp: 'EMI 11/8/2020 18:01:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithMoreThanOneAccountHasMoreThanOneTransactions stamp: 'EMI 11/8/2020 18:01:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioHasOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 18:01:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 18:01:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioHasOneChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:01:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test12bisPortfolioHasOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:01:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test13bisPortfolioHasMoreThanOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:01:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioCannotAddSameEmptyAssetTwice stamp: 'EMI 11/8/2020 18:01:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCannotAddChildPortfolioWithSameAccount stamp: 'EMI 11/8/2020 18:01:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCannotAddBothChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:01:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount stamp: 'EMI 11/8/2020 18:01:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test18TwoDisjointPortfoliosCanUseSameAccount stamp: 'EMI 11/8/2020 18:01:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotUniteTwoDisjointPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:01:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test20TwoDisjointPortfoliosCanHaveSameChildPortfolio stamp: 'EMI 11/8/2020 18:01:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test21CannotUniteTwoDisjointPortfoliosWithSameChildPortfolio stamp: 'EMI 11/8/2020 18:01:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test22PortfolioCannotAddBothGrandChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:01:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test23PortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild stamp: 'EMI 11/8/2020 18:01:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test24PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithAParentWithSameAccount stamp: 'EMI 11/8/2020 18:01:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test25PortfolioWith2GrandChildrenPortfoliosCannotAddAThirdWithAGrandParentWithSameAccount stamp: 'EMI 11/8/2020 18:01:14'!
+PASSED!
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 18:01:33' prior: 50901214!
+test12PortfolioHasOneChildPortfolioWithAnAccountAndADepositRegistered
+	| portfolio portfolioChild account transaction |
+	portfolio _ Portfolio new.
+	portfolioChild _ Portfolio new.
+	account _  ReceptiveAccount new.
+	transaction _ Deposit register: 100 on: account. 
+	
+	self assertAdd: account To: portfolioChild.
+	self assertAdd: portfolioChild To: portfolio.
+	self assert: portfolio balance equals: 100.
+	self assert: (portfolio hasRegistered: transaction).
+	self assert: (portfolio transactions size) equals: 1.
+	self assert: (portfolio transactions includes: transaction).
+
+	 
+! !
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 18:02:18' prior: 50900283!
+test12bisPortfolioHasOneGrandChildPortfolioWithAnAccountAndADepositRegistered
+	| portfolio portfolioChild portfolioGrandChild account transaction |
+	portfolio _ Portfolio new.
+	portfolioChild _ Portfolio new.
+	portfolioGrandChild _ Portfolio new.
+	account _  ReceptiveAccount new.
+	transaction _ Deposit register: 100 on: account. 
+	
+	self assertAdd: account To: portfolioGrandChild.
+	self assertAdd: portfolioGrandChild To: portfolioChild.
+	self assertAdd: portfolioChild To: portfolio.
+	self assert: (portfolio balance ) equals: 100.
+	self assert: (portfolio hasRegistered: transaction).
+	self assert: (portfolio transactions size) equals: 1.
+	self assert: (portfolio transactions includes: transaction).
+
+	 
+! !
+
+!testRun: #PortfolioTest #test12bisPortfolioHasOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:02:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test01NewPortfolioHasNoAccountsAndNoPortfolios stamp: 'EMI 11/8/2020 18:02:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioAddEmptyAccount stamp: 'EMI 11/8/2020 18:02:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioAddEmptyPortfolio stamp: 'EMI 11/8/2020 18:02:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioHasNoRegisteredTransactions stamp: 'EMI 11/8/2020 18:02:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOneAccountWithOneRegisteredTransaction stamp: 'EMI 11/8/2020 18:02:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioMoreThanOneAccountWithRegisteredTransactions stamp: 'EMI 11/8/2020 18:02:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test07EmptyPortfolioHasNoTransactions stamp: 'EMI 11/8/2020 18:02:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioWithOneAccountHasOneTransaction stamp: 'EMI 11/8/2020 18:02:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithMoreThanOneAccountHasMoreThanOneTransactions stamp: 'EMI 11/8/2020 18:02:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioHasOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 18:02:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 18:02:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioHasOneChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:02:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test12bisPortfolioHasOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:02:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test13bisPortfolioHasMoreThanOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:02:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioCannotAddSameEmptyAssetTwice stamp: 'EMI 11/8/2020 18:02:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCannotAddChildPortfolioWithSameAccount stamp: 'EMI 11/8/2020 18:02:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCannotAddBothChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:02:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount stamp: 'EMI 11/8/2020 18:02:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test18TwoDisjointPortfoliosCanUseSameAccount stamp: 'EMI 11/8/2020 18:02:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotUniteTwoDisjointPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:02:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test20TwoDisjointPortfoliosCanHaveSameChildPortfolio stamp: 'EMI 11/8/2020 18:02:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test21CannotUniteTwoDisjointPortfoliosWithSameChildPortfolio stamp: 'EMI 11/8/2020 18:02:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test22PortfolioCannotAddBothGrandChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:02:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test23PortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild stamp: 'EMI 11/8/2020 18:02:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test24PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithAParentWithSameAccount stamp: 'EMI 11/8/2020 18:02:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test25PortfolioWith2GrandChildrenPortfoliosCannotAddAThirdWithAGrandParentWithSameAccount stamp: 'EMI 11/8/2020 18:02:19'!
+PASSED!
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 18:03:54' prior: 50900376!
+test13bisPortfolioHasMoreThanOneGrandChildPortfolioWithAnAccountAndADepositRegistered
+	| portfolio portfolioChild portfolioGrandChildLeft  portfolioGrandChildRight account1 account2 transaction1 transaction2|
+	portfolio _ Portfolio new.
+	portfolioChild _ Portfolio new.
+	portfolioGrandChildLeft _ Portfolio new.
+	portfolioGrandChildRight _ Portfolio new.
+	account1 _  ReceptiveAccount new.
+	account2 _  ReceptiveAccount new.
+	transaction1 _ Deposit register: 100 on: account1.
+	transaction2 _ Deposit register: 100 on: account2.
+	.
+	self assertAdd: account1 To: portfolioGrandChildLeft.
+	self assertAdd: account2 To: portfolioGrandChildRight.
+	self assertAdd: portfolioGrandChildLeft To: portfolioChild.
+	self assertAdd: portfolioGrandChildRight To: portfolioChild.
+	self assertAdd: portfolioChild To: portfolio.
+	self assert: (portfolio balance ) equals: 200.
+	self assert: (portfolio hasRegistered: transaction1).
+	self assert: (portfolio hasRegistered: transaction2).
+	self assert: (portfolio transactions size) equals: 2.
+	self assert: (portfolio transactions includes: transaction1).
+	self assert: (portfolio transactions includes: transaction2).
+	 
+! !
+
+!testRun: #PortfolioTest #test13bisPortfolioHasMoreThanOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:03:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test01NewPortfolioHasNoAccountsAndNoPortfolios stamp: 'EMI 11/8/2020 18:03:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioAddEmptyAccount stamp: 'EMI 11/8/2020 18:03:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioAddEmptyPortfolio stamp: 'EMI 11/8/2020 18:03:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioHasNoRegisteredTransactions stamp: 'EMI 11/8/2020 18:03:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOneAccountWithOneRegisteredTransaction stamp: 'EMI 11/8/2020 18:03:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioMoreThanOneAccountWithRegisteredTransactions stamp: 'EMI 11/8/2020 18:03:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test07EmptyPortfolioHasNoTransactions stamp: 'EMI 11/8/2020 18:03:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioWithOneAccountHasOneTransaction stamp: 'EMI 11/8/2020 18:03:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithMoreThanOneAccountHasMoreThanOneTransactions stamp: 'EMI 11/8/2020 18:03:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioHasOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 18:03:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 18:03:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioHasOneChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:03:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test12bisPortfolioHasOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:03:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test13bisPortfolioHasMoreThanOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:03:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioCannotAddSameEmptyAssetTwice stamp: 'EMI 11/8/2020 18:03:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCannotAddChildPortfolioWithSameAccount stamp: 'EMI 11/8/2020 18:03:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCannotAddBothChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:03:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount stamp: 'EMI 11/8/2020 18:03:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test18TwoDisjointPortfoliosCanUseSameAccount stamp: 'EMI 11/8/2020 18:03:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotUniteTwoDisjointPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:03:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test20TwoDisjointPortfoliosCanHaveSameChildPortfolio stamp: 'EMI 11/8/2020 18:03:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test21CannotUniteTwoDisjointPortfoliosWithSameChildPortfolio stamp: 'EMI 11/8/2020 18:03:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test22PortfolioCannotAddBothGrandChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:03:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test23PortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild stamp: 'EMI 11/8/2020 18:03:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test24PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithAParentWithSameAccount stamp: 'EMI 11/8/2020 18:03:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test25PortfolioWith2GrandChildrenPortfoliosCannotAddAThirdWithAGrandParentWithSameAccount stamp: 'EMI 11/8/2020 18:03:55'!
+PASSED!
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 18:05:01' prior: 50892685!
+test14PortfolioCannotAddSameEmptyAssetTwice
+	| portfolio portfolio2 account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	self assertAdd: account To: portfolio.
+	self denyAdd: account To: portfolio.
+	
+	portfolio2 _ Portfolio new.
+	
+	self assertAdd: portfolio2 To: portfolio.
+	self denyAdd: portfolio2 To: portfolio.
+
+
+	 
+! !
+
+!testRun: #PortfolioTest #test14PortfolioCannotAddSameEmptyAssetTwice stamp: 'EMI 11/8/2020 18:05:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test01NewPortfolioHasNoAccountsAndNoPortfolios stamp: 'EMI 11/8/2020 18:05:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioAddEmptyAccount stamp: 'EMI 11/8/2020 18:05:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioAddEmptyPortfolio stamp: 'EMI 11/8/2020 18:05:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioHasNoRegisteredTransactions stamp: 'EMI 11/8/2020 18:05:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOneAccountWithOneRegisteredTransaction stamp: 'EMI 11/8/2020 18:05:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioMoreThanOneAccountWithRegisteredTransactions stamp: 'EMI 11/8/2020 18:05:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test07EmptyPortfolioHasNoTransactions stamp: 'EMI 11/8/2020 18:05:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioWithOneAccountHasOneTransaction stamp: 'EMI 11/8/2020 18:05:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithMoreThanOneAccountHasMoreThanOneTransactions stamp: 'EMI 11/8/2020 18:05:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioHasOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 18:05:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 18:05:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioHasOneChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:05:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test12bisPortfolioHasOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:05:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test13bisPortfolioHasMoreThanOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:05:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioCannotAddSameEmptyAssetTwice stamp: 'EMI 11/8/2020 18:05:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCannotAddChildPortfolioWithSameAccount stamp: 'EMI 11/8/2020 18:05:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCannotAddBothChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:05:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount stamp: 'EMI 11/8/2020 18:05:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test18TwoDisjointPortfoliosCanUseSameAccount stamp: 'EMI 11/8/2020 18:05:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotUniteTwoDisjointPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:05:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test20TwoDisjointPortfoliosCanHaveSameChildPortfolio stamp: 'EMI 11/8/2020 18:05:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test21CannotUniteTwoDisjointPortfoliosWithSameChildPortfolio stamp: 'EMI 11/8/2020 18:05:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test22PortfolioCannotAddBothGrandChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:05:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test23PortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild stamp: 'EMI 11/8/2020 18:05:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test24PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithAParentWithSameAccount stamp: 'EMI 11/8/2020 18:05:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test25PortfolioWith2GrandChildrenPortfoliosCannotAddAThirdWithAGrandParentWithSameAccount stamp: 'EMI 11/8/2020 18:05:02'!
+PASSED!
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 18:06:33' prior: 50892726!
+test15PortfolioCannotAddChildPortfolioWithSameAccount
+	| portfolio portfolio2 account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	self assertAdd: account To: portfolio.
+	
+	portfolio2 _ Portfolio new.
+	self assertAdd: account To: portfolio2.
+	
+	self denyAdd: portfolio2 To: portfolio.
+
+
+	 
+! !
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 18:07:02' prior: 50898004!
+test16PortfolioCannotAddBothChildrenPortfoliosWithSameAccount
+	| portfolio portfolioChildLeft portfolioChildRight account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildLeft _ Portfolio new.
+	self assertAdd: account To: portfolioChildLeft.
+	
+	portfolioChildRight _ Portfolio new.
+	self assert: (portfolioChildRight add: account).
+	
+	self assert: (portfolio add: portfolioChildLeft).
+	self deny: (portfolio add: portfolioChildRight).
+
+
+	 
+! !
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 18:07:40' prior: 50901779!
+test16PortfolioCannotAddBothChildrenPortfoliosWithSameAccount
+	| portfolio portfolioChildLeft portfolioChildRight account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildLeft _ Portfolio new.
+	self assertAdd: account To: portfolioChildLeft.
+	
+	portfolioChildRight _ Portfolio new.
+	self assertAdd: account To: portfolioChildRight.
+	
+	self assert: (portfolio add: portfolioChildLeft).
+	self deny: (portfolio add: portfolioChildRight).
+
+
+	 
+! !
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 18:08:22' prior: 50901797!
+test16PortfolioCannotAddBothChildrenPortfoliosWithSameAccount
+	| portfolio portfolioChildLeft portfolioChildRight account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildLeft _ Portfolio new.
+	self assertAdd: account To: portfolioChildLeft.
+	
+	portfolioChildRight _ Portfolio new.
+	self assertAdd: account To: portfolioChildRight.
+	
+	self assertAdd: portfolioChildLeft To: portfolio.
+	self denyAdd: portfolioChildRight To: portfolio.
+
+
+
+	 
+! !
+
+!testRun: #PortfolioTest #test16PortfolioCannotAddBothChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:08:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test01NewPortfolioHasNoAccountsAndNoPortfolios stamp: 'EMI 11/8/2020 18:08:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioAddEmptyAccount stamp: 'EMI 11/8/2020 18:08:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioAddEmptyPortfolio stamp: 'EMI 11/8/2020 18:08:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioHasNoRegisteredTransactions stamp: 'EMI 11/8/2020 18:08:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOneAccountWithOneRegisteredTransaction stamp: 'EMI 11/8/2020 18:08:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioMoreThanOneAccountWithRegisteredTransactions stamp: 'EMI 11/8/2020 18:08:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test07EmptyPortfolioHasNoTransactions stamp: 'EMI 11/8/2020 18:08:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioWithOneAccountHasOneTransaction stamp: 'EMI 11/8/2020 18:08:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithMoreThanOneAccountHasMoreThanOneTransactions stamp: 'EMI 11/8/2020 18:08:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioHasOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 18:08:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 18:08:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioHasOneChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:08:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test12bisPortfolioHasOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:08:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test13bisPortfolioHasMoreThanOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:08:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioCannotAddSameEmptyAssetTwice stamp: 'EMI 11/8/2020 18:08:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCannotAddChildPortfolioWithSameAccount stamp: 'EMI 11/8/2020 18:08:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCannotAddBothChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:08:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount stamp: 'EMI 11/8/2020 18:08:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test18TwoDisjointPortfoliosCanUseSameAccount stamp: 'EMI 11/8/2020 18:08:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotUniteTwoDisjointPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:08:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test20TwoDisjointPortfoliosCanHaveSameChildPortfolio stamp: 'EMI 11/8/2020 18:08:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test21CannotUniteTwoDisjointPortfoliosWithSameChildPortfolio stamp: 'EMI 11/8/2020 18:08:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test22PortfolioCannotAddBothGrandChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:08:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test23PortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild stamp: 'EMI 11/8/2020 18:08:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test24PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithAParentWithSameAccount stamp: 'EMI 11/8/2020 18:08:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test25PortfolioWith2GrandChildrenPortfoliosCannotAddAThirdWithAGrandParentWithSameAccount stamp: 'EMI 11/8/2020 18:08:22'!
+PASSED!
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 18:09:03' prior: 50899782!
+test17PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount
+	| portfolioRoot portfolioChildWithAccount portfolioChildWithoutAccount portfolioToAddWithSameAccount account|
+	portfolioRoot _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildWithoutAccount _ Portfolio new.
+	
+	portfolioChildWithAccount _ Portfolio new.
+	self assertAdd: account To: portfolioChildWithAccount.
+	
+	portfolioToAddWithSameAccount _ Portfolio new.
+	self assertAdd: account To: portfolioToAddWithSameAccount.
+	
+	self assert: (portfolioRoot add: portfolioChildWithoutAccount).
+	self assert: (portfolioRoot add: portfolioChildWithAccount).
+	self deny: (portfolioRoot add: portfolioToAddWithSameAccount).
+
+
+	 
+! !
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 18:09:55' prior: 50901940!
+test17PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount
+	| portfolioRoot portfolioChildWithAccount portfolioChildWithoutAccount portfolioToAddWithSameAccount account|
+	portfolioRoot _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildWithoutAccount _ Portfolio new.
+	
+	portfolioChildWithAccount _ Portfolio new.
+	self assertAdd: account To: portfolioChildWithAccount.
+	
+	portfolioToAddWithSameAccount _ Portfolio new.
+	self assertAdd: account To: portfolioToAddWithSameAccount.
+	
+	self assertAdd: portfolioChildWithoutAccount To: portfolioRoot.
+	self assertAdd: portfolioChildWithAccount To: portfolioRoot.
+	self denyAdd: portfolioToAddWithSameAccount To: portfolioRoot.
+
+
+
+	 
+! !
+
+!testRun: #PortfolioTest #test17PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount stamp: 'EMI 11/8/2020 18:09:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test01NewPortfolioHasNoAccountsAndNoPortfolios stamp: 'EMI 11/8/2020 18:09:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioAddEmptyAccount stamp: 'EMI 11/8/2020 18:09:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioAddEmptyPortfolio stamp: 'EMI 11/8/2020 18:09:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioHasNoRegisteredTransactions stamp: 'EMI 11/8/2020 18:09:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOneAccountWithOneRegisteredTransaction stamp: 'EMI 11/8/2020 18:09:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioMoreThanOneAccountWithRegisteredTransactions stamp: 'EMI 11/8/2020 18:09:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test07EmptyPortfolioHasNoTransactions stamp: 'EMI 11/8/2020 18:09:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioWithOneAccountHasOneTransaction stamp: 'EMI 11/8/2020 18:09:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithMoreThanOneAccountHasMoreThanOneTransactions stamp: 'EMI 11/8/2020 18:09:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioHasOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 18:09:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 18:09:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioHasOneChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:09:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test12bisPortfolioHasOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:09:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test13bisPortfolioHasMoreThanOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:09:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioCannotAddSameEmptyAssetTwice stamp: 'EMI 11/8/2020 18:09:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCannotAddChildPortfolioWithSameAccount stamp: 'EMI 11/8/2020 18:09:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCannotAddBothChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:09:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount stamp: 'EMI 11/8/2020 18:09:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test18TwoDisjointPortfoliosCanUseSameAccount stamp: 'EMI 11/8/2020 18:09:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotUniteTwoDisjointPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:09:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test20TwoDisjointPortfoliosCanHaveSameChildPortfolio stamp: 'EMI 11/8/2020 18:09:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test21CannotUniteTwoDisjointPortfoliosWithSameChildPortfolio stamp: 'EMI 11/8/2020 18:09:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test22PortfolioCannotAddBothGrandChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:09:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test23PortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild stamp: 'EMI 11/8/2020 18:09:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test24PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithAParentWithSameAccount stamp: 'EMI 11/8/2020 18:09:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test25PortfolioWith2GrandChildrenPortfoliosCannotAddAThirdWithAGrandParentWithSameAccount stamp: 'EMI 11/8/2020 18:09:57'!
+PASSED!
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 18:10:29' prior: 50899834!
+test18TwoDisjointPortfoliosCanUseSameAccount
+	| portfolio portfolio2 account|
+	
+	portfolio _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account _ ReceptiveAccount new.
+	
+	self assertAdd: account To: portfolio.
+	self assertAdd: account To: portfolio2.
+	self assert: account parentAssets includes: portfolio.
+	self assert: account parentAssets includes: portfolio2.
+	
+
+
+	 
+! !
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 18:11:27' prior: 50899864!
+test19CannotUniteTwoDisjointPortfoliosWithSameAccount
+	| portfolio portfolio2 portfolioRoot account|
+	
+	portfolio _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	portfolioRoot _ Portfolio new.
+	account _ ReceptiveAccount new.
+	
+	self assertAdd: account To: portfolio.
+	self assertAdd: account To: portfolio2.
+	self assertAdd: portfolio To: portfolioRoot.
+	self denyAdd: portfolio2 To: portfolioRoot.
+
+
+	 
+! !
+
+!testRun: #PortfolioTest #test19CannotUniteTwoDisjointPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:11:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test01NewPortfolioHasNoAccountsAndNoPortfolios stamp: 'EMI 11/8/2020 18:11:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioAddEmptyAccount stamp: 'EMI 11/8/2020 18:11:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioAddEmptyPortfolio stamp: 'EMI 11/8/2020 18:11:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioHasNoRegisteredTransactions stamp: 'EMI 11/8/2020 18:11:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOneAccountWithOneRegisteredTransaction stamp: 'EMI 11/8/2020 18:11:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioMoreThanOneAccountWithRegisteredTransactions stamp: 'EMI 11/8/2020 18:11:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test07EmptyPortfolioHasNoTransactions stamp: 'EMI 11/8/2020 18:11:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioWithOneAccountHasOneTransaction stamp: 'EMI 11/8/2020 18:11:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithMoreThanOneAccountHasMoreThanOneTransactions stamp: 'EMI 11/8/2020 18:11:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioHasOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 18:11:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 18:11:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioHasOneChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:11:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test12bisPortfolioHasOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:11:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test13bisPortfolioHasMoreThanOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:11:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioCannotAddSameEmptyAssetTwice stamp: 'EMI 11/8/2020 18:11:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCannotAddChildPortfolioWithSameAccount stamp: 'EMI 11/8/2020 18:11:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCannotAddBothChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:11:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount stamp: 'EMI 11/8/2020 18:11:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test18TwoDisjointPortfoliosCanUseSameAccount stamp: 'EMI 11/8/2020 18:11:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotUniteTwoDisjointPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:11:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test20TwoDisjointPortfoliosCanHaveSameChildPortfolio stamp: 'EMI 11/8/2020 18:11:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test21CannotUniteTwoDisjointPortfoliosWithSameChildPortfolio stamp: 'EMI 11/8/2020 18:11:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test22PortfolioCannotAddBothGrandChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:11:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test23PortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild stamp: 'EMI 11/8/2020 18:11:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test24PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithAParentWithSameAccount stamp: 'EMI 11/8/2020 18:11:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test25PortfolioWith2GrandChildrenPortfoliosCannotAddAThirdWithAGrandParentWithSameAccount stamp: 'EMI 11/8/2020 18:11:29'!
+PASSED!
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 18:11:58' prior: 50899897!
+test20TwoDisjointPortfoliosCanHaveSameChildPortfolio
+	| portfolio portfolio2 portfolioChild|
+	
+	portfolio _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	portfolioChild _ Portfolio new.
+	
+	self assertAdd: portfolioChild To: portfolio.
+	self assertAdd: portfolioChild To: portfolio2.
+	self assert: portfolioChild parentAssets includes: portfolio.
+	self assert: portfolioChild parentAssets includes: portfolio2.
+	
+
+
+	 
+! !
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 18:13:09' prior: 50899930!
+test21CannotUniteTwoDisjointPortfoliosWithSameChildPortfolio
+	| portfolio portfolio2 portfolioRoot portfolioChild |
+	
+	portfolio _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	portfolioRoot _ Portfolio new.
+	portfolioChild _ Portfolio new.
+	
+	self assertAdd: portfolioChild To: portfolio.
+	self assertAdd: portfolioChild To: portfolio2.
+	self assertAdd:  portfolio To: portfolioRoot.
+	self denyAdd: portfolio2 To: portfolioRoot.
+	
+
+
+	 
+! !
+
+!testRun: #PortfolioTest #test21CannotUniteTwoDisjointPortfoliosWithSameChildPortfolio stamp: 'EMI 11/8/2020 18:13:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test01NewPortfolioHasNoAccountsAndNoPortfolios stamp: 'EMI 11/8/2020 18:13:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioAddEmptyAccount stamp: 'EMI 11/8/2020 18:13:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioAddEmptyPortfolio stamp: 'EMI 11/8/2020 18:13:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioHasNoRegisteredTransactions stamp: 'EMI 11/8/2020 18:13:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOneAccountWithOneRegisteredTransaction stamp: 'EMI 11/8/2020 18:13:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioMoreThanOneAccountWithRegisteredTransactions stamp: 'EMI 11/8/2020 18:13:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test07EmptyPortfolioHasNoTransactions stamp: 'EMI 11/8/2020 18:13:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioWithOneAccountHasOneTransaction stamp: 'EMI 11/8/2020 18:13:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithMoreThanOneAccountHasMoreThanOneTransactions stamp: 'EMI 11/8/2020 18:13:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioHasOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 18:13:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 18:13:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioHasOneChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:13:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test12bisPortfolioHasOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:13:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test13bisPortfolioHasMoreThanOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:13:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioCannotAddSameEmptyAssetTwice stamp: 'EMI 11/8/2020 18:13:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCannotAddChildPortfolioWithSameAccount stamp: 'EMI 11/8/2020 18:13:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCannotAddBothChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:13:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount stamp: 'EMI 11/8/2020 18:13:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test18TwoDisjointPortfoliosCanUseSameAccount stamp: 'EMI 11/8/2020 18:13:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotUniteTwoDisjointPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:13:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test20TwoDisjointPortfoliosCanHaveSameChildPortfolio stamp: 'EMI 11/8/2020 18:13:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test21CannotUniteTwoDisjointPortfoliosWithSameChildPortfolio stamp: 'EMI 11/8/2020 18:13:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test22PortfolioCannotAddBothGrandChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:13:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test23PortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild stamp: 'EMI 11/8/2020 18:13:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test24PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithAParentWithSameAccount stamp: 'EMI 11/8/2020 18:13:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test25PortfolioWith2GrandChildrenPortfoliosCannotAddAThirdWithAGrandParentWithSameAccount stamp: 'EMI 11/8/2020 18:13:10'!
+PASSED!
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 18:14:05' prior: 50899965!
+test22PortfolioCannotAddBothGrandChildrenPortfoliosWithSameAccount
+	| portfolio portfolioChildLeft portfolioChildRight portfolioGrandChildLeft portfolioGrandChildRight account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildLeft _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	
+	portfolioGrandChildLeft _ Portfolio new.
+	self assertAdd: account To: portfolioGrandChildLeft.
+	
+	portfolioGrandChildRight _ Portfolio new.
+	self assertAdd: account To: portfolioGrandChildRight.
+	
+	self assert: (portfolio add: portfolioChildLeft).
+	self assert: (portfolio add: portfolioChildRight).
+	self assert: (portfolioChildLeft add: portfolioGrandChildLeft).
+	self deny: (portfolioChildRight add: portfolioGrandChildRight).
+
+
+	 
+! !
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 18:15:30' prior: 50902378!
+test22PortfolioCannotAddBothGrandChildrenPortfoliosWithSameAccount
+	| portfolio portfolioChildLeft portfolioChildRight portfolioGrandChildLeft portfolioGrandChildRight account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildLeft _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	
+	portfolioGrandChildLeft _ Portfolio new.
+	self assertAdd: account To: portfolioGrandChildLeft.
+	
+	portfolioGrandChildRight _ Portfolio new.
+	self assertAdd: account To: portfolioGrandChildRight.
+	
+	self assertAdd: portfolioChildLeft To: portfolio.
+	self assertAdd: portfolioChildRight To: portfolio.
+	self assertAdd: portfolioGrandChildLeft To: portfolioChildLeft.
+	self denyAdd: portfolioGrandChildRight To: portfolioChildRight.
+
+
+	 
+! !
+
+!testRun: #PortfolioTest #test22PortfolioCannotAddBothGrandChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:15:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test01NewPortfolioHasNoAccountsAndNoPortfolios stamp: 'EMI 11/8/2020 18:15:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioAddEmptyAccount stamp: 'EMI 11/8/2020 18:15:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioAddEmptyPortfolio stamp: 'EMI 11/8/2020 18:15:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioHasNoRegisteredTransactions stamp: 'EMI 11/8/2020 18:15:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOneAccountWithOneRegisteredTransaction stamp: 'EMI 11/8/2020 18:15:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioMoreThanOneAccountWithRegisteredTransactions stamp: 'EMI 11/8/2020 18:15:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test07EmptyPortfolioHasNoTransactions stamp: 'EMI 11/8/2020 18:15:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioWithOneAccountHasOneTransaction stamp: 'EMI 11/8/2020 18:15:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithMoreThanOneAccountHasMoreThanOneTransactions stamp: 'EMI 11/8/2020 18:15:31'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioHasOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 18:15:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 18:15:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioHasOneChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:15:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test12bisPortfolioHasOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:15:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test13bisPortfolioHasMoreThanOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:15:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioCannotAddSameEmptyAssetTwice stamp: 'EMI 11/8/2020 18:15:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCannotAddChildPortfolioWithSameAccount stamp: 'EMI 11/8/2020 18:15:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCannotAddBothChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:15:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount stamp: 'EMI 11/8/2020 18:15:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test18TwoDisjointPortfoliosCanUseSameAccount stamp: 'EMI 11/8/2020 18:15:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotUniteTwoDisjointPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:15:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test20TwoDisjointPortfoliosCanHaveSameChildPortfolio stamp: 'EMI 11/8/2020 18:15:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test21CannotUniteTwoDisjointPortfoliosWithSameChildPortfolio stamp: 'EMI 11/8/2020 18:15:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test22PortfolioCannotAddBothGrandChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:15:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test23PortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild stamp: 'EMI 11/8/2020 18:15:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test24PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithAParentWithSameAccount stamp: 'EMI 11/8/2020 18:15:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test25PortfolioWith2GrandChildrenPortfoliosCannotAddAThirdWithAGrandParentWithSameAccount stamp: 'EMI 11/8/2020 18:15:32'!
+PASSED!
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 18:15:56' prior: 50900020!
+test23PortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild
+	| portfolio portfolioChildLeft portfolioChildRight portfolioGrandChildRight account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildLeft _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	
+	self assertAdd: account To: portfolioChildLeft.
+	
+	portfolioGrandChildRight _ Portfolio new.
+	self assert: (portfolioGrandChildRight add: account).
+	
+	self assert: (portfolio add: portfolioChildLeft).
+	self assert: (portfolio add: portfolioChildRight).
+	self deny: (portfolioChildRight add: portfolioGrandChildRight).
+
+
+	 
+! !
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 18:16:49' prior: 50902539!
+test23PortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild
+	| portfolio portfolioChildLeft portfolioChildRight portfolioGrandChildRight account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildLeft _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	
+	self assertAdd: account To: portfolioChildLeft.
+	
+	portfolioGrandChildRight _ Portfolio new.
+	self assertAdd: account To: portfolioGrandChildRight.
+	
+	self assert: (portfolio add: portfolioChildLeft).
+	self assert: (portfolio add: portfolioChildRight).
+	self deny: (portfolioChildRight add: portfolioGrandChildRight).
+
+
+	 
+! !
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 18:17:38' prior: 50902562!
+test23PortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild
+	| portfolio portfolioChildLeft portfolioChildRight portfolioGrandChildRight account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildLeft _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	
+	self assertAdd: account To: portfolioChildLeft.
+	
+	portfolioGrandChildRight _ Portfolio new.
+	self assertAdd: account To: portfolioGrandChildRight.
+	
+	self assertAdd: portfolioChildLeft To: portfolio.
+	self assertAdd: portfolioChildRight To: portfolio.
+	self denyAdd: portfolioGrandChildRight To: portfolioChildRight.
+
+	 
+! !
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 18:19:41' prior: 50900066!
+test24PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithAParentWithSameAccount
+	| portfolioRoot portfolioChildWithAccount portfolioChildWithoutAccount 
+	portfolioToAdd portfolioWithSameAccount account|
+	
+	portfolioRoot _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildWithoutAccount _ Portfolio new.
+	
+	portfolioChildWithAccount _ Portfolio new.
+	self assertAdd: account To: portfolioChildWithAccount.
+	
+	portfolioToAdd _ Portfolio new.
+	portfolioWithSameAccount _ Portfolio new.
+	self assertAdd: account To: portfolioWithSameAccount.
+	self assertAdd: portfolioToAdd To: portfolioWithSameAccount.
+	
+	self assertAdd: portfolioChildWithoutAccount To: portfolioRoot.
+	self assertAdd: portfolioChildWithAccount To: portfolioRoot.
+	self denyAdd: portfolioToAdd To: portfolioRoot.
+
+
+	 
+! !
+
+!testRun: #PortfolioTest #test24PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithAParentWithSameAccount stamp: 'EMI 11/8/2020 18:19:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test01NewPortfolioHasNoAccountsAndNoPortfolios stamp: 'EMI 11/8/2020 18:19:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioAddEmptyAccount stamp: 'EMI 11/8/2020 18:19:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioAddEmptyPortfolio stamp: 'EMI 11/8/2020 18:19:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioHasNoRegisteredTransactions stamp: 'EMI 11/8/2020 18:19:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOneAccountWithOneRegisteredTransaction stamp: 'EMI 11/8/2020 18:19:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioMoreThanOneAccountWithRegisteredTransactions stamp: 'EMI 11/8/2020 18:19:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test07EmptyPortfolioHasNoTransactions stamp: 'EMI 11/8/2020 18:19:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioWithOneAccountHasOneTransaction stamp: 'EMI 11/8/2020 18:19:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithMoreThanOneAccountHasMoreThanOneTransactions stamp: 'EMI 11/8/2020 18:19:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioHasOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 18:19:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 18:19:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioHasOneChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:19:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test12bisPortfolioHasOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:19:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test13bisPortfolioHasMoreThanOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:19:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioCannotAddSameEmptyAssetTwice stamp: 'EMI 11/8/2020 18:19:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCannotAddChildPortfolioWithSameAccount stamp: 'EMI 11/8/2020 18:19:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCannotAddBothChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:19:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount stamp: 'EMI 11/8/2020 18:19:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test18TwoDisjointPortfoliosCanUseSameAccount stamp: 'EMI 11/8/2020 18:19:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotUniteTwoDisjointPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:19:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test20TwoDisjointPortfoliosCanHaveSameChildPortfolio stamp: 'EMI 11/8/2020 18:19:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test21CannotUniteTwoDisjointPortfoliosWithSameChildPortfolio stamp: 'EMI 11/8/2020 18:19:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test22PortfolioCannotAddBothGrandChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:19:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test23PortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild stamp: 'EMI 11/8/2020 18:19:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test24PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithAParentWithSameAccount stamp: 'EMI 11/8/2020 18:19:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test25PortfolioWith2GrandChildrenPortfoliosCannotAddAThirdWithAGrandParentWithSameAccount stamp: 'EMI 11/8/2020 18:19:42'!
+PASSED!
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 18:20:31' prior: 50900124!
+test25PortfolioWith2GrandChildrenPortfoliosCannotAddAThirdWithAGrandParentWithSameAccount
+	| portfolioRoot portfolioChildLeft portfolioChildRight 
+	portfolioGrandChildRight portfolioGrandChildLeft 
+	portfolioRootAnotherTree portfolioChildAnotherTree portfolioGrandChildAnotherTree account|
+	
+	portfolioRoot _ Portfolio new.
+	portfolioRootAnotherTree  _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	self assertAdd: account To: portfolioRoot.
+	self assertAdd: account To: portfolioRootAnotherTree.
+	
+	portfolioChildLeft  _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	self assert: (portfolioRoot add: portfolioChildLeft).
+	self assert: (portfolioRoot add: portfolioChildRight).
+	
+	portfolioGrandChildLeft _ Portfolio new.
+	portfolioGrandChildRight _ Portfolio new.
+	self assert: (portfolioChildLeft add: portfolioGrandChildLeft ).
+	self assert: (portfolioChildRight add: portfolioGrandChildRight).
+	
+	portfolioChildAnotherTree _ Portfolio new.
+	self assert: (portfolioRootAnotherTree add: portfolioChildAnotherTree).
+	
+	portfolioGrandChildAnotherTree _ Portfolio new.
+	self assert: (portfolioChildAnotherTree add: portfolioGrandChildAnotherTree ).
+	
+	self deny: (portfolioGrandChildRight add: portfolioGrandChildAnotherTree).
+	
+
+
+	 
+! !
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 18:21:02' prior: 50902744!
+test25PortfolioWith2GrandChildrenPortfoliosCannotAddAThirdWithAGrandParentWithSameAccount
+	| portfolioRoot portfolioChildLeft portfolioChildRight 
+	portfolioGrandChildRight portfolioGrandChildLeft 
+	portfolioRootAnotherTree portfolioChildAnotherTree portfolioGrandChildAnotherTree account|
+	
+	portfolioRoot _ Portfolio new.
+	portfolioRootAnotherTree  _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	self assertAdd: account To: portfolioRoot.
+	self assertAdd: account To: portfolioRootAnotherTree.
+	
+	portfolioChildLeft  _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	self assertAdd: portfolioChildLeft To: portfolioRoot.
+	self assertAdd: portfolioChildRight To: portfolioRoot.
+	
+	portfolioGrandChildLeft _ Portfolio new.
+	portfolioGrandChildRight _ Portfolio new.
+	self assert: (portfolioChildLeft add: portfolioGrandChildLeft ).
+	self assert: (portfolioChildRight add: portfolioGrandChildRight).
+	
+	portfolioChildAnotherTree _ Portfolio new.
+	self assert: (portfolioRootAnotherTree add: portfolioChildAnotherTree).
+	
+	portfolioGrandChildAnotherTree _ Portfolio new.
+	self assert: (portfolioChildAnotherTree add: portfolioGrandChildAnotherTree ).
+	
+	self deny: (portfolioGrandChildRight add: portfolioGrandChildAnotherTree).
+	
+
+
+	 
+! !
+!PortfolioTest methodsFor: 'tests tree structure' stamp: 'EMI 11/8/2020 18:22:49' prior: 50902787!
+test25PortfolioWith2GrandChildrenPortfoliosCannotAddAThirdWithAGrandParentWithSameAccount
+	| portfolioRoot portfolioChildLeft portfolioChildRight 
+	portfolioGrandChildRight portfolioGrandChildLeft 
+	portfolioRootAnotherTree portfolioChildAnotherTree portfolioGrandChildAnotherTree account|
+	
+	portfolioRoot _ Portfolio new.
+	portfolioRootAnotherTree  _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	self assertAdd: account To: portfolioRoot.
+	self assertAdd: account To: portfolioRootAnotherTree.
+	
+	portfolioChildLeft  _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	self assertAdd: portfolioChildLeft To: portfolioRoot.
+	self assertAdd: portfolioChildRight To: portfolioRoot.
+	
+	portfolioGrandChildLeft _ Portfolio new.
+	portfolioGrandChildRight _ Portfolio new.
+	self assertAdd: portfolioGrandChildLeft To: portfolioChildLeft .
+	self assertAdd: portfolioGrandChildRight To: portfolioChildRight.
+	
+	portfolioChildAnotherTree _ Portfolio new.
+	self assertAdd: portfolioChildAnotherTree To: portfolioRootAnotherTree.
+	
+	portfolioGrandChildAnotherTree _ Portfolio new.
+	self assertAdd: portfolioGrandChildAnotherTree To: portfolioChildAnotherTree.
+	
+	self denyAdd: portfolioGrandChildAnotherTree To: portfolioGrandChildRight 
+
+
+	 
+! !
+
+!testRun: #PortfolioTest #test25PortfolioWith2GrandChildrenPortfoliosCannotAddAThirdWithAGrandParentWithSameAccount stamp: 'EMI 11/8/2020 18:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test01NewPortfolioHasNoAccountsAndNoPortfolios stamp: 'EMI 11/8/2020 18:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioAddEmptyAccount stamp: 'EMI 11/8/2020 18:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioAddEmptyPortfolio stamp: 'EMI 11/8/2020 18:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioHasNoRegisteredTransactions stamp: 'EMI 11/8/2020 18:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOneAccountWithOneRegisteredTransaction stamp: 'EMI 11/8/2020 18:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioMoreThanOneAccountWithRegisteredTransactions stamp: 'EMI 11/8/2020 18:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test07EmptyPortfolioHasNoTransactions stamp: 'EMI 11/8/2020 18:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioWithOneAccountHasOneTransaction stamp: 'EMI 11/8/2020 18:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithMoreThanOneAccountHasMoreThanOneTransactions stamp: 'EMI 11/8/2020 18:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioHasOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 18:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 18:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioHasOneChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test12bisPortfolioHasOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test13bisPortfolioHasMoreThanOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioCannotAddSameEmptyAssetTwice stamp: 'EMI 11/8/2020 18:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCannotAddChildPortfolioWithSameAccount stamp: 'EMI 11/8/2020 18:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCannotAddBothChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount stamp: 'EMI 11/8/2020 18:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test18TwoDisjointPortfoliosCanUseSameAccount stamp: 'EMI 11/8/2020 18:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotUniteTwoDisjointPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test20TwoDisjointPortfoliosCanHaveSameChildPortfolio stamp: 'EMI 11/8/2020 18:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test21CannotUniteTwoDisjointPortfoliosWithSameChildPortfolio stamp: 'EMI 11/8/2020 18:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test22PortfolioCannotAddBothGrandChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test23PortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild stamp: 'EMI 11/8/2020 18:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test24PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithAParentWithSameAccount stamp: 'EMI 11/8/2020 18:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test25PortfolioWith2GrandChildrenPortfoliosCannotAddAThirdWithAGrandParentWithSameAccount stamp: 'EMI 11/8/2020 18:22:51'!
+PASSED!
+!Asset class methodsFor: 'errorMessages' stamp: 'EMI 11/8/2020 18:25:41'!
+cannotAddAssetErrorMessage
+	^'Cannot add asset already present in assets tree'.! !
+!Portfolio methodsFor: 'adding' stamp: 'EMI 11/8/2020 18:27:49' prior: 50898330!
+add: anAsset
+	| rootParents rootParentsOther |
+	rootParents _ (self assetTreeRoots).
+	rootParentsOther _ (anAsset assetTreeRoots).
+	
+	rootParents do: [:aParent |
+		rootParentsOther do: [:aParentOther |
+			(aParent hasAsset: aParentOther) ifTrue:[^Error signal: self class cannotAddAssetErrorMessage.].
+			(aParentOther hasAsset: aParent) ifTrue:[^Error signal: self class cannotAddAssetErrorMessage.]
+		].
+	].
+	
+	assets add: anAsset.
+	anAsset addAsSubassetOf: self.
+	^true.! !
+!PortfolioTest methodsFor: 'private' stamp: 'EMI 11/8/2020 18:30:40' prior: 50900521!
+assertAdd: anAsset To: anotherAsset
+	self should: [anotherAsset add: anAsset ]
+	raise: Error
+	withExceptionDo:[:anError | self assert: anError messageText equals: Asset cannotAddAssetErrorMessage].! !
+!PortfolioTest methodsFor: 'private' stamp: 'EMI 11/8/2020 18:32:04' prior: 50903004!
+assertAdd: anAsset To: anotherAsset
+	! !
+!PortfolioTest methodsFor: 'private' stamp: 'EMI 11/8/2020 18:32:08' prior: 50900526!
+denyAdd: anAsset To: anotherAsset
+	self should: [anotherAsset add: anAsset ]
+	raise: Error
+	withExceptionDo:[:anError | self assert: anError messageText equals: Asset cannotAddAssetErrorMessage].! !
+!PortfolioTest methodsFor: 'private' stamp: 'EMI 11/8/2020 18:32:41' prior: 50903013!
+assertAdd: anAsset To: anotherAsset
+	self assert: (anotherAsset add: anAsset).
+	! !
+
+----SNAPSHOT----(8 November 2020 18:32:46) CuisUniversity-4383.image priorSource: 18200455!
+
+!testRun: #PortfolioTest #test01NewPortfolioHasNoAccountsAndNoPortfolios stamp: 'EMI 11/8/2020 18:32:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioAddEmptyAccount stamp: 'EMI 11/8/2020 18:32:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioAddEmptyPortfolio stamp: 'EMI 11/8/2020 18:32:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioHasNoRegisteredTransactions stamp: 'EMI 11/8/2020 18:32:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOneAccountWithOneRegisteredTransaction stamp: 'EMI 11/8/2020 18:32:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioMoreThanOneAccountWithRegisteredTransactions stamp: 'EMI 11/8/2020 18:32:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test07EmptyPortfolioHasNoTransactions stamp: 'EMI 11/8/2020 18:32:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioWithOneAccountHasOneTransaction stamp: 'EMI 11/8/2020 18:32:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithMoreThanOneAccountHasMoreThanOneTransactions stamp: 'EMI 11/8/2020 18:32:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioHasOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 18:32:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 18:32:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioHasOneChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:32:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test12bisPortfolioHasOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:32:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test13bisPortfolioHasMoreThanOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:32:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioCannotAddSameEmptyAssetTwice stamp: 'EMI 11/8/2020 18:32:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCannotAddChildPortfolioWithSameAccount stamp: 'EMI 11/8/2020 18:32:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCannotAddBothChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:32:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount stamp: 'EMI 11/8/2020 18:32:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test18TwoDisjointPortfoliosCanUseSameAccount stamp: 'EMI 11/8/2020 18:32:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotUniteTwoDisjointPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:32:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test20TwoDisjointPortfoliosCanHaveSameChildPortfolio stamp: 'EMI 11/8/2020 18:32:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test21CannotUniteTwoDisjointPortfoliosWithSameChildPortfolio stamp: 'EMI 11/8/2020 18:32:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test22PortfolioCannotAddBothGrandChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:32:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test23PortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild stamp: 'EMI 11/8/2020 18:32:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test24PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithAParentWithSameAccount stamp: 'EMI 11/8/2020 18:32:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test25PortfolioWith2GrandChildrenPortfoliosCannotAddAThirdWithAGrandParentWithSameAccount stamp: 'EMI 11/8/2020 18:32:52'!
+PASSED!
+!PortfolioTest methodsFor: 'tests - tree structure' stamp: 'EMI 11/8/2020 18:34:00'!
+test13PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADepositRegistered
+	| portfolio portfolioChild portfolioGrandChildLeft  portfolioGrandChildRight account1 account2 transaction1 transaction2|
+	portfolio _ Portfolio new.
+	portfolioChild _ Portfolio new.
+	portfolioGrandChildLeft _ Portfolio new.
+	portfolioGrandChildRight _ Portfolio new.
+	account1 _  ReceptiveAccount new.
+	account2 _  ReceptiveAccount new.
+	transaction1 _ Deposit register: 100 on: account1.
+	transaction2 _ Deposit register: 100 on: account2.
+	.
+	self assertAdd: account1 To: portfolioGrandChildLeft.
+	self assertAdd: account2 To: portfolioGrandChildRight.
+	self assertAdd: portfolioGrandChildLeft To: portfolioChild.
+	self assertAdd: portfolioGrandChildRight To: portfolioChild.
+	self assertAdd: portfolioChild To: portfolio.
+	self assert: (portfolio balance ) equals: 200.
+	self assert: (portfolio hasRegistered: transaction1).
+	self assert: (portfolio hasRegistered: transaction2).
+	self assert: (portfolio transactions size) equals: 2.
+	self assert: (portfolio transactions includes: transaction1).
+	self assert: (portfolio transactions includes: transaction2).
+	 
+! !
+!PortfolioTest methodsFor: 'tests - tree structure' stamp: 'EMI 11/8/2020 18:34:42' prior: 50903138!
+test13PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADepositRegistered
+	| portfolio portfolioChildLeft  portfolioChildRight account1 account2 transaction1 transaction2|
+	portfolio _ Portfolio new.
+	portfolioChildLeft _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	account1 _  ReceptiveAccount new.
+	account2 _  ReceptiveAccount new.
+	transaction1 _ Deposit register: 100 on: account1.
+	transaction2 _ Deposit register: 100 on: account2.
+	
+	self assert: (portfolioChildLeft add: account1).
+	self assert: (portfolioChildRight add: account2).
+	self assert: (portfolio add: portfolioChildLeft).
+	self assert: (portfolio add: portfolioChildRight).
+	self assert: (portfolio hasRegistered: transaction1).
+	self assert: (portfolio hasRegistered: transaction2).
+	self assert: (portfolio transactions size) equals: 2.
+	self assert: (portfolio transactions includes: transaction1).
+	self assert: (portfolio transactions includes: transaction2).
+	 
+	 
+! !
+!PortfolioTest methodsFor: 'tests - tree structure' stamp: 'EMI 11/8/2020 18:35:49' prior: 50903178!
+test13PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADepositRegistered
+	| portfolio portfolioChildLeft  portfolioChildRight account1 account2 transaction1 transaction2|
+	portfolio _ Portfolio new.
+	portfolioChildLeft _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	account1 _  ReceptiveAccount new.
+	account2 _  ReceptiveAccount new.
+	transaction1 _ Deposit register: 100 on: account1.
+	transaction2 _ Deposit register: 100 on: account2.
+	
+	self assertAdd: account1 To: portfolioChildLeft.
+	self assertAdd: account2 To: portfolioChildRight.
+	self assertAdd: portfolioChildLeft To: portfolio.
+	self assertAdd: portfolioChildRight To: portfolio.
+	self assert: (portfolio hasRegistered: transaction1).
+	self assert: (portfolio hasRegistered: transaction2).
+	self assert: (portfolio transactions size) equals: 2.
+	self assert: (portfolio transactions includes: transaction1).
+	self assert: (portfolio transactions includes: transaction2).
+	 
+	 
+! !
+
+!testRun: #PortfolioTest #test01NewPortfolioHasNoAccountsAndNoPortfolios stamp: 'EMI 11/8/2020 18:35:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioAddEmptyAccount stamp: 'EMI 11/8/2020 18:35:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioAddEmptyPortfolio stamp: 'EMI 11/8/2020 18:35:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioHasNoRegisteredTransactions stamp: 'EMI 11/8/2020 18:35:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOneAccountWithOneRegisteredTransaction stamp: 'EMI 11/8/2020 18:35:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioMoreThanOneAccountWithRegisteredTransactions stamp: 'EMI 11/8/2020 18:35:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test07EmptyPortfolioHasNoTransactions stamp: 'EMI 11/8/2020 18:35:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioWithOneAccountHasOneTransaction stamp: 'EMI 11/8/2020 18:35:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithMoreThanOneAccountHasMoreThanOneTransactions stamp: 'EMI 11/8/2020 18:35:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioHasOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 18:35:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADeposit stamp: 'EMI 11/8/2020 18:35:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioHasOneChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:35:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test12bisPortfolioHasOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:35:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:35:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test13bisPortfolioHasMoreThanOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:35:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioCannotAddSameEmptyAssetTwice stamp: 'EMI 11/8/2020 18:35:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCannotAddChildPortfolioWithSameAccount stamp: 'EMI 11/8/2020 18:35:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCannotAddBothChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:35:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount stamp: 'EMI 11/8/2020 18:35:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test18TwoDisjointPortfoliosCanUseSameAccount stamp: 'EMI 11/8/2020 18:35:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotUniteTwoDisjointPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:35:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test20TwoDisjointPortfoliosCanHaveSameChildPortfolio stamp: 'EMI 11/8/2020 18:35:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test21CannotUniteTwoDisjointPortfoliosWithSameChildPortfolio stamp: 'EMI 11/8/2020 18:35:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test22PortfolioCannotAddBothGrandChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:35:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test23PortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild stamp: 'EMI 11/8/2020 18:35:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test24PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithAParentWithSameAccount stamp: 'EMI 11/8/2020 18:35:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test25PortfolioWith2GrandChildrenPortfoliosCannotAddAThirdWithAGrandParentWithSameAccount stamp: 'EMI 11/8/2020 18:35:53'!
+PASSED!
+!PortfolioTest methodsFor: 'tests - tree structure' stamp: 'EMI 11/8/2020 18:36:34'!
+test16PortfolioCannotAddSameEmptyAssetTwice
+	| portfolio portfolio2 account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	self assertAdd: account To: portfolio.
+	self denyAdd: account To: portfolio.
+	
+	portfolio2 _ Portfolio new.
+	
+	self assertAdd: portfolio2 To: portfolio.
+	self denyAdd: portfolio2 To: portfolio.
+
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test14PortfolioCannotAddSameEmptyAssetTwice stamp: 'EMI 11/8/2020 18:36:34'!
+test14PortfolioCannotAddSameEmptyAssetTwice
+	| portfolio portfolio2 account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	self assertAdd: account To: portfolio.
+	self denyAdd: account To: portfolio.
+	
+	portfolio2 _ Portfolio new.
+	
+	self assertAdd: portfolio2 To: portfolio.
+	self denyAdd: portfolio2 To: portfolio.
+
+
+	 
+!
+!PortfolioTest methodsFor: 'tests - tree structure' stamp: 'EMI 11/8/2020 18:36:52'!
+test14PortfolioCannotAddSameEmptyAssetTwice
+	| portfolio portfolio2 account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	self assertAdd: account To: portfolio.
+	self denyAdd: account To: portfolio.
+	
+	portfolio2 _ Portfolio new.
+	
+	self assertAdd: portfolio2 To: portfolio.
+	self denyAdd: portfolio2 To: portfolio.
+
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test16PortfolioCannotAddSameEmptyAssetTwice stamp: 'EMI 11/8/2020 18:36:52'!
+test16PortfolioCannotAddSameEmptyAssetTwice
+	| portfolio portfolio2 account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	self assertAdd: account To: portfolio.
+	self denyAdd: account To: portfolio.
+	
+	portfolio2 _ Portfolio new.
+	
+	self assertAdd: portfolio2 To: portfolio.
+	self denyAdd: portfolio2 To: portfolio.
+
+
+	 
+!
+!PortfolioTest methodsFor: 'tests - tree structure' stamp: 'EMI 11/8/2020 18:37:05'!
+test27PortfolioWith2GrandChildrenPortfoliosCannotAddAThirdWithAGrandParentWithSameAccount
+	| portfolioRoot portfolioChildLeft portfolioChildRight 
+	portfolioGrandChildRight portfolioGrandChildLeft 
+	portfolioRootAnotherTree portfolioChildAnotherTree portfolioGrandChildAnotherTree account|
+	
+	portfolioRoot _ Portfolio new.
+	portfolioRootAnotherTree  _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	self assertAdd: account To: portfolioRoot.
+	self assertAdd: account To: portfolioRootAnotherTree.
+	
+	portfolioChildLeft  _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	self assertAdd: portfolioChildLeft To: portfolioRoot.
+	self assertAdd: portfolioChildRight To: portfolioRoot.
+	
+	portfolioGrandChildLeft _ Portfolio new.
+	portfolioGrandChildRight _ Portfolio new.
+	self assertAdd: portfolioGrandChildLeft To: portfolioChildLeft .
+	self assertAdd: portfolioGrandChildRight To: portfolioChildRight.
+	
+	portfolioChildAnotherTree _ Portfolio new.
+	self assertAdd: portfolioChildAnotherTree To: portfolioRootAnotherTree.
+	
+	portfolioGrandChildAnotherTree _ Portfolio new.
+	self assertAdd: portfolioGrandChildAnotherTree To: portfolioChildAnotherTree.
+	
+	self denyAdd: portfolioGrandChildAnotherTree To: portfolioGrandChildRight 
+
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test25PortfolioWith2GrandChildrenPortfoliosCannotAddAThirdWithAGrandParentWithSameAccount stamp: 'EMI 11/8/2020 18:37:05'!
+test25PortfolioWith2GrandChildrenPortfoliosCannotAddAThirdWithAGrandParentWithSameAccount
+	| portfolioRoot portfolioChildLeft portfolioChildRight 
+	portfolioGrandChildRight portfolioGrandChildLeft 
+	portfolioRootAnotherTree portfolioChildAnotherTree portfolioGrandChildAnotherTree account|
+	
+	portfolioRoot _ Portfolio new.
+	portfolioRootAnotherTree  _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	self assertAdd: account To: portfolioRoot.
+	self assertAdd: account To: portfolioRootAnotherTree.
+	
+	portfolioChildLeft  _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	self assertAdd: portfolioChildLeft To: portfolioRoot.
+	self assertAdd: portfolioChildRight To: portfolioRoot.
+	
+	portfolioGrandChildLeft _ Portfolio new.
+	portfolioGrandChildRight _ Portfolio new.
+	self assertAdd: portfolioGrandChildLeft To: portfolioChildLeft .
+	self assertAdd: portfolioGrandChildRight To: portfolioChildRight.
+	
+	portfolioChildAnotherTree _ Portfolio new.
+	self assertAdd: portfolioChildAnotherTree To: portfolioRootAnotherTree.
+	
+	portfolioGrandChildAnotherTree _ Portfolio new.
+	self assertAdd: portfolioGrandChildAnotherTree To: portfolioChildAnotherTree.
+	
+	self denyAdd: portfolioGrandChildAnotherTree To: portfolioGrandChildRight 
+
+
+	 
+!
+!PortfolioTest methodsFor: 'tests - tree structure' stamp: 'EMI 11/8/2020 18:37:16'!
+test26PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithAParentWithSameAccount
+	| portfolioRoot portfolioChildWithAccount portfolioChildWithoutAccount 
+	portfolioToAdd portfolioWithSameAccount account|
+	
+	portfolioRoot _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildWithoutAccount _ Portfolio new.
+	
+	portfolioChildWithAccount _ Portfolio new.
+	self assertAdd: account To: portfolioChildWithAccount.
+	
+	portfolioToAdd _ Portfolio new.
+	portfolioWithSameAccount _ Portfolio new.
+	self assertAdd: account To: portfolioWithSameAccount.
+	self assertAdd: portfolioToAdd To: portfolioWithSameAccount.
+	
+	self assertAdd: portfolioChildWithoutAccount To: portfolioRoot.
+	self assertAdd: portfolioChildWithAccount To: portfolioRoot.
+	self denyAdd: portfolioToAdd To: portfolioRoot.
+
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test24PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithAParentWithSameAccount stamp: 'EMI 11/8/2020 18:37:16'!
+test24PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithAParentWithSameAccount
+	| portfolioRoot portfolioChildWithAccount portfolioChildWithoutAccount 
+	portfolioToAdd portfolioWithSameAccount account|
+	
+	portfolioRoot _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildWithoutAccount _ Portfolio new.
+	
+	portfolioChildWithAccount _ Portfolio new.
+	self assertAdd: account To: portfolioChildWithAccount.
+	
+	portfolioToAdd _ Portfolio new.
+	portfolioWithSameAccount _ Portfolio new.
+	self assertAdd: account To: portfolioWithSameAccount.
+	self assertAdd: portfolioToAdd To: portfolioWithSameAccount.
+	
+	self assertAdd: portfolioChildWithoutAccount To: portfolioRoot.
+	self assertAdd: portfolioChildWithAccount To: portfolioRoot.
+	self denyAdd: portfolioToAdd To: portfolioRoot.
+
+
+	 
+!
+!PortfolioTest methodsFor: 'tests - tree structure' stamp: 'EMI 11/8/2020 18:37:25'!
+test25PortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild
+	| portfolio portfolioChildLeft portfolioChildRight portfolioGrandChildRight account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildLeft _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	
+	self assertAdd: account To: portfolioChildLeft.
+	
+	portfolioGrandChildRight _ Portfolio new.
+	self assertAdd: account To: portfolioGrandChildRight.
+	
+	self assertAdd: portfolioChildLeft To: portfolio.
+	self assertAdd: portfolioChildRight To: portfolio.
+	self denyAdd: portfolioGrandChildRight To: portfolioChildRight.
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test23PortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild stamp: 'EMI 11/8/2020 18:37:25'!
+test23PortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild
+	| portfolio portfolioChildLeft portfolioChildRight portfolioGrandChildRight account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildLeft _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	
+	self assertAdd: account To: portfolioChildLeft.
+	
+	portfolioGrandChildRight _ Portfolio new.
+	self assertAdd: account To: portfolioGrandChildRight.
+	
+	self assertAdd: portfolioChildLeft To: portfolio.
+	self assertAdd: portfolioChildRight To: portfolio.
+	self denyAdd: portfolioGrandChildRight To: portfolioChildRight.
+
+	 
+!
+!PortfolioTest methodsFor: 'tests - tree structure' stamp: 'EMI 11/8/2020 18:37:36'!
+test24PortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild
+	| portfolio portfolioChildLeft portfolioChildRight portfolioGrandChildRight account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildLeft _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	
+	self assertAdd: account To: portfolioChildLeft.
+	
+	portfolioGrandChildRight _ Portfolio new.
+	self assertAdd: account To: portfolioGrandChildRight.
+	
+	self assertAdd: portfolioChildLeft To: portfolio.
+	self assertAdd: portfolioChildRight To: portfolio.
+	self denyAdd: portfolioGrandChildRight To: portfolioChildRight.
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test25PortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild stamp: 'EMI 11/8/2020 18:37:36'!
+test25PortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild
+	| portfolio portfolioChildLeft portfolioChildRight portfolioGrandChildRight account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildLeft _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	
+	self assertAdd: account To: portfolioChildLeft.
+	
+	portfolioGrandChildRight _ Portfolio new.
+	self assertAdd: account To: portfolioGrandChildRight.
+	
+	self assertAdd: portfolioChildLeft To: portfolio.
+	self assertAdd: portfolioChildRight To: portfolio.
+	self denyAdd: portfolioGrandChildRight To: portfolioChildRight.
+
+	 
+!
+!PortfolioTest methodsFor: 'tests - tree structure' stamp: 'EMI 11/8/2020 18:37:45'!
+test25PortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild
+	| portfolio portfolioChildLeft portfolioChildRight portfolioGrandChildRight account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildLeft _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	
+	self assertAdd: account To: portfolioChildLeft.
+	
+	portfolioGrandChildRight _ Portfolio new.
+	self assertAdd: account To: portfolioGrandChildRight.
+	
+	self assertAdd: portfolioChildLeft To: portfolio.
+	self assertAdd: portfolioChildRight To: portfolio.
+	self denyAdd: portfolioGrandChildRight To: portfolioChildRight.
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test24PortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild stamp: 'EMI 11/8/2020 18:37:45'!
+test24PortfolioCannotAddGrandChildPortfolioWithSameAccountAsChild
+	| portfolio portfolioChildLeft portfolioChildRight portfolioGrandChildRight account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildLeft _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	
+	self assertAdd: account To: portfolioChildLeft.
+	
+	portfolioGrandChildRight _ Portfolio new.
+	self assertAdd: account To: portfolioGrandChildRight.
+	
+	self assertAdd: portfolioChildLeft To: portfolio.
+	self assertAdd: portfolioChildRight To: portfolio.
+	self denyAdd: portfolioGrandChildRight To: portfolioChildRight.
+
+	 
+!
+!PortfolioTest methodsFor: 'tests - tree structure' stamp: 'EMI 11/8/2020 18:37:53'!
+test24PortfolioCannotAddBothGrandChildrenPortfoliosWithSameAccount
+	| portfolio portfolioChildLeft portfolioChildRight portfolioGrandChildLeft portfolioGrandChildRight account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildLeft _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	
+	portfolioGrandChildLeft _ Portfolio new.
+	self assertAdd: account To: portfolioGrandChildLeft.
+	
+	portfolioGrandChildRight _ Portfolio new.
+	self assertAdd: account To: portfolioGrandChildRight.
+	
+	self assertAdd: portfolioChildLeft To: portfolio.
+	self assertAdd: portfolioChildRight To: portfolio.
+	self assertAdd: portfolioGrandChildLeft To: portfolioChildLeft.
+	self denyAdd: portfolioGrandChildRight To: portfolioChildRight.
+
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test22PortfolioCannotAddBothGrandChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:37:53'!
+test22PortfolioCannotAddBothGrandChildrenPortfoliosWithSameAccount
+	| portfolio portfolioChildLeft portfolioChildRight portfolioGrandChildLeft portfolioGrandChildRight account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildLeft _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	
+	portfolioGrandChildLeft _ Portfolio new.
+	self assertAdd: account To: portfolioGrandChildLeft.
+	
+	portfolioGrandChildRight _ Portfolio new.
+	self assertAdd: account To: portfolioGrandChildRight.
+	
+	self assertAdd: portfolioChildLeft To: portfolio.
+	self assertAdd: portfolioChildRight To: portfolio.
+	self assertAdd: portfolioGrandChildLeft To: portfolioChildLeft.
+	self denyAdd: portfolioGrandChildRight To: portfolioChildRight.
+
+
+	 
+!
+!PortfolioTest methodsFor: 'tests - tree structure' stamp: 'EMI 11/8/2020 18:38:00'!
+test23CannotUniteTwoDisjointPortfoliosWithSameChildPortfolio
+	| portfolio portfolio2 portfolioRoot portfolioChild |
+	
+	portfolio _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	portfolioRoot _ Portfolio new.
+	portfolioChild _ Portfolio new.
+	
+	self assertAdd: portfolioChild To: portfolio.
+	self assertAdd: portfolioChild To: portfolio2.
+	self assertAdd:  portfolio To: portfolioRoot.
+	self denyAdd: portfolio2 To: portfolioRoot.
+	
+
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test21CannotUniteTwoDisjointPortfoliosWithSameChildPortfolio stamp: 'EMI 11/8/2020 18:38:00'!
+test21CannotUniteTwoDisjointPortfoliosWithSameChildPortfolio
+	| portfolio portfolio2 portfolioRoot portfolioChild |
+	
+	portfolio _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	portfolioRoot _ Portfolio new.
+	portfolioChild _ Portfolio new.
+	
+	self assertAdd: portfolioChild To: portfolio.
+	self assertAdd: portfolioChild To: portfolio2.
+	self assertAdd:  portfolio To: portfolioRoot.
+	self denyAdd: portfolio2 To: portfolioRoot.
+	
+
+
+	 
+!
+!PortfolioTest methodsFor: 'tests - tree structure' stamp: 'EMI 11/8/2020 18:38:09'!
+test22TwoDisjointPortfoliosCanHaveSameChildPortfolio
+	| portfolio portfolio2 portfolioChild|
+	
+	portfolio _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	portfolioChild _ Portfolio new.
+	
+	self assertAdd: portfolioChild To: portfolio.
+	self assertAdd: portfolioChild To: portfolio2.
+	self assert: portfolioChild parentAssets includes: portfolio.
+	self assert: portfolioChild parentAssets includes: portfolio2.
+	
+
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test20TwoDisjointPortfoliosCanHaveSameChildPortfolio stamp: 'EMI 11/8/2020 18:38:09'!
+test20TwoDisjointPortfoliosCanHaveSameChildPortfolio
+	| portfolio portfolio2 portfolioChild|
+	
+	portfolio _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	portfolioChild _ Portfolio new.
+	
+	self assertAdd: portfolioChild To: portfolio.
+	self assertAdd: portfolioChild To: portfolio2.
+	self assert: portfolioChild parentAssets includes: portfolio.
+	self assert: portfolioChild parentAssets includes: portfolio2.
+	
+
+
+	 
+!
+!PortfolioTest methodsFor: 'tests - tree structure' stamp: 'EMI 11/8/2020 18:38:24'!
+test21CannotUniteTwoDisjointPortfoliosWithSameAccount
+	| portfolio portfolio2 portfolioRoot account|
+	
+	portfolio _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	portfolioRoot _ Portfolio new.
+	account _ ReceptiveAccount new.
+	
+	self assertAdd: account To: portfolio.
+	self assertAdd: account To: portfolio2.
+	self assertAdd: portfolio To: portfolioRoot.
+	self denyAdd: portfolio2 To: portfolioRoot.
+
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test19CannotUniteTwoDisjointPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:38:24'!
+test19CannotUniteTwoDisjointPortfoliosWithSameAccount
+	| portfolio portfolio2 portfolioRoot account|
+	
+	portfolio _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	portfolioRoot _ Portfolio new.
+	account _ ReceptiveAccount new.
+	
+	self assertAdd: account To: portfolio.
+	self assertAdd: account To: portfolio2.
+	self assertAdd: portfolio To: portfolioRoot.
+	self denyAdd: portfolio2 To: portfolioRoot.
+
+
+	 
+!
+!PortfolioTest methodsFor: 'tests - tree structure' stamp: 'EMI 11/8/2020 18:38:37'!
+test20TwoDisjointPortfoliosCanUseSameAccount
+	| portfolio portfolio2 account|
+	
+	portfolio _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account _ ReceptiveAccount new.
+	
+	self assertAdd: account To: portfolio.
+	self assertAdd: account To: portfolio2.
+	self assert: account parentAssets includes: portfolio.
+	self assert: account parentAssets includes: portfolio2.
+	
+
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test18TwoDisjointPortfoliosCanUseSameAccount stamp: 'EMI 11/8/2020 18:38:37'!
+test18TwoDisjointPortfoliosCanUseSameAccount
+	| portfolio portfolio2 account|
+	
+	portfolio _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	account _ ReceptiveAccount new.
+	
+	self assertAdd: account To: portfolio.
+	self assertAdd: account To: portfolio2.
+	self assert: account parentAssets includes: portfolio.
+	self assert: account parentAssets includes: portfolio2.
+	
+
+
+	 
+!
+!PortfolioTest methodsFor: 'tests - tree structure' stamp: 'EMI 11/8/2020 18:38:55'!
+test19PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount
+	| portfolioRoot portfolioChildWithAccount portfolioChildWithoutAccount portfolioToAddWithSameAccount account|
+	portfolioRoot _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildWithoutAccount _ Portfolio new.
+	
+	portfolioChildWithAccount _ Portfolio new.
+	self assertAdd: account To: portfolioChildWithAccount.
+	
+	portfolioToAddWithSameAccount _ Portfolio new.
+	self assertAdd: account To: portfolioToAddWithSameAccount.
+	
+	self assertAdd: portfolioChildWithoutAccount To: portfolioRoot.
+	self assertAdd: portfolioChildWithAccount To: portfolioRoot.
+	self denyAdd: portfolioToAddWithSameAccount To: portfolioRoot.
+
+
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test17PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount stamp: 'EMI 11/8/2020 18:38:55'!
+test17PortfolioWith2ChildrenPortfoliosCannotAddAThirdWithSameAccount
+	| portfolioRoot portfolioChildWithAccount portfolioChildWithoutAccount portfolioToAddWithSameAccount account|
+	portfolioRoot _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildWithoutAccount _ Portfolio new.
+	
+	portfolioChildWithAccount _ Portfolio new.
+	self assertAdd: account To: portfolioChildWithAccount.
+	
+	portfolioToAddWithSameAccount _ Portfolio new.
+	self assertAdd: account To: portfolioToAddWithSameAccount.
+	
+	self assertAdd: portfolioChildWithoutAccount To: portfolioRoot.
+	self assertAdd: portfolioChildWithAccount To: portfolioRoot.
+	self denyAdd: portfolioToAddWithSameAccount To: portfolioRoot.
+
+
+
+	 
+!
+!PortfolioTest methodsFor: 'tests - tree structure' stamp: 'EMI 11/8/2020 18:39:09'!
+test18PortfolioCannotAddBothChildrenPortfoliosWithSameAccount
+	| portfolio portfolioChildLeft portfolioChildRight account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildLeft _ Portfolio new.
+	self assertAdd: account To: portfolioChildLeft.
+	
+	portfolioChildRight _ Portfolio new.
+	self assertAdd: account To: portfolioChildRight.
+	
+	self assertAdd: portfolioChildLeft To: portfolio.
+	self denyAdd: portfolioChildRight To: portfolio.
+
+
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test16PortfolioCannotAddBothChildrenPortfoliosWithSameAccount stamp: 'EMI 11/8/2020 18:39:09'!
+test16PortfolioCannotAddBothChildrenPortfoliosWithSameAccount
+	| portfolio portfolioChildLeft portfolioChildRight account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	portfolioChildLeft _ Portfolio new.
+	self assertAdd: account To: portfolioChildLeft.
+	
+	portfolioChildRight _ Portfolio new.
+	self assertAdd: account To: portfolioChildRight.
+	
+	self assertAdd: portfolioChildLeft To: portfolio.
+	self denyAdd: portfolioChildRight To: portfolio.
+
+
+
+	 
+!
+!PortfolioTest methodsFor: 'tests - tree structure' stamp: 'EMI 11/8/2020 18:39:17'!
+test17PortfolioCannotAddChildPortfolioWithSameAccount
+	| portfolio portfolio2 account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	self assertAdd: account To: portfolio.
+	
+	portfolio2 _ Portfolio new.
+	self assertAdd: account To: portfolio2.
+	
+	self denyAdd: portfolio2 To: portfolio.
+
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test15PortfolioCannotAddChildPortfolioWithSameAccount stamp: 'EMI 11/8/2020 18:39:17'!
+test15PortfolioCannotAddChildPortfolioWithSameAccount
+	| portfolio portfolio2 account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	self assertAdd: account To: portfolio.
+	
+	portfolio2 _ Portfolio new.
+	self assertAdd: account To: portfolio2.
+	
+	self denyAdd: portfolio2 To: portfolio.
+
+
+	 
+!
+!PortfolioTest methodsFor: 'tests - tree structure' stamp: 'EMI 11/8/2020 18:39:23'!
+test16PortfolioCannotAddSameEmptyAssetTwice
+	| portfolio portfolio2 account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	self assertAdd: account To: portfolio.
+	self denyAdd: account To: portfolio.
+	
+	portfolio2 _ Portfolio new.
+	
+	self assertAdd: portfolio2 To: portfolio.
+	self denyAdd: portfolio2 To: portfolio.
+
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test14PortfolioCannotAddSameEmptyAssetTwice stamp: 'EMI 11/8/2020 18:39:24'!
+test14PortfolioCannotAddSameEmptyAssetTwice
+	| portfolio portfolio2 account|
+	portfolio _ Portfolio new.
+	account _  ReceptiveAccount new.
+	
+	self assertAdd: account To: portfolio.
+	self denyAdd: account To: portfolio.
+	
+	portfolio2 _ Portfolio new.
+	
+	self assertAdd: portfolio2 To: portfolio.
+	self denyAdd: portfolio2 To: portfolio.
+
+
+	 
+!
+!PortfolioTest methodsFor: 'tests - tree structure' stamp: 'EMI 11/8/2020 18:39:32'!
+test15bisPortfolioHasMoreThanOneGrandChildPortfolioWithAnAccountAndADepositRegistered
+	| portfolio portfolioChild portfolioGrandChildLeft  portfolioGrandChildRight account1 account2 transaction1 transaction2|
+	portfolio _ Portfolio new.
+	portfolioChild _ Portfolio new.
+	portfolioGrandChildLeft _ Portfolio new.
+	portfolioGrandChildRight _ Portfolio new.
+	account1 _  ReceptiveAccount new.
+	account2 _  ReceptiveAccount new.
+	transaction1 _ Deposit register: 100 on: account1.
+	transaction2 _ Deposit register: 100 on: account2.
+	.
+	self assertAdd: account1 To: portfolioGrandChildLeft.
+	self assertAdd: account2 To: portfolioGrandChildRight.
+	self assertAdd: portfolioGrandChildLeft To: portfolioChild.
+	self assertAdd: portfolioGrandChildRight To: portfolioChild.
+	self assertAdd: portfolioChild To: portfolio.
+	self assert: (portfolio balance ) equals: 200.
+	self assert: (portfolio hasRegistered: transaction1).
+	self assert: (portfolio hasRegistered: transaction2).
+	self assert: (portfolio transactions size) equals: 2.
+	self assert: (portfolio transactions includes: transaction1).
+	self assert: (portfolio transactions includes: transaction2).
+	 
+! !
+
+!methodRemoval: PortfolioTest #test13bisPortfolioHasMoreThanOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:39:32'!
+test13bisPortfolioHasMoreThanOneGrandChildPortfolioWithAnAccountAndADepositRegistered
+	| portfolio portfolioChild portfolioGrandChildLeft  portfolioGrandChildRight account1 account2 transaction1 transaction2|
+	portfolio _ Portfolio new.
+	portfolioChild _ Portfolio new.
+	portfolioGrandChildLeft _ Portfolio new.
+	portfolioGrandChildRight _ Portfolio new.
+	account1 _  ReceptiveAccount new.
+	account2 _  ReceptiveAccount new.
+	transaction1 _ Deposit register: 100 on: account1.
+	transaction2 _ Deposit register: 100 on: account2.
+	.
+	self assertAdd: account1 To: portfolioGrandChildLeft.
+	self assertAdd: account2 To: portfolioGrandChildRight.
+	self assertAdd: portfolioGrandChildLeft To: portfolioChild.
+	self assertAdd: portfolioGrandChildRight To: portfolioChild.
+	self assertAdd: portfolioChild To: portfolio.
+	self assert: (portfolio balance ) equals: 200.
+	self assert: (portfolio hasRegistered: transaction1).
+	self assert: (portfolio hasRegistered: transaction2).
+	self assert: (portfolio transactions size) equals: 2.
+	self assert: (portfolio transactions includes: transaction1).
+	self assert: (portfolio transactions includes: transaction2).
+	 
+!
+!PortfolioTest methodsFor: 'tests - tree structure' stamp: 'EMI 11/8/2020 18:39:38'!
+test15PortfolioHasMoreThanOneGrandChildPortfolioWithAnAccountAndADepositRegistered
+	| portfolio portfolioChild portfolioGrandChildLeft  portfolioGrandChildRight account1 account2 transaction1 transaction2|
+	portfolio _ Portfolio new.
+	portfolioChild _ Portfolio new.
+	portfolioGrandChildLeft _ Portfolio new.
+	portfolioGrandChildRight _ Portfolio new.
+	account1 _  ReceptiveAccount new.
+	account2 _  ReceptiveAccount new.
+	transaction1 _ Deposit register: 100 on: account1.
+	transaction2 _ Deposit register: 100 on: account2.
+	.
+	self assertAdd: account1 To: portfolioGrandChildLeft.
+	self assertAdd: account2 To: portfolioGrandChildRight.
+	self assertAdd: portfolioGrandChildLeft To: portfolioChild.
+	self assertAdd: portfolioGrandChildRight To: portfolioChild.
+	self assertAdd: portfolioChild To: portfolio.
+	self assert: (portfolio balance ) equals: 200.
+	self assert: (portfolio hasRegistered: transaction1).
+	self assert: (portfolio hasRegistered: transaction2).
+	self assert: (portfolio transactions size) equals: 2.
+	self assert: (portfolio transactions includes: transaction1).
+	self assert: (portfolio transactions includes: transaction2).
+	 
+! !
+
+!methodRemoval: PortfolioTest #test15bisPortfolioHasMoreThanOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:39:38'!
+test15bisPortfolioHasMoreThanOneGrandChildPortfolioWithAnAccountAndADepositRegistered
+	| portfolio portfolioChild portfolioGrandChildLeft  portfolioGrandChildRight account1 account2 transaction1 transaction2|
+	portfolio _ Portfolio new.
+	portfolioChild _ Portfolio new.
+	portfolioGrandChildLeft _ Portfolio new.
+	portfolioGrandChildRight _ Portfolio new.
+	account1 _  ReceptiveAccount new.
+	account2 _  ReceptiveAccount new.
+	transaction1 _ Deposit register: 100 on: account1.
+	transaction2 _ Deposit register: 100 on: account2.
+	.
+	self assertAdd: account1 To: portfolioGrandChildLeft.
+	self assertAdd: account2 To: portfolioGrandChildRight.
+	self assertAdd: portfolioGrandChildLeft To: portfolioChild.
+	self assertAdd: portfolioGrandChildRight To: portfolioChild.
+	self assertAdd: portfolioChild To: portfolio.
+	self assert: (portfolio balance ) equals: 200.
+	self assert: (portfolio hasRegistered: transaction1).
+	self assert: (portfolio hasRegistered: transaction2).
+	self assert: (portfolio transactions size) equals: 2.
+	self assert: (portfolio transactions includes: transaction1).
+	self assert: (portfolio transactions includes: transaction2).
+	 
+!
+!PortfolioTest methodsFor: 'tests - tree structure' stamp: 'EMI 11/8/2020 18:39:48'!
+test14PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADepositRegistered
+	| portfolio portfolioChildLeft  portfolioChildRight account1 account2 transaction1 transaction2|
+	portfolio _ Portfolio new.
+	portfolioChildLeft _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	account1 _  ReceptiveAccount new.
+	account2 _  ReceptiveAccount new.
+	transaction1 _ Deposit register: 100 on: account1.
+	transaction2 _ Deposit register: 100 on: account2.
+	
+	self assertAdd: account1 To: portfolioChildLeft.
+	self assertAdd: account2 To: portfolioChildRight.
+	self assertAdd: portfolioChildLeft To: portfolio.
+	self assertAdd: portfolioChildRight To: portfolio.
+	self assert: (portfolio hasRegistered: transaction1).
+	self assert: (portfolio hasRegistered: transaction2).
+	self assert: (portfolio transactions size) equals: 2.
+	self assert: (portfolio transactions includes: transaction1).
+	self assert: (portfolio transactions includes: transaction2).
+	 
+	 
+! !
+
+!methodRemoval: PortfolioTest #test13PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:39:48'!
+test13PortfolioHasMoreThanOneChildPortfolioWithAnAccountAndADepositRegistered
+	| portfolio portfolioChildLeft  portfolioChildRight account1 account2 transaction1 transaction2|
+	portfolio _ Portfolio new.
+	portfolioChildLeft _ Portfolio new.
+	portfolioChildRight _ Portfolio new.
+	account1 _  ReceptiveAccount new.
+	account2 _  ReceptiveAccount new.
+	transaction1 _ Deposit register: 100 on: account1.
+	transaction2 _ Deposit register: 100 on: account2.
+	
+	self assertAdd: account1 To: portfolioChildLeft.
+	self assertAdd: account2 To: portfolioChildRight.
+	self assertAdd: portfolioChildLeft To: portfolio.
+	self assertAdd: portfolioChildRight To: portfolio.
+	self assert: (portfolio hasRegistered: transaction1).
+	self assert: (portfolio hasRegistered: transaction2).
+	self assert: (portfolio transactions size) equals: 2.
+	self assert: (portfolio transactions includes: transaction1).
+	self assert: (portfolio transactions includes: transaction2).
+	 
+	 
+!
+!PortfolioTest methodsFor: 'tests - tree structure' stamp: 'EMI 11/8/2020 18:39:56'!
+test13PortfolioHasOneGrandChildPortfolioWithAnAccountAndADepositRegistered
+	| portfolio portfolioChild portfolioGrandChild account transaction |
+	portfolio _ Portfolio new.
+	portfolioChild _ Portfolio new.
+	portfolioGrandChild _ Portfolio new.
+	account _  ReceptiveAccount new.
+	transaction _ Deposit register: 100 on: account. 
+	
+	self assertAdd: account To: portfolioGrandChild.
+	self assertAdd: portfolioGrandChild To: portfolioChild.
+	self assertAdd: portfolioChild To: portfolio.
+	self assert: (portfolio balance ) equals: 100.
+	self assert: (portfolio hasRegistered: transaction).
+	self assert: (portfolio transactions size) equals: 1.
+	self assert: (portfolio transactions includes: transaction).
+
+	 
+! !
+
+!methodRemoval: PortfolioTest #test12bisPortfolioHasOneGrandChildPortfolioWithAnAccountAndADepositRegistered stamp: 'EMI 11/8/2020 18:39:56'!
+test12bisPortfolioHasOneGrandChildPortfolioWithAnAccountAndADepositRegistered
+	| portfolio portfolioChild portfolioGrandChild account transaction |
+	portfolio _ Portfolio new.
+	portfolioChild _ Portfolio new.
+	portfolioGrandChild _ Portfolio new.
+	account _  ReceptiveAccount new.
+	transaction _ Deposit register: 100 on: account. 
+	
+	self assertAdd: account To: portfolioGrandChild.
+	self assertAdd: portfolioGrandChild To: portfolioChild.
+	self assertAdd: portfolioChild To: portfolio.
+	self assert: (portfolio balance ) equals: 100.
+	self assert: (portfolio hasRegistered: transaction).
+	self assert: (portfolio transactions size) equals: 1.
+	self assert: (portfolio transactions includes: transaction).
+
+	 
+!
+
+----SNAPSHOT----(8 November 2020 18:40:09) CuisUniversity-4383.image priorSource: 18284179!
+!ReceptiveAccount methodsFor: 'nil' stamp: 'EMI 11/8/2020 18:41:22'!
+add: anAsset
+	^self.! !
+!Asset methodsFor: 'nil' stamp: 'EMI 11/8/2020 18:41:54'!
+add: anAsset
+	^self subclassResponsibility.! !
+
+----SNAPSHOT----(8 November 2020 18:43:18) CuisUniversity-4383.image priorSource: 18324735!
+
+----SNAPSHOT----(8 November 2020 18:47:40) CuisUniversity-4383.image priorSource: 18325070!
+
+----QUIT----(8 November 2020 18:47:48) CuisUniversity-4383.image priorSource: 18325163!
