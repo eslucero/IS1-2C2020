@@ -262,6 +262,34 @@ test08NetTransferReportOfPortfolioTreeOfHeightThreeReturnsCorrectly
 	self assert: netTransfer report equals: 0.! !
 
 
+!classDefinition: #PortfolioStructureReportTest category: 'Portfolio2-Ejercicio'!
+TestCase subclass: #PortfolioStructureReportTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+!PortfolioStructureReportTest methodsFor: 'as yet unclassified' stamp: 'EMI 11/15/2020 18:42:31'!
+test01ReportOfAnEmptyPortfolioStructureHasCorrectName
+	| portfolio report expectedResult |
+	portfolio _ Portfolio new.
+	report _ PortfolioStructureReport of: portfolio.
+	
+	expectedResult _ OrderedCollection with: 'Portfolio de Unnamed Portfolio'.
+	self assert: report report equals: expectedResult.! !
+
+!PortfolioStructureReportTest methodsFor: 'as yet unclassified' stamp: 'EMI 11/15/2020 18:45:52'!
+test02ReportOfASimplePortfolioStructureHasCorrectNamesAndIdentation
+	| portfolio account report expectedResult |
+	portfolio _ Portfolio new.
+	account _ ReceptiveAccount new.
+	portfolio add: account.
+	report _ PortfolioStructureReport of: portfolio.
+	
+	expectedResult _ OrderedCollection with: 'Portfolio de Unnamed Portfolio' with: '   Cuenta de Unnamed account'.
+	self assert: report report equals: expectedResult.! !
+
+
 !classDefinition: #PortfolioTest category: 'Portfolio2-Ejercicio'!
 TestCase subclass: #PortfolioTest
 	instanceVariableNames: ''
@@ -477,6 +505,22 @@ test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd
 			self assert: Portfolio canNotAddAccountErrorMessage equals: anError messageText.
 			self assert: portfolioToModify accountsIsEmpty ]! !
 
+!PortfolioTest methodsFor: 'tests' stamp: 'EMI 11/15/2020 18:25:31'!
+test16PortfolioHasDefaultName
+	| portfolio |
+	
+	portfolio _ Portfolio new.
+	
+	self assert: portfolio named equals: 'Unnamed portfolio'.! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'EMI 11/15/2020 18:26:43'!
+test17CanCreatePortfolioWithName
+	| portfolio |
+	
+	portfolio _ Portfolio withName: 'Test Portfolio'.
+	
+	self assert: portfolio named equals: 'Test Portfolio'.! !
+
 
 !classDefinition: #ReceptiveAccountTest category: 'Portfolio2-Ejercicio'!
 TestCase subclass: #ReceptiveAccountTest
@@ -647,6 +691,20 @@ test07AccountKnowsItsTransactions
 	self assert: (account transactions includes: deposit).
 ! !
 
+!ReceptiveAccountTest methodsFor: 'tests - account' stamp: 'EMI 11/15/2020 18:19:20'!
+test12AccountHasDefaultName
+	| account |
+	account _ ReceptiveAccount new.
+	
+	self assert: account named equals: 'Unnamed account'.! !
+
+!ReceptiveAccountTest methodsFor: 'tests - account' stamp: 'EMI 11/15/2020 18:20:59'!
+test13CanCreateAccountWithName
+	| account |
+	account _ ReceptiveAccount withName: 'Test account'.
+	
+	self assert: account named equals: 'Test account'.! !
+
 
 !classDefinition: #Account category: 'Portfolio2-Ejercicio'!
 Object subclass: #Account
@@ -693,10 +751,15 @@ addedTo: aPortfolio
 reportTo: aReport
 	^self subclassResponsibility.! !
 
+
+!Account methodsFor: 'names' stamp: 'EMI 11/15/2020 18:30:11'!
+named
+	^self subclassResponsibility.! !
+
 
 !classDefinition: #Portfolio category: 'Portfolio2-Ejercicio'!
 Account subclass: #Portfolio
-	instanceVariableNames: 'accounts parents'
+	instanceVariableNames: 'accounts parents portfolioName'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio2-Ejercicio'!
@@ -736,11 +799,16 @@ rootParents
 	^ rootParents! !
 
 
-!Portfolio methodsFor: 'initialization' stamp: 'HAW 5/25/2019 12:03:18'!
+!Portfolio methodsFor: 'initialization' stamp: 'EMI 11/15/2020 18:29:24'!
 initialize
-
+	portfolioName _ 'Unnamed portfolio'.
 	accounts := OrderedCollection new.
 	parents := OrderedCollection new.! !
+
+!Portfolio methodsFor: 'initialization' stamp: 'EMI 11/15/2020 18:27:55'!
+initializeWithName: aString 
+	self initialize.
+	portfolioName := aString.! !
 
 
 !Portfolio methodsFor: 'balance' stamp: 'HAW 5/25/2019 11:19:36'!
@@ -806,13 +874,18 @@ signalCanNotAddAccount
 	self error: self class canNotAddAccountErrorMessage! !
 
 
-!Portfolio methodsFor: 'reports' stamp: 'EMI 11/12/2020 21:49:15'!
+!Portfolio methodsFor: 'reports' stamp: 'EMI 11/15/2020 18:54:33'!
 reportTo: aReport
 	| result |
-	result _ OrderedCollection new.
+	result _ aReport reportPortfolio: self.
 	accounts do:[:anAccount |result addAll: (anAccount reportTo: aReport).].
 	^result.
 	! !
+
+
+!Portfolio methodsFor: 'names' stamp: 'EMI 11/15/2020 18:28:42'!
+named
+	^portfolioName.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -840,19 +913,29 @@ with: anAccount with: anotherAccount
 		add: anotherAccount;
 		yourself! !
 
+
+!Portfolio class methodsFor: 'instance creation' stamp: 'EMI 11/15/2020 18:27:21'!
+withName: aString 
+	^self new initializeWithName: aString ! !
+
 
 !classDefinition: #ReceptiveAccount category: 'Portfolio2-Ejercicio'!
 Account subclass: #ReceptiveAccount
-	instanceVariableNames: 'transactions'
+	instanceVariableNames: 'transactions accountName'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio2-Ejercicio'!
 
-!ReceptiveAccount methodsFor: 'initialization' stamp: 'HernanWilkinson 7/13/2011 18:35'!
+!ReceptiveAccount methodsFor: 'initialization' stamp: 'EMI 11/15/2020 18:23:28'!
 initialize
-
 	super initialize.
-	transactions := OrderedCollection new.! !
+	transactions := OrderedCollection new.
+	accountName _ 'Unnamed account'.! !
+
+!ReceptiveAccount methodsFor: 'initialization' stamp: 'EMI 11/15/2020 18:23:38'!
+initializeWithName: aString 
+	self initialize.
+	accountName _ aString.! !
 
 
 !ReceptiveAccount methodsFor: 'transactions' stamp: 'NR 11/9/2020 05:56:36'!
@@ -898,12 +981,27 @@ addedTo: aPortfolio
 	! !
 
 
-!ReceptiveAccount methodsFor: 'reports' stamp: 'EMI 11/12/2020 21:49:33'!
+!ReceptiveAccount methodsFor: 'reports' stamp: 'EMI 11/15/2020 18:58:42'!
 reportTo: aReport
 	| result |
-	result _ OrderedCollection new.
+	result _ aReport reportAccount: self.
 	transactions do:[:aTransaction | result add: (aTransaction reportTo: aReport)].
 	^ result.! !
+
+
+!ReceptiveAccount methodsFor: 'names' stamp: 'EMI 11/15/2020 18:22:43'!
+named
+	^accountName.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'ReceptiveAccount class' category: 'Portfolio2-Ejercicio'!
+ReceptiveAccount class
+	instanceVariableNames: ''!
+
+!ReceptiveAccount class methodsFor: 'instance creation' stamp: 'EMI 11/15/2020 18:21:23'!
+withName: aString 
+	^self new initializeWithName: aString ! !
 
 
 !classDefinition: #AccountTransaction category: 'Portfolio2-Ejercicio'!
@@ -1211,6 +1309,30 @@ reportExtractionTransferTransaction: aExtractionTransferTransaction
 !NetTransfersReport methodsFor: 'reporting - private' stamp: 'EMI 11/13/2020 20:37:49'!
 reportWithdrawTransaction: aWithdrawTransaction
 	^0! !
+
+
+!classDefinition: #PortfolioStructureReport category: 'Portfolio2-Ejercicio'!
+Report subclass: #PortfolioStructureReport
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+!PortfolioStructureReport methodsFor: 'as yet unclassified' stamp: 'EMI 11/15/2020 18:37:17'!
+initializeOf: anAccount
+	account _ anAccount.! !
+
+!PortfolioStructureReport methodsFor: 'as yet unclassified' stamp: 'EMI 11/15/2020 18:43:56'!
+report
+	^OrderedCollection with:'Portfolio de Unnamed Portfolio'.! !
+
+!PortfolioStructureReport methodsFor: 'as yet unclassified' stamp: 'EMI 11/15/2020 18:55:34'!
+reportAccount: anAccount
+	^ OrderedCollection with: ('Cuenta de ', anAccount named).! !
+
+!PortfolioStructureReport methodsFor: 'as yet unclassified' stamp: 'EMI 11/15/2020 18:55:06'!
+reportPortfolio: aPortfolio
+	^ OrderedCollection with: ('Portfolio de ', aPortfolio named).! !
 
 
 !classDefinition: #Transfer category: 'Portfolio2-Ejercicio'!
