@@ -1,3 +1,45 @@
+!classDefinition: #AccountSpecialReportTest category: 'Portfolio2-Ejercicio'!
+TestCase subclass: #AccountSpecialReportTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+!AccountSpecialReportTest methodsFor: 'as yet unclassified' stamp: 'EMI 11/16/2020 00:05:28'!
+test01EmptyPortfolioOnlyShowsName
+	| portfolio report expectedResult |
+	portfolio _ Portfolio new.
+	report _ AccountSpecialReport of: portfolio.
+	expectedResult _ OrderedCollection with: 'Portfolio de Unnamed Portfolio'
+								    with: (self class identString: 'Balance = 0' amount: 1).
+	self assert: report report equals: expectedResult.! !
+
+!AccountSpecialReportTest methodsFor: 'as yet unclassified' stamp: 'EMI 11/16/2020 00:05:37'!
+test02PortfolioWithAnAccountWithADepositShowsNamesAndIdentation
+	| portfolio account report expectedResult |
+	portfolio _ Portfolio withName: 'Compania de Pepe'.
+	account _ ReceptiveAccount withName: 'Suiza'.
+	Deposit register: 10 on: account.
+	portfolio add: account.
+	report _ AccountSpecialReport of: portfolio.
+	expectedResult _ OrderedCollection with: 'Portfolio de Compania de Pepe' 
+								    with: (self class identString: 'Cuenta de Suiza' amount: 1) 
+								    with: (self class identString: 'Depósito por 10.' amount: 2) 
+								    with: (self class identString: 'Balance = 10.' amount: 2)
+								    with: (self class identString: 'Balance = 10' amount: 1).
+	self assert: report report equals: expectedResult.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'AccountSpecialReportTest class' category: 'Portfolio2-Ejercicio'!
+AccountSpecialReportTest class
+	instanceVariableNames: ''!
+
+!AccountSpecialReportTest class methodsFor: 'as yet unclassified' stamp: 'EMI 11/15/2020 23:27:38'!
+identString: aString amount: anAmount
+	^(String new: (3*anAmount) withAll: Character space), aString.! !
+
+
 !classDefinition: #AccountSummaryTest category: 'Portfolio2-Ejercicio'!
 TestCase subclass: #AccountSummaryTest
 	instanceVariableNames: ''
@@ -278,7 +320,7 @@ test01ReportOfAnEmptyPortfolioStructureHasCorrectName
 	expectedResult _ OrderedCollection with: 'Portfolio de Unnamed Portfolio'.
 	self assert: report report equals: expectedResult.! !
 
-!PortfolioStructureReportTest methodsFor: 'as yet unclassified' stamp: 'EMI 11/15/2020 18:45:52'!
+!PortfolioStructureReportTest methodsFor: 'as yet unclassified' stamp: 'EMI 11/15/2020 23:08:15'!
 test02ReportOfASimplePortfolioStructureHasCorrectNamesAndIdentation
 	| portfolio account report expectedResult |
 	portfolio _ Portfolio new.
@@ -286,8 +328,57 @@ test02ReportOfASimplePortfolioStructureHasCorrectNamesAndIdentation
 	portfolio add: account.
 	report _ PortfolioStructureReport of: portfolio.
 	
-	expectedResult _ OrderedCollection with: 'Portfolio de Unnamed Portfolio' with: '   Cuenta de Unnamed account'.
+	expectedResult _ OrderedCollection with: 'Portfolio de Unnamed Portfolio' with: '   Cuenta de Unnamed Account'.
 	self assert: report report equals: expectedResult.! !
+
+!PortfolioStructureReportTest methodsFor: 'as yet unclassified' stamp: 'EMI 11/15/2020 23:11:38'!
+test03ReportOfAListPortfolioStructureHasCorrectNamesAndIdentation
+	| portfolio portfolioChild account report expectedResult |
+	portfolio _ Portfolio new.
+	portfolioChild _ Portfolio new.
+	account _ ReceptiveAccount new.
+	portfolioChild add: account.
+	portfolio add: portfolioChild.
+	report _ PortfolioStructureReport of: portfolio.
+	
+	expectedResult _ OrderedCollection with: 'Portfolio de Unnamed Portfolio' with: '   Portfolio de Unnamed Portfolio' with: '      Cuenta de Unnamed Account'.
+	self assert: report report equals: expectedResult.! !
+
+!PortfolioStructureReportTest methodsFor: 'as yet unclassified' stamp: 'EMI 11/15/2020 23:13:33'!
+test04ReportOfAListOfNamedPortfolioStructureHasCorrectNamesAndIdentation
+	| portfolio portfolioChild account report expectedResult |
+	portfolio _ Portfolio withName: 'Compania 1'.
+	portfolioChild _ Portfolio withName: 'Pepe'.
+	account _ ReceptiveAccount withName: 'Lavado de dinero'.
+	portfolioChild add: account.
+	portfolio add: portfolioChild.
+	report _ PortfolioStructureReport of: portfolio.
+	
+	expectedResult _ OrderedCollection with: 'Portfolio de Compania 1' with: '   Portfolio de Pepe' with: '      Cuenta de Lavado de dinero'.
+	self assert: report report equals: expectedResult.! !
+
+!PortfolioStructureReportTest methodsFor: 'as yet unclassified' stamp: 'EMI 11/15/2020 23:58:38'!
+test05ReportOfAListOfNamedPortfolioStructureHasCorrectNamesAndIdentation
+	| portfolio portfolioChildLeft portfolioChildRight report expectedResult |
+	portfolio _ Portfolio withName: 'Compania 1'.
+	portfolioChildLeft _ Portfolio withName: 'Pepe'.
+	portfolioChildRight _ Portfolio withName: 'Jose'.
+	portfolio add: portfolioChildLeft.
+	portfolio add: portfolioChildRight.
+	report _ PortfolioStructureReport of: portfolio.
+	
+	expectedResult _ OrderedCollection with: 'Portfolio de Compania 1' with: '   Portfolio de Pepe' with: '   Portfolio de Jose'.
+	self assert: report report equals: expectedResult.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'PortfolioStructureReportTest class' category: 'Portfolio2-Ejercicio'!
+PortfolioStructureReportTest class
+	instanceVariableNames: ''!
+
+!PortfolioStructureReportTest class methodsFor: 'as yet unclassified' stamp: 'EMI 11/15/2020 23:26:51'!
+identString: aString amount: anAmount
+	^(String new: (3*anAmount) withAll: Character space), aString.! !
 
 
 !classDefinition: #PortfolioTest category: 'Portfolio2-Ejercicio'!
@@ -799,9 +890,9 @@ rootParents
 	^ rootParents! !
 
 
-!Portfolio methodsFor: 'initialization' stamp: 'EMI 11/15/2020 18:29:24'!
+!Portfolio methodsFor: 'initialization' stamp: 'EMI 11/15/2020 23:07:56'!
 initialize
-	portfolioName _ 'Unnamed portfolio'.
+	portfolioName _ 'Unnamed Portfolio'.
 	accounts := OrderedCollection new.
 	parents := OrderedCollection new.! !
 
@@ -874,13 +965,11 @@ signalCanNotAddAccount
 	self error: self class canNotAddAccountErrorMessage! !
 
 
-!Portfolio methodsFor: 'reports' stamp: 'EMI 11/15/2020 18:54:33'!
+!Portfolio methodsFor: 'reports' stamp: 'EMI 11/16/2020 00:04:10'!
 reportTo: aReport
-	| result |
-	result _ aReport reportPortfolio: self.
-	accounts do:[:anAccount |result addAll: (anAccount reportTo: aReport).].
-	^result.
-	! !
+	aReport beginReportPortfolio: self.
+	accounts do:[:anAccount | anAccount reportTo: aReport].
+	aReport endReportPortfolio: self.! !
 
 
 !Portfolio methodsFor: 'names' stamp: 'EMI 11/15/2020 18:28:42'!
@@ -926,11 +1015,11 @@ Account subclass: #ReceptiveAccount
 	poolDictionaries: ''
 	category: 'Portfolio2-Ejercicio'!
 
-!ReceptiveAccount methodsFor: 'initialization' stamp: 'EMI 11/15/2020 18:23:28'!
+!ReceptiveAccount methodsFor: 'initialization' stamp: 'EMI 11/15/2020 23:08:02'!
 initialize
 	super initialize.
 	transactions := OrderedCollection new.
-	accountName _ 'Unnamed account'.! !
+	accountName _ 'Unnamed Account'.! !
 
 !ReceptiveAccount methodsFor: 'initialization' stamp: 'EMI 11/15/2020 18:23:38'!
 initializeWithName: aString 
@@ -981,12 +1070,10 @@ addedTo: aPortfolio
 	! !
 
 
-!ReceptiveAccount methodsFor: 'reports' stamp: 'EMI 11/15/2020 18:58:42'!
+!ReceptiveAccount methodsFor: 'reports' stamp: 'EMI 11/15/2020 22:56:18'!
 reportTo: aReport
-	| result |
-	result _ aReport reportAccount: self.
-	transactions do:[:aTransaction | result add: (aTransaction reportTo: aReport)].
-	^ result.! !
+	aReport reportAccount: self.
+	transactions do:[:aTransaction |aTransaction reportTo: aReport].! !
 
 
 !ReceptiveAccount methodsFor: 'names' stamp: 'EMI 11/15/2020 18:22:43'!
@@ -1208,6 +1295,18 @@ Object subclass: #Report
 	poolDictionaries: ''
 	category: 'Portfolio2-Ejercicio'!
 
+!Report methodsFor: 'reporting - private' stamp: 'EMI 11/16/2020 00:00:43'!
+beginReportPortfolio: aPortfolio.
+	self subclassResponsibility.! !
+
+!Report methodsFor: 'reporting - private' stamp: 'EMI 11/16/2020 00:00:50'!
+endReportPortfolio: aPortfolio.
+	self subclassResponsibility.! !
+
+!Report methodsFor: 'reporting - private' stamp: 'EMI 11/15/2020 23:04:15'!
+reportAccount: anAccount.
+	self subclassResponsibility.! !
+
 !Report methodsFor: 'reporting - private' stamp: 'EMI 11/13/2020 20:56:22'!
 reportDepositTransaction: aDepositTransaction
 	^self subclassResponsibility.! !
@@ -1240,9 +1339,69 @@ of: aAccount
 	^self new initializeOf: aAccount ! !
 
 
+!classDefinition: #AccountSpecialReport category: 'Portfolio2-Ejercicio'!
+Report subclass: #AccountSpecialReport
+	instanceVariableNames: 'summaryCollection currentIdent'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+!AccountSpecialReport methodsFor: 'as yet unclassified' stamp: 'EMI 11/15/2020 23:41:11'!
+identString: aString
+	^(String new: (3*currentIdent) withAll: Character space), aString.! !
+
+!AccountSpecialReport methodsFor: 'as yet unclassified' stamp: 'EMI 11/15/2020 23:46:12'!
+identString: aString withAmount: anAmount
+	^(String new: (3*anAmount) withAll: Character space), aString.! !
+
+!AccountSpecialReport methodsFor: 'as yet unclassified' stamp: 'EMI 11/15/2020 23:19:54'!
+initializeOf: anAccount
+	account _ anAccount.! !
+
+
+!AccountSpecialReport methodsFor: 'reporting - private' stamp: 'EMI 11/16/2020 00:00:43'!
+beginReportPortfolio: aPortfolio 
+	summaryCollection add: (self identString: ('Portfolio de ', aPortfolio named)).
+	currentIdent _ currentIdent + 1.! !
+
+!AccountSpecialReport methodsFor: 'reporting - private' stamp: 'EMI 11/16/2020 00:05:56'!
+endReportPortfolio: aPortfolio.
+	summaryCollection add: (self identString: ('Balance = ', aPortfolio balance asString)).
+	currentIdent _ currentIdent - 1.! !
+
+!AccountSpecialReport methodsFor: 'reporting - private' stamp: 'EMI 11/15/2020 23:48:32'!
+reportAccount: aReceptiveAccount 
+	| summary summaryReport|
+	summaryCollection add: (self identString: ('Cuenta de ', aReceptiveAccount named)).
+	
+	summary _ AccountSummaryReport of: aReceptiveAccount.
+	summaryReport _ summary report.
+	summaryReport do: [:aSummaryLine | summaryCollection add: (self identString: aSummaryLine withAmount: (currentIdent + 1))].! !
+
+!AccountSpecialReport methodsFor: 'reporting - private' stamp: 'EMI 11/15/2020 23:49:45'!
+reportDepositTransaction: aDepositTransaction! !
+
+!AccountSpecialReport methodsFor: 'reporting - private' stamp: 'EMI 11/15/2020 23:49:56'!
+reportDepositTransferTransaction: aDepositTransferTransaction! !
+
+!AccountSpecialReport methodsFor: 'reporting - private' stamp: 'EMI 11/15/2020 23:50:07'!
+reportExtractionTransferTransaction: aExtractionTransferTransaction! !
+
+!AccountSpecialReport methodsFor: 'reporting - private' stamp: 'EMI 11/15/2020 23:50:18'!
+reportWithdrawTransaction: aWithdrawTransaction! !
+
+
+!AccountSpecialReport methodsFor: 'reporting' stamp: 'EMI 11/15/2020 23:39:30'!
+report
+       summaryCollection _ OrderedCollection new.
+	currentIdent _ 0.
+	account reportTo: self.
+	^summaryCollection.! !
+
+
 !classDefinition: #AccountSummaryReport category: 'Portfolio2-Ejercicio'!
 Report subclass: #AccountSummaryReport
-	instanceVariableNames: ''
+	instanceVariableNames: 'summaryCollection'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio2-Ejercicio'!
@@ -1252,34 +1411,43 @@ initializeOf: aReceptiveAccount
 	account _ aReceptiveAccount.! !
 
 
-!AccountSummaryReport methodsFor: 'reporting' stamp: 'EMI 11/12/2020 21:15:43'!
+!AccountSummaryReport methodsFor: 'reporting' stamp: 'EMI 11/15/2020 22:54:53'!
 report
-	| result |
-	result _ account reportTo: self.
-	result add: 'Balance = ', account balance asString, '.'.
-	^result! !
+	summaryCollection _ OrderedCollection new.
+	account reportTo: self.
+	summaryCollection add: 'Balance = ', account balance asString, '.'.
+	^summaryCollection.! !
 
 
-!AccountSummaryReport methodsFor: 'reporting - private' stamp: 'EMI 11/11/2020 18:40:31'!
+!AccountSummaryReport methodsFor: 'reporting - private' stamp: 'EMI 11/16/2020 00:00:43'!
+beginReportPortfolio: aPortfolio ! !
+
+!AccountSummaryReport methodsFor: 'reporting - private' stamp: 'EMI 11/16/2020 00:01:00'!
+endReportPortfolio: aPortfolio.! !
+
+!AccountSummaryReport methodsFor: 'reporting - private' stamp: 'EMI 11/15/2020 22:58:13'!
+reportAccount: aReceptiveAccount! !
+
+!AccountSummaryReport methodsFor: 'reporting - private' stamp: 'EMI 11/15/2020 22:55:13'!
 reportDepositTransaction: aDepositTransaction
-	^'Depósito por ', aDepositTransaction value asString, '.'! !
+	summaryCollection add: ('Depósito por ', aDepositTransaction value asString, '.').! !
 
-!AccountSummaryReport methodsFor: 'reporting - private' stamp: 'EMI 11/12/2020 21:23:42'!
+!AccountSummaryReport methodsFor: 'reporting - private' stamp: 'EMI 11/15/2020 22:55:54'!
 reportDepositTransferTransaction: aDepositTransferTransaction
-	^'Entrada por transferencia de ', aDepositTransferTransaction value asString, '.'! !
+	summaryCollection add: ('Entrada por transferencia de ', aDepositTransferTransaction value asString, '.')! !
 
-!AccountSummaryReport methodsFor: 'reporting - private' stamp: 'EMI 11/12/2020 21:23:47'!
+!AccountSummaryReport methodsFor: 'reporting - private' stamp: 'EMI 11/15/2020 22:55:35'!
 reportExtractionTransferTransaction: aExtractionTransferTransaction
-	^'Salida por transferencia de ', aExtractionTransferTransaction value asString, '.'! !
+	summaryCollection add: ('Salida por transferencia de ', aExtractionTransferTransaction value asString, '.')! !
 
-!AccountSummaryReport methodsFor: 'reporting - private' stamp: 'EMI 11/12/2020 21:20:00'!
+!AccountSummaryReport methodsFor: 'reporting - private' stamp: 'EMI 11/15/2020 22:55:46'!
 reportWithdrawTransaction: aWithdrawTransaction
-	^'Extracción por ', aWithdrawTransaction value asString, '.'! !
+	summaryCollection add: ('Extracción por ', aWithdrawTransaction value asString, '.')! !
 
 
 !classDefinition: #NetTransfersReport category: 'Portfolio2-Ejercicio'!
 Report subclass: #NetTransfersReport
-	instanceVariableNames: ''
+	instanceVariableNames: 'transfersCollection'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio2-Ejercicio'!
@@ -1289,50 +1457,89 @@ initializeOf: aAccount
 	account := aAccount.! !
 
 
-!NetTransfersReport methodsFor: 'reporting' stamp: 'EMI 11/13/2020 20:46:16'!
+!NetTransfersReport methodsFor: 'reporting' stamp: 'EMI 11/15/2020 23:01:06'!
 report
-	^(account reportTo: self) sum: [:aTransferAmount | aTransferAmount] ifEmpty: [0].! !
+	transfersCollection _ OrderedCollection new.
+	account reportTo: self.
+	^transfersCollection sum: [:aTransferAmount | aTransferAmount] ifEmpty: [0].
+	! !
 
 
-!NetTransfersReport methodsFor: 'reporting - private' stamp: 'EMI 11/13/2020 20:37:35'!
+!NetTransfersReport methodsFor: 'reporting - private' stamp: 'EMI 11/16/2020 00:00:43'!
+beginReportPortfolio: aPortfolio! !
+
+!NetTransfersReport methodsFor: 'reporting - private' stamp: 'EMI 11/16/2020 00:01:05'!
+endReportPortfolio: aPortfolio.! !
+
+!NetTransfersReport methodsFor: 'reporting - private' stamp: 'EMI 11/15/2020 23:02:44'!
+reportAccount: aReceptiveAccount ! !
+
+!NetTransfersReport methodsFor: 'reporting - private' stamp: 'EMI 11/15/2020 23:01:30'!
 reportDepositTransaction: aDepositTransaction
-	^0! !
+	transfersCollection add: 0.! !
 
-!NetTransfersReport methodsFor: 'reporting - private' stamp: 'EMI 11/13/2020 20:38:12'!
+!NetTransfersReport methodsFor: 'reporting - private' stamp: 'EMI 11/15/2020 23:01:53'!
 reportDepositTransferTransaction: aDepositTransferTransaction
-	^aDepositTransferTransaction value.! !
+	transfersCollection add: aDepositTransferTransaction value.! !
 
-!NetTransfersReport methodsFor: 'reporting - private' stamp: 'EMI 11/13/2020 20:38:31'!
+!NetTransfersReport methodsFor: 'reporting - private' stamp: 'EMI 11/15/2020 23:01:57'!
 reportExtractionTransferTransaction: aExtractionTransferTransaction
-	^aExtractionTransferTransaction value negated.! !
+	transfersCollection add: aExtractionTransferTransaction value negated.! !
 
-!NetTransfersReport methodsFor: 'reporting - private' stamp: 'EMI 11/13/2020 20:37:49'!
+!NetTransfersReport methodsFor: 'reporting - private' stamp: 'EMI 11/15/2020 23:02:06'!
 reportWithdrawTransaction: aWithdrawTransaction
-	^0! !
+	transfersCollection add: 0! !
 
 
 !classDefinition: #PortfolioStructureReport category: 'Portfolio2-Ejercicio'!
 Report subclass: #PortfolioStructureReport
-	instanceVariableNames: ''
+	instanceVariableNames: 'reportCollection currentIdent'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio2-Ejercicio'!
 
-!PortfolioStructureReport methodsFor: 'as yet unclassified' stamp: 'EMI 11/15/2020 18:37:17'!
+!PortfolioStructureReport methodsFor: 'private' stamp: 'EMI 11/15/2020 22:46:35'!
+identString: aString
+	^(String new: (3*currentIdent) withAll: Character space), aString.! !
+
+
+!PortfolioStructureReport methodsFor: 'initialization' stamp: 'EMI 11/15/2020 18:37:17'!
 initializeOf: anAccount
 	account _ anAccount.! !
 
-!PortfolioStructureReport methodsFor: 'as yet unclassified' stamp: 'EMI 11/15/2020 18:43:56'!
+
+!PortfolioStructureReport methodsFor: 'reporting' stamp: 'EMI 11/15/2020 22:47:28'!
 report
-	^OrderedCollection with:'Portfolio de Unnamed Portfolio'.! !
+	reportCollection _ OrderedCollection new.
+	currentIdent _ 0.
+	account reportTo: self.
+	^reportCollection.! !
 
-!PortfolioStructureReport methodsFor: 'as yet unclassified' stamp: 'EMI 11/15/2020 18:55:34'!
+
+!PortfolioStructureReport methodsFor: 'reporting - private' stamp: 'EMI 11/16/2020 00:00:43'!
+beginReportPortfolio: aPortfolio
+	reportCollection add: (self identString: ('Portfolio de ', aPortfolio named)).
+	currentIdent _ currentIdent + 1.! !
+
+!PortfolioStructureReport methodsFor: 'reporting - private' stamp: 'EMI 11/16/2020 00:01:24'!
+endReportPortfolio: aPortfolio.
+	currentIdent _ currentIdent - 1.! !
+
+!PortfolioStructureReport methodsFor: 'reporting - private' stamp: 'EMI 11/15/2020 22:47:47'!
 reportAccount: anAccount
-	^ OrderedCollection with: ('Cuenta de ', anAccount named).! !
+	reportCollection add: (self identString: ('Cuenta de ', anAccount named)).! !
 
-!PortfolioStructureReport methodsFor: 'as yet unclassified' stamp: 'EMI 11/15/2020 18:55:06'!
-reportPortfolio: aPortfolio
-	^ OrderedCollection with: ('Portfolio de ', aPortfolio named).! !
+!PortfolioStructureReport methodsFor: 'reporting - private' stamp: 'EMI 11/15/2020 22:25:50'!
+reportDepositTransaction: aDepositTransaction! !
+
+!PortfolioStructureReport methodsFor: 'reporting - private' stamp: 'EMI 11/15/2020 22:49:28'!
+reportDepositTransferTransaction: aDepositTransferTransactions! !
+
+!PortfolioStructureReport methodsFor: 'reporting - private' stamp: 'EMI 11/15/2020 22:49:42'!
+reportExtractionTransferTransaction: aExtractionTransferTransaction! !
+
+!PortfolioStructureReport methodsFor: 'reporting - private' stamp: 'EMI 11/15/2020 22:49:54'!
+reportWithdrawTransaction: aWithdrawTransaction! !
 
 
 !classDefinition: #Transfer category: 'Portfolio2-Ejercicio'!
