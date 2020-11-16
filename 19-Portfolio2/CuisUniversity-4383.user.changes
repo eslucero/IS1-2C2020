@@ -59921,3 +59921,1278 @@ PASSED!
 ----SNAPSHOT----(16 November 2020 00:06:30) CuisUniversity-4383.image priorSource: 18640033!
 
 ----QUIT----(16 November 2020 00:06:49) CuisUniversity-4383.image priorSource: 18640127!
+
+----STARTUP---- (16 November 2020 15:51:09) as /home/doraserver/CuisUniversity/CuisUniversity-4383.image!
+
+
+p name!
+
+p _ Portfolio new.
+p name!
+
+Object subclass: #Account
+	instanceVariableNames: 'accountName'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+Account subclass: #Portfolio
+	instanceVariableNames: 'accounts parents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+!classDefinition: #Portfolio category: 'Portfolio2-Ejercicio' stamp: 'EMI 11/16/2020 15:53:23'!
+Account subclass: #Portfolio
+	instanceVariableNames: 'accounts parents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+Account subclass: #ReceptiveAccount
+	instanceVariableNames: 'transactions'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+!classDefinition: #ReceptiveAccount category: 'Portfolio2-Ejercicio' stamp: 'EMI 11/16/2020 15:53:27'!
+Account subclass: #ReceptiveAccount
+	instanceVariableNames: 'transactions'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+Object subclass: #Account
+	instanceVariableNames: 'accountName'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+!classDefinition: #Account category: 'Portfolio2-Ejercicio' stamp: 'EMI 11/16/2020 15:53:33'!
+Object subclass: #Account
+	instanceVariableNames: 'accountName'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+!Portfolio methodsFor: 'names' stamp: 'EMI 11/16/2020 15:53:55' prior: 50911878 overrides: 50912021!
+named
+	^accountName .! !
+!Portfolio methodsFor: 'initialization' stamp: 'EMI 11/16/2020 15:54:03' prior: 50911869!
+initializeWithName: aString 
+	self initialize.
+	accountName := aString.! !
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'EMI 11/16/2020 15:54:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithOneAccountIsAccountBalance stamp: 'EMI 11/16/2020 15:54:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'EMI 11/16/2020 15:54:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'EMI 11/16/2020 15:54:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'EMI 11/16/2020 15:54:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'EMI 11/16/2020 15:54:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'EMI 11/16/2020 15:54:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'EMI 11/16/2020 15:54:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'EMI 11/16/2020 15:54:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'EMI 11/16/2020 15:54:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'EMI 11/16/2020 15:54:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'EMI 11/16/2020 15:54:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'EMI 11/16/2020 15:54:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'EMI 11/16/2020 15:54:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'EMI 11/16/2020 15:54:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioHasDefaultName stamp: 'EMI 11/16/2020 15:54:17'!
+FAILURE!
+
+!testRun: #PortfolioTest #test17CanCreatePortfolioWithName stamp: 'EMI 11/16/2020 15:54:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioHasDefaultName stamp: 'EMI 11/16/2020 15:54:17'!
+FAILURE!
+!Portfolio methodsFor: 'initialization' stamp: 'EMI 11/16/2020 15:54:31' prior: 50913041 overrides: 16896425!
+initialize
+	accountName _ 'Unnamed Portfolio'.
+	accounts := OrderedCollection new.
+	parents := OrderedCollection new.! !
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'EMI 11/16/2020 15:54:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithOneAccountIsAccountBalance stamp: 'EMI 11/16/2020 15:54:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'EMI 11/16/2020 15:54:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'EMI 11/16/2020 15:54:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'EMI 11/16/2020 15:54:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'EMI 11/16/2020 15:54:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'EMI 11/16/2020 15:54:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'EMI 11/16/2020 15:54:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'EMI 11/16/2020 15:54:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'EMI 11/16/2020 15:54:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'EMI 11/16/2020 15:54:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'EMI 11/16/2020 15:54:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'EMI 11/16/2020 15:54:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'EMI 11/16/2020 15:54:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'EMI 11/16/2020 15:54:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioHasDefaultName stamp: 'EMI 11/16/2020 15:54:39'!
+FAILURE!
+
+!testRun: #PortfolioTest #test17CanCreatePortfolioWithName stamp: 'EMI 11/16/2020 15:54:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioHasDefaultName stamp: 'EMI 11/16/2020 15:54:39'!
+FAILURE!
+
+!classDefinition: #Account category: 'Portfolio2-Ejercicio' stamp: 'EMI 11/16/2020 15:55:34'!
+Object subclass: #Account
+	instanceVariableNames: 'name'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'EMI 11/16/2020 15:55:34' prior: 50914208 overrides: 50912021!
+named
+	^name .! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'EMI 11/16/2020 15:55:34' prior: 50914286 overrides: 16896425!
+initialize
+	name _ 'Unnamed Portfolio'.
+	accounts := OrderedCollection new.
+	parents := OrderedCollection new.! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'EMI 11/16/2020 15:55:34' prior: 50914212!
+initializeWithName: aString 
+	self initialize.
+	name := aString.! !
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'EMI 11/16/2020 15:55:34' prior: 50911701 overrides: 50912021!
+named
+	^name.! !
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'EMI 11/16/2020 15:55:34' prior: 50913049 overrides: 16896425!
+initialize
+	super initialize.
+	transactions := OrderedCollection new.
+	name _ 'Unnamed Account'.! !
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'EMI 11/16/2020 15:55:34' prior: 50911724!
+initializeWithName: aString 
+	self initialize.
+	name _ aString.! !
+!Portfolio methodsFor: 'names' stamp: 'EMI 11/16/2020 15:56:15'!
+accountName
+	^name .! !
+
+!methodRemoval: Portfolio #named stamp: 'EMI 11/16/2020 15:56:15'!
+named
+	^name .!
+!ReceptiveAccount methodsFor: 'names' stamp: 'EMI 11/16/2020 15:56:30'!
+accountName
+	^name.! !
+
+!methodRemoval: ReceptiveAccount #named stamp: 'EMI 11/16/2020 15:56:30'!
+named
+	^name.!
+!Account methodsFor: 'names' stamp: 'EMI 11/16/2020 15:57:06'!
+accountName
+	^self subclassResponsibility.! !
+
+!methodRemoval: Account #named stamp: 'EMI 11/16/2020 15:57:06'!
+named
+	^self subclassResponsibility.!
+!PortfolioTest methodsFor: 'tests' stamp: 'EMI 11/16/2020 15:57:24' prior: 50911813!
+test17CanCreatePortfolioWithName
+	| portfolio |
+	
+	portfolio _ Portfolio withName: 'Test Portfolio'.
+	
+	self assert: portfolio accountName equals: 'Test Portfolio'.! !
+!PortfolioTest methodsFor: 'tests' stamp: 'EMI 11/16/2020 15:57:32' prior: 50911789!
+test16PortfolioHasDefaultName
+	| portfolio |
+	
+	portfolio _ Portfolio new.
+	
+	self assert: portfolio accountName equals: 'Unnamed portfolio'.! !
+!ReceptiveAccountTest methodsFor: 'tests - account' stamp: 'EMI 11/16/2020 15:57:44' prior: 50911588!
+test12AccountHasDefaultName
+	| account |
+	account _ ReceptiveAccount new.
+	
+	self assert: account accountName equals: 'Unnamed account'.! !
+!ReceptiveAccountTest methodsFor: 'tests - account' stamp: 'EMI 11/16/2020 15:57:52' prior: 50911636!
+test13CanCreateAccountWithName
+	| account |
+	account _ ReceptiveAccount withName: 'Test account'.
+	
+	self assert: account accountName equals: 'Test account'.! !
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'EMI 11/16/2020 15:57:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithOneAccountIsAccountBalance stamp: 'EMI 11/16/2020 15:57:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'EMI 11/16/2020 15:57:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'EMI 11/16/2020 15:57:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'EMI 11/16/2020 15:57:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'EMI 11/16/2020 15:57:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'EMI 11/16/2020 15:57:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'EMI 11/16/2020 15:57:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'EMI 11/16/2020 15:57:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'EMI 11/16/2020 15:57:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'EMI 11/16/2020 15:57:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'EMI 11/16/2020 15:57:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'EMI 11/16/2020 15:57:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'EMI 11/16/2020 15:57:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'EMI 11/16/2020 15:57:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioHasDefaultName stamp: 'EMI 11/16/2020 15:57:57'!
+FAILURE!
+
+!testRun: #PortfolioTest #test17CanCreatePortfolioWithName stamp: 'EMI 11/16/2020 15:57:57'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioHasDefaultName stamp: 'EMI 11/16/2020 15:57:57'!
+FAILURE!
+!PortfolioTest methodsFor: 'tests' stamp: 'EMI 11/16/2020 15:58:05' prior: 50914432!
+test16PortfolioHasDefaultName
+	| portfolio |
+	
+	portfolio _ Portfolio new.
+	
+	self assert: portfolio accountName equals: 'Unnamed Portfolio'.! !
+
+!testRun: #PortfolioTest #test16PortfolioHasDefaultName stamp: 'EMI 11/16/2020 15:58:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'EMI 11/16/2020 15:58:09'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'EMI 11/16/2020 15:58:09'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'EMI 11/16/2020 15:58:09'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'EMI 11/16/2020 15:58:09'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'EMI 11/16/2020 15:58:09'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'EMI 11/16/2020 15:58:09'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'EMI 11/16/2020 15:58:09'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08AccountCanTransferToAnotherAccountWithPositiveAmount stamp: 'EMI 11/16/2020 15:58:09'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09AccountsWithTransferKnowsOriginAndDestination stamp: 'EMI 11/16/2020 15:58:09'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10AccountsCannotTransferInvalidAmounts stamp: 'EMI 11/16/2020 15:58:09'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11AccountsCannotTransferToThemselves stamp: 'EMI 11/16/2020 15:58:09'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12AccountHasDefaultName stamp: 'EMI 11/16/2020 15:58:09'!
+FAILURE!
+
+!testRun: #ReceptiveAccountTest #test13CanCreateAccountWithName stamp: 'EMI 11/16/2020 15:58:09'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12AccountHasDefaultName stamp: 'EMI 11/16/2020 15:58:09'!
+FAILURE!
+!ReceptiveAccountTest methodsFor: 'tests - account' stamp: 'EMI 11/16/2020 15:58:17' prior: 50914440!
+test12AccountHasDefaultName
+	| account |
+	account _ ReceptiveAccount new.
+	
+	self assert: account accountName equals: 'Unnamed Account'.! !
+
+!testRun: #ReceptiveAccountTest #test12AccountHasDefaultName stamp: 'EMI 11/16/2020 15:58:18'!
+PASSED!
+!Account methodsFor: 'names' stamp: 'EMI 11/16/2020 15:58:50' prior: 50914416!
+accountName
+	^name.! !
+
+!methodRemoval: Portfolio #accountName stamp: 'EMI 11/16/2020 15:58:58'!
+accountName
+	^name .!
+
+!methodRemoval: ReceptiveAccount #accountName stamp: 'EMI 11/16/2020 15:59:09'!
+accountName
+	^name.!
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'EMI 11/16/2020 15:59:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithOneAccountIsAccountBalance stamp: 'EMI 11/16/2020 15:59:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'EMI 11/16/2020 15:59:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'EMI 11/16/2020 15:59:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'EMI 11/16/2020 15:59:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'EMI 11/16/2020 15:59:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'EMI 11/16/2020 15:59:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'EMI 11/16/2020 15:59:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'EMI 11/16/2020 15:59:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'EMI 11/16/2020 15:59:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'EMI 11/16/2020 15:59:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'EMI 11/16/2020 15:59:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'EMI 11/16/2020 15:59:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'EMI 11/16/2020 15:59:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'EMI 11/16/2020 15:59:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioHasDefaultName stamp: 'EMI 11/16/2020 15:59:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test17CanCreatePortfolioWithName stamp: 'EMI 11/16/2020 15:59:27'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'EMI 11/16/2020 15:59:29'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'EMI 11/16/2020 15:59:29'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'EMI 11/16/2020 15:59:29'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'EMI 11/16/2020 15:59:29'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'EMI 11/16/2020 15:59:29'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'EMI 11/16/2020 15:59:29'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'EMI 11/16/2020 15:59:29'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08AccountCanTransferToAnotherAccountWithPositiveAmount stamp: 'EMI 11/16/2020 15:59:29'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09AccountsWithTransferKnowsOriginAndDestination stamp: 'EMI 11/16/2020 15:59:29'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10AccountsCannotTransferInvalidAmounts stamp: 'EMI 11/16/2020 15:59:29'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11AccountsCannotTransferToThemselves stamp: 'EMI 11/16/2020 15:59:29'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12AccountHasDefaultName stamp: 'EMI 11/16/2020 15:59:29'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13CanCreateAccountWithName stamp: 'EMI 11/16/2020 15:59:29'!
+PASSED!
+!PortfolioStructureReport methodsFor: 'reporting - private' stamp: 'EMI 11/16/2020 16:01:05' prior: 50913901 overrides: 50913913!
+beginReportPortfolio: aPortfolio
+	reportCollection add: (self identString: ('Portfolio de ', aPortfolio accountName)).
+	currentIdent _ currentIdent + 1.! !
+!PortfolioStructureReport methodsFor: 'reporting - private' stamp: 'EMI 11/16/2020 16:01:13' prior: 50912476 overrides: 50912995!
+reportAccount: anAccount
+	reportCollection add: (self identString: ('Cuenta de ', anAccount accountName)).! !
+!AccountSummaryReport methodsFor: 'reporting - private' stamp: 'EMI 11/16/2020 16:02:00'!
+reportReceptiveAccount: aReceptiveAccount! !
+!NetTransfersReport methodsFor: 'reporting - private' stamp: 'EMI 11/16/2020 16:02:00'!
+reportReceptiveAccount: aReceptiveAccount ! !
+!Report methodsFor: 'reporting - private' stamp: 'EMI 11/16/2020 16:02:00'!
+reportReceptiveAccount: anAccount.
+	self subclassResponsibility.! !
+!PortfolioStructureReport methodsFor: 'reporting - private' stamp: 'EMI 11/16/2020 16:02:00' overrides: 50914749!
+reportReceptiveAccount: anAccount
+	reportCollection add: (self identString: ('Cuenta de ', anAccount accountName)).! !
+!AccountSpecialReport methodsFor: 'reporting - private' stamp: 'EMI 11/16/2020 16:02:00' overrides: 50914749!
+reportReceptiveAccount: aReceptiveAccount 
+	| summary summaryReport|
+	summaryCollection add: (self identString: ('Cuenta de ', aReceptiveAccount named)).
+	
+	summary _ AccountSummaryReport of: aReceptiveAccount.
+	summaryReport _ summary report.
+	summaryReport do: [:aSummaryLine | summaryCollection add: (self identString: aSummaryLine withAmount: (currentIdent + 1))].! !
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'EMI 11/16/2020 16:02:00' prior: 50912579 overrides: 50908371!
+reportTo: aReport
+	aReport reportReceptiveAccount: self.
+	transactions do:[:aTransaction |aTransaction reportTo: aReport].! !
+
+!methodRemoval: AccountSummaryReport #reportAccount: stamp: 'EMI 11/16/2020 16:02:00'!
+reportAccount: aReceptiveAccount!
+
+!methodRemoval: NetTransfersReport #reportAccount: stamp: 'EMI 11/16/2020 16:02:00'!
+reportAccount: aReceptiveAccount !
+
+!methodRemoval: Report #reportAccount: stamp: 'EMI 11/16/2020 16:02:00'!
+reportAccount: anAccount.
+	self subclassResponsibility.!
+
+!methodRemoval: PortfolioStructureReport #reportAccount: stamp: 'EMI 11/16/2020 16:02:00'!
+reportAccount: anAccount
+	reportCollection add: (self identString: ('Cuenta de ', anAccount accountName)).!
+
+!methodRemoval: AccountSpecialReport #reportAccount: stamp: 'EMI 11/16/2020 16:02:00'!
+reportAccount: aReceptiveAccount 
+	| summary summaryReport|
+	summaryCollection add: (self identString: ('Cuenta de ', aReceptiveAccount named)).
+	
+	summary _ AccountSummaryReport of: aReceptiveAccount.
+	summaryReport _ summary report.
+	summaryReport do: [:aSummaryLine | summaryCollection add: (self identString: aSummaryLine withAmount: (currentIdent + 1))].!
+!AccountSpecialReport methodsFor: 'reporting - private' stamp: 'EMI 11/16/2020 16:02:17' prior: 50914763 overrides: 50914749!
+reportReceptiveAccount: aReceptiveAccount 
+	| summary summaryReport|
+	summaryCollection add: (self identString: ('Cuenta de ', aReceptiveAccount accountName)).
+	
+	summary _ AccountSummaryReport of: aReceptiveAccount.
+	summaryReport _ summary report.
+	summaryReport do: [:aSummaryLine | summaryCollection add: (self identString: aSummaryLine withAmount: (currentIdent + 1))].! !
+!AccountSpecialReport methodsFor: 'reporting - private' stamp: 'EMI 11/16/2020 16:02:34' prior: 50913893 overrides: 50913913!
+beginReportPortfolio: aPortfolio 
+	summaryCollection add: (self identString: ('Portfolio de ', aPortfolio accountName)).
+	currentIdent _ currentIdent + 1.! !
+!PortfolioStructureReport methodsFor: 'reporting - private' stamp: 'EMI 11/16/2020 16:03:11' prior: 50914755 overrides: 50914749!
+reportReceptiveAccount: aReceptiveAccount
+	reportCollection add: (self identString: ('Cuenta de ', aReceptiveAccount accountName)).! !
+
+----SNAPSHOT----(16 November 2020 16:03:14) CuisUniversity-4383.image priorSource: 18640221!
+
+!classDefinition: #PortfolioStructureReport category: 'Portfolio2-Ejercicio' stamp: 'EMI 11/16/2020 16:05:55'!
+Report subclass: #PortfolioStructureReport
+	instanceVariableNames: 'reportCollection currentIdentationLevel'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+!PortfolioStructureReport methodsFor: 'as yet unclassified' stamp: 'EMI 11/16/2020 16:05:55' prior: 50913972 overrides: 50913957!
+endReportPortfolio: aPortfolio.
+	currentIdentationLevel _ currentIdentationLevel - 1.! !
+!PortfolioStructureReport methodsFor: 'as yet unclassified' stamp: 'EMI 11/16/2020 16:05:55' prior: 50914724 overrides: 50913913!
+beginReportPortfolio: aPortfolio
+	reportCollection add: (self identString: ('Portfolio de ', aPortfolio accountName)).
+	currentIdentationLevel _ currentIdentationLevel + 1.! !
+!PortfolioStructureReport methodsFor: 'as yet unclassified' stamp: 'EMI 11/16/2020 16:05:55' prior: 50912441!
+identString: aString
+	^(String new: (3*currentIdentationLevel) withAll: Character space), aString.! !
+!PortfolioStructureReport methodsFor: 'as yet unclassified' stamp: 'EMI 11/16/2020 16:05:55' prior: 50912468 overrides: 50909567!
+report
+	reportCollection _ OrderedCollection new.
+	currentIdentationLevel _ 0.
+	account reportTo: self.
+	^reportCollection.! !
+
+!classDefinition: #AccountSpecialReport category: 'Portfolio2-Ejercicio' stamp: 'EMI 11/16/2020 16:06:07'!
+Report subclass: #AccountSpecialReport
+	instanceVariableNames: 'summaryCollection currentIdentationLevel'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+!AccountSpecialReport methodsFor: 'as yet unclassified' stamp: 'EMI 11/16/2020 16:06:07' prior: 50913596 overrides: 50909567!
+report
+       summaryCollection _ OrderedCollection new.
+	currentIdentationLevel _ 0.
+	account reportTo: self.
+	^summaryCollection.! !
+!AccountSpecialReport methodsFor: 'as yet unclassified' stamp: 'EMI 11/16/2020 16:06:07' prior: 50914819 overrides: 50914749!
+reportReceptiveAccount: aReceptiveAccount 
+	| summary summaryReport|
+	summaryCollection add: (self identString: ('Cuenta de ', aReceptiveAccount accountName)).
+	
+	summary _ AccountSummaryReport of: aReceptiveAccount.
+	summaryReport _ summary report.
+	summaryReport do: [:aSummaryLine | summaryCollection add: (self identString: aSummaryLine withAmount: (currentIdentationLevel + 1))].! !
+!AccountSpecialReport methodsFor: 'as yet unclassified' stamp: 'EMI 11/16/2020 16:06:07' prior: 50914835 overrides: 50913913!
+beginReportPortfolio: aPortfolio 
+	summaryCollection add: (self identString: ('Portfolio de ', aPortfolio accountName)).
+	currentIdentationLevel _ currentIdentationLevel + 1.! !
+!AccountSpecialReport methodsFor: 'as yet unclassified' stamp: 'EMI 11/16/2020 16:06:07' prior: 50913618!
+identString: aString
+	^(String new: (3*currentIdentationLevel) withAll: Character space), aString.! !
+!AccountSpecialReport methodsFor: 'as yet unclassified' stamp: 'EMI 11/16/2020 16:06:07' prior: 50914128 overrides: 50913957!
+endReportPortfolio: aPortfolio.
+	summaryCollection add: (self identString: ('Balance = ', aPortfolio balance asString)).
+	currentIdentationLevel _ currentIdentationLevel - 1.! !
+
+----SNAPSHOT----(16 November 2020 16:07:46) CuisUniversity-4383.image priorSource: 18662406!
+
+----SNAPSHOT----(16 November 2020 16:10:08) CuisUniversity-4383.image priorSource: 18665841!
+
+----SNAPSHOT----(16 November 2020 16:10:53) CuisUniversity-4383.image priorSource: 18665935!
+!String methodsFor: '*Portfolio2' stamp: 'EMI 11/16/2020 16:14:56'!
+identString: aString byAmount: anAmount
+	^(String new: anAmount withAll: Character space), aString.! !
+!AccountSpecialReport methodsFor: 'reporting - private' stamp: 'EMI 11/16/2020 16:15:52' prior: 50914933 overrides: 50913913!
+beginReportPortfolio: aPortfolio 
+	summaryCollection add: (self identString: ('Portfolio de ', aPortfolio accountName)).
+	summaryCollection add: ('Portfolio de ', aPortfolio accountName).
+	currentIdentationLevel _ currentIdentationLevel + 1.! !
+!AccountSpecialReport methodsFor: 'reporting - private' stamp: 'EMI 11/16/2020 16:15:55' prior: 50914975 overrides: 50913913!
+beginReportPortfolio: aPortfolio 
+	summaryCollection add: (self identString: ('Portfolio de ', aPortfolio accountName)).
+	currentIdentationLevel _ currentIdentationLevel + 1.! !
+!String methodsFor: '*Portfolio2' stamp: 'EMI 11/16/2020 16:17:37'!
+identbyAmount: anAmount
+	^(String new: anAmount withAll: Character space), self.! !
+
+!methodRemoval: String #identString:byAmount: stamp: 'EMI 11/16/2020 16:17:42'!
+identString: aString byAmount: anAmount
+	^(String new: anAmount withAll: Character space), aString.!
+!String methodsFor: '*Portfolio2' stamp: 'EMI 11/16/2020 16:17:50'!
+identByAmount: anAmount
+	^(String new: anAmount withAll: Character space), self.! !
+
+!methodRemoval: String #identbyAmount: stamp: 'EMI 11/16/2020 16:17:50'!
+identbyAmount: anAmount
+	^(String new: anAmount withAll: Character space), self.!
+!AccountSpecialReport methodsFor: 'reporting - private' stamp: 'EMI 11/16/2020 16:18:51' prior: 50914987 overrides: 50913913!
+beginReportPortfolio: aPortfolio 
+	summaryCollection add: (('Portfolio de ', aPortfolio accountName) identByAmount: currentIdentationLevel).
+	currentIdentationLevel _ currentIdentationLevel + 1.! !
+!AccountSpecialReport methodsFor: 'reporting - private' stamp: 'EMI 11/16/2020 16:18:56' prior: 50915018 overrides: 50913913!
+beginReportPortfolio: aPortfolio 
+	summaryCollection add: (('Portfolio de ', aPortfolio accountName) identByAmount: (3*currentIdentationLevel)).
+	currentIdentationLevel _ currentIdentationLevel + 1.! !
+
+----SNAPSHOT----(16 November 2020 16:19:01) CuisUniversity-4383.image priorSource: 18666029!
+
+!testRun: #AccountSpecialReportTest #test01EmptyPortfolioOnlyShowsName stamp: 'EMI 11/16/2020 16:19:08'!
+PASSED!
+
+!testRun: #AccountSpecialReportTest #test02PortfolioWithAnAccountWithADepositShowsNamesAndIdentation stamp: 'EMI 11/16/2020 16:19:08'!
+PASSED!
+!AccountSpecialReport methodsFor: 'reporting - private' stamp: 'EMI 11/16/2020 16:19:30' prior: 50915029 overrides: 50913913!
+beginReportPortfolio: aPortfolio 
+	summaryCollection add: (('Portfolio de ', aPortfolio accountName) identByAmount: currentIdentationLevel).
+	currentIdentationLevel _ currentIdentationLevel + 3.! !
+!AccountSpecialReport methodsFor: 'reporting - private' stamp: 'EMI 11/16/2020 16:19:50' prior: 50914950 overrides: 50913957!
+endReportPortfolio: aPortfolio.
+	summaryCollection add: (('Balance = ', aPortfolio balance asString) identByAmount: currentIdentationLevel).
+	currentIdentationLevel _ currentIdentationLevel - 3.! !
+!AccountSpecialReport methodsFor: 'reporting - private' stamp: 'EMI 11/16/2020 16:21:13' prior: 50914916 overrides: 50914749!
+reportReceptiveAccount: aReceptiveAccount 
+	| summary summaryReport|
+	summaryCollection add: (('Cuenta de ', aReceptiveAccount accountName) identByAmount: currentIdentationLevel).
+	
+	summary _ AccountSummaryReport of: aReceptiveAccount.
+	summaryReport _ summary report.
+	summaryReport do: [:aSummaryLine | summaryCollection add: (aSummaryLine identByAmount: (currentIdentationLevel + 3))].! !
+
+!testRun: #AccountSpecialReportTest #test01EmptyPortfolioOnlyShowsName stamp: 'EMI 11/16/2020 16:21:23'!
+PASSED!
+
+!testRun: #AccountSpecialReportTest #test02PortfolioWithAnAccountWithADepositShowsNamesAndIdentation stamp: 'EMI 11/16/2020 16:21:23'!
+PASSED!
+!PortfolioStructureReport methodsFor: 'reporting - private' stamp: 'EMI 11/16/2020 16:22:05' prior: 50914844 overrides: 50914749!
+reportReceptiveAccount: aReceptiveAccount
+	reportCollection add: (('Cuenta de ', aReceptiveAccount accountName) identByAmount: currentIdentationLevel).! !
+!PortfolioStructureReport methodsFor: 'reporting - private' stamp: 'EMI 11/16/2020 16:22:27' prior: 50914872 overrides: 50913913!
+beginReportPortfolio: aPortfolio
+	reportCollection add: (('Portfolio de ', aPortfolio accountName) identByAmount: currentIdentationLevel).
+	currentIdentationLevel _ currentIdentationLevel + 3.! !
+!PortfolioStructureReport methodsFor: 'reporting - private' stamp: 'EMI 11/16/2020 16:22:35' prior: 50914865 overrides: 50913957!
+endReportPortfolio: aPortfolio.
+	currentIdentationLevel _ currentIdentationLevel - 3.! !
+
+----SNAPSHOT----(16 November 2020 16:22:57) CuisUniversity-4383.image priorSource: 18668393!
+
+!testRun: #PortfolioStructureReportTest #test01ReportOfAnEmptyPortfolioStructureHasCorrectName stamp: 'EMI 11/16/2020 16:23:01'!
+PASSED!
+
+!testRun: #PortfolioStructureReportTest #test02ReportOfASimplePortfolioStructureHasCorrectNamesAndIdentation stamp: 'EMI 11/16/2020 16:23:01'!
+PASSED!
+
+!testRun: #PortfolioStructureReportTest #test03ReportOfAListPortfolioStructureHasCorrectNamesAndIdentation stamp: 'EMI 11/16/2020 16:23:01'!
+PASSED!
+
+!testRun: #PortfolioStructureReportTest #test04ReportOfAListOfNamedPortfolioStructureHasCorrectNamesAndIdentation stamp: 'EMI 11/16/2020 16:23:01'!
+PASSED!
+
+!testRun: #PortfolioStructureReportTest #test05ReportOfAListOfNamedPortfolioStructureHasCorrectNamesAndIdentation stamp: 'EMI 11/16/2020 16:23:01'!
+PASSED!
+
+!methodRemoval: AccountSpecialReport #identString: stamp: 'EMI 11/16/2020 16:23:13'!
+identString: aString
+	^(String new: (3*currentIdentationLevel) withAll: Character space), aString.!
+
+!methodRemoval: AccountSpecialReport #identString:withAmount: stamp: 'EMI 11/16/2020 16:23:17'!
+identString: aString withAmount: anAmount
+	^(String new: (3*anAmount) withAll: Character space), aString.!
+
+!methodRemoval: PortfolioStructureReport #identString: stamp: 'EMI 11/16/2020 16:23:29'!
+identString: aString
+	^(String new: (3*currentIdentationLevel) withAll: Character space), aString.!
+!Report class methodsFor: 'nil' stamp: 'EMI 11/16/2020 16:24:30'!
+identationSpacesPerLevel
+	^3.! !
+!AccountSpecialReport methodsFor: 'reporting - private' stamp: 'EMI 11/16/2020 16:24:47' prior: 50915051 overrides: 50913913!
+beginReportPortfolio: aPortfolio 
+	summaryCollection add: (('Portfolio de ', aPortfolio accountName) identByAmount: currentIdentationLevel).
+	currentIdentationLevel _ currentIdentationLevel + self class identationSpacesPerLevel.! !
+!AccountSpecialReport methodsFor: 'reporting - private' stamp: 'EMI 11/16/2020 16:24:54' prior: 50915062 overrides: 50913957!
+endReportPortfolio: aPortfolio.
+	summaryCollection add: (('Balance = ', aPortfolio balance asString) identByAmount: currentIdentationLevel).
+	currentIdentationLevel _ currentIdentationLevel - self class identationSpacesPerLevel.! !
+!PortfolioStructureReport methodsFor: 'reporting - private' stamp: 'EMI 11/16/2020 16:25:01' prior: 50915107 overrides: 50913913!
+beginReportPortfolio: aPortfolio
+	reportCollection add: (('Portfolio de ', aPortfolio accountName) identByAmount: currentIdentationLevel).
+	currentIdentationLevel _ currentIdentationLevel + self class identationSpacesPerLevel.! !
+!PortfolioStructureReport methodsFor: 'reporting - private' stamp: 'EMI 11/16/2020 16:25:05' prior: 50915118 overrides: 50913957!
+endReportPortfolio: aPortfolio.
+	currentIdentationLevel _ currentIdentationLevel - self class identationSpacesPerLevel.! !
+!AccountSpecialReport methodsFor: 'reporting - private' stamp: 'EMI 11/16/2020 16:25:15' prior: 50915073 overrides: 50914749!
+reportReceptiveAccount: aReceptiveAccount 
+	| summary summaryReport|
+	summaryCollection add: (('Cuenta de ', aReceptiveAccount accountName) identByAmount: currentIdentationLevel).
+	
+	summary _ AccountSummaryReport of: aReceptiveAccount.
+	summaryReport _ summary report.
+	summaryReport do: [:aSummaryLine | summaryCollection add: (aSummaryLine identByAmount: (currentIdentationLevel + self class identationSpacesPerLevel))].! !
+
+!testRun: #PortfolioStructureReportTest #test01ReportOfAnEmptyPortfolioStructureHasCorrectName stamp: 'EMI 11/16/2020 16:25:28'!
+PASSED!
+
+!testRun: #PortfolioStructureReportTest #test02ReportOfASimplePortfolioStructureHasCorrectNamesAndIdentation stamp: 'EMI 11/16/2020 16:25:28'!
+PASSED!
+
+!testRun: #PortfolioStructureReportTest #test03ReportOfAListPortfolioStructureHasCorrectNamesAndIdentation stamp: 'EMI 11/16/2020 16:25:28'!
+PASSED!
+
+!testRun: #PortfolioStructureReportTest #test04ReportOfAListOfNamedPortfolioStructureHasCorrectNamesAndIdentation stamp: 'EMI 11/16/2020 16:25:28'!
+PASSED!
+
+!testRun: #PortfolioStructureReportTest #test05ReportOfAListOfNamedPortfolioStructureHasCorrectNamesAndIdentation stamp: 'EMI 11/16/2020 16:25:28'!
+PASSED!
+
+!testRun: #AccountSpecialReportTest #test01EmptyPortfolioOnlyShowsName stamp: 'EMI 11/16/2020 16:25:33'!
+PASSED!
+
+!testRun: #AccountSpecialReportTest #test02PortfolioWithAnAccountWithADepositShowsNamesAndIdentation stamp: 'EMI 11/16/2020 16:25:33'!
+PASSED!
+
+----SNAPSHOT----(16 November 2020 16:26:21) CuisUniversity-4383.image priorSource: 18671128!
+!AccountSpecialReportTest methodsFor: 'as yet unclassified' stamp: 'EMI 11/16/2020 16:26:57' prior: 50914074!
+test01EmptyPortfolioOnlyShowsName
+	| portfolio report expectedResult |
+	portfolio _ Portfolio new.
+	report _ AccountSpecialReport of: portfolio.
+	expectedResult _ OrderedCollection with: 'Portfolio de Unnamed Portfolio'
+								    with: ('Balance = 0' identByAmount: Report identationSpacesPerLevel * 1).
+	self assert: report report equals: expectedResult.! !
+
+!testRun: #AccountSpecialReportTest #test01EmptyPortfolioOnlyShowsName stamp: 'EMI 11/16/2020 16:26:59'!
+PASSED!
+!AccountSpecialReportTest methodsFor: 'as yet unclassified' stamp: 'EMI 11/16/2020 16:27:11' prior: 50915269!
+test01EmptyPortfolioOnlyShowsName
+	| portfolio report expectedResult |
+	portfolio _ Portfolio new.
+	report _ AccountSpecialReport of: portfolio.
+	expectedResult _ OrderedCollection with: 'Portfolio de Unnamed Portfolio'
+								    with: ('Balance = 0' identByAmount: Report identationSpacesPerLevel * 1).
+	self assert: report report equals: expectedResult.! !
+!AccountSpecialReportTest methodsFor: 'as yet unclassified' stamp: 'EMI 11/16/2020 16:28:27' prior: 50914089!
+test02PortfolioWithAnAccountWithADepositShowsNamesAndIdentation
+	| portfolio account report expectedResult |
+	portfolio _ Portfolio withName: 'Compania de Pepe'.
+	account _ ReceptiveAccount withName: 'Suiza'.
+	Deposit register: 10 on: account.
+	portfolio add: account.
+	report _ AccountSpecialReport of: portfolio.
+	expectedResult _ OrderedCollection with: 'Portfolio de Compania de Pepe' 
+								    with: ('Cuenta de Suiza' identByAmount: Report identationSpacesPerLevel *1) 
+								    with: ('Depósito por 10.' identByAmount: Report identationSpacesPerLevel * 2) 
+								    with: ('Balance = 10.' identByAmount: Report identationSpacesPerLevel * 2)
+								    with: ('Balance = 10' identByAmount: Report identationSpacesPerLevel * 1).
+	self assert: report report equals: expectedResult.! !
+
+!testRun: #AccountSpecialReportTest #test02PortfolioWithAnAccountWithADepositShowsNamesAndIdentation stamp: 'EMI 11/16/2020 16:28:29'!
+PASSED!
+
+!methodRemoval: AccountSpecialReportTest class #identString:amount: stamp: 'EMI 11/16/2020 16:30:04'!
+identString: aString amount: anAmount
+	^(String new: (3*anAmount) withAll: Character space), aString.!
+!PortfolioStructureReportTest methodsFor: 'tests' stamp: 'EMI 11/16/2020 16:31:22' prior: 50913056!
+test02ReportOfASimplePortfolioStructureHasCorrectNamesAndIdentation
+	| portfolio account report expectedResult |
+	portfolio _ Portfolio new.
+	account _ ReceptiveAccount new.
+	portfolio add: account.
+	report _ PortfolioStructureReport of: portfolio.
+	
+	expectedResult _ OrderedCollection with: 'Portfolio de Unnamed Portfolio' 
+								    with: ('Cuenta de Unnamed Account' identByAmount: Report  identationSpacesPerLevel * 1).
+	self assert: report report equals: expectedResult.! !
+
+!testRun: #PortfolioStructureReportTest #test02ReportOfASimplePortfolioStructureHasCorrectNamesAndIdentation stamp: 'EMI 11/16/2020 16:31:23'!
+PASSED!
+
+!testRun: #PortfolioStructureReportTest #test01ReportOfAnEmptyPortfolioStructureHasCorrectName stamp: 'EMI 11/16/2020 16:31:23'!
+PASSED!
+
+!testRun: #PortfolioStructureReportTest #test02ReportOfASimplePortfolioStructureHasCorrectNamesAndIdentation stamp: 'EMI 11/16/2020 16:31:23'!
+PASSED!
+
+!testRun: #PortfolioStructureReportTest #test03ReportOfAListPortfolioStructureHasCorrectNamesAndIdentation stamp: 'EMI 11/16/2020 16:31:23'!
+PASSED!
+
+!testRun: #PortfolioStructureReportTest #test04ReportOfAListOfNamedPortfolioStructureHasCorrectNamesAndIdentation stamp: 'EMI 11/16/2020 16:31:23'!
+PASSED!
+
+!testRun: #PortfolioStructureReportTest #test05ReportOfAListOfNamedPortfolioStructureHasCorrectNamesAndIdentation stamp: 'EMI 11/16/2020 16:31:23'!
+PASSED!
+!PortfolioStructureReportTest methodsFor: 'tests' stamp: 'EMI 11/16/2020 16:32:27' prior: 50913124!
+test03ReportOfAListPortfolioStructureHasCorrectNamesAndIdentation
+	| portfolio portfolioChild account report expectedResult |
+	portfolio _ Portfolio new.
+	portfolioChild _ Portfolio new.
+	account _ ReceptiveAccount new.
+	portfolioChild add: account.
+	portfolio add: portfolioChild.
+	report _ PortfolioStructureReport of: portfolio.
+	
+	expectedResult _ OrderedCollection with: 'Portfolio de Unnamed Portfolio' 
+	                                             							    with: ('Portfolio de Unnamed Portfolio' identByAmount: Report identationSpacesPerLevel * 1) 
+								    with: ('Cuenta de Unnamed Account' identByAmount: Report identationSpacesPerLevel * 2).
+	self assert: report report equals: expectedResult.! !
+
+!testRun: #PortfolioStructureReportTest #test03ReportOfAListPortfolioStructureHasCorrectNamesAndIdentation stamp: 'EMI 11/16/2020 16:32:29'!
+PASSED!
+
+!testRun: #PortfolioStructureReportTest #test01ReportOfAnEmptyPortfolioStructureHasCorrectName stamp: 'EMI 11/16/2020 16:32:29'!
+PASSED!
+
+!testRun: #PortfolioStructureReportTest #test02ReportOfASimplePortfolioStructureHasCorrectNamesAndIdentation stamp: 'EMI 11/16/2020 16:32:29'!
+PASSED!
+
+!testRun: #PortfolioStructureReportTest #test03ReportOfAListPortfolioStructureHasCorrectNamesAndIdentation stamp: 'EMI 11/16/2020 16:32:29'!
+PASSED!
+
+!testRun: #PortfolioStructureReportTest #test04ReportOfAListOfNamedPortfolioStructureHasCorrectNamesAndIdentation stamp: 'EMI 11/16/2020 16:32:29'!
+PASSED!
+
+!testRun: #PortfolioStructureReportTest #test05ReportOfAListOfNamedPortfolioStructureHasCorrectNamesAndIdentation stamp: 'EMI 11/16/2020 16:32:29'!
+PASSED!
+!PortfolioStructureReportTest class methodsFor: 'as yet unclassified' stamp: 'EMI 11/16/2020 16:34:00'!
+identString: aString byLevel: anIdentationLevel
+	^aString identByAmount: Report identationSpacesPerLevel * anIdentationLevel.! !
+
+!methodRemoval: PortfolioStructureReportTest class #identString:amount: stamp: 'EMI 11/16/2020 16:34:03'!
+identString: aString amount: anAmount
+	^(String new: (3*anAmount) withAll: Character space), aString.!
+!PortfolioStructureReportTest methodsFor: 'tests' stamp: 'EMI 11/16/2020 16:34:27' prior: 50915343!
+test02ReportOfASimplePortfolioStructureHasCorrectNamesAndIdentation
+	| portfolio account report expectedResult |
+	portfolio _ Portfolio new.
+	account _ ReceptiveAccount new.
+	portfolio add: account.
+	report _ PortfolioStructureReport of: portfolio.
+	
+	expectedResult _ OrderedCollection with: 'Portfolio de Unnamed Portfolio' 
+								    with: (self class identString:  'Cuenta de Unnamed Account' byLevel: 1).
+	self assert: report report equals: expectedResult.! !
+!PortfolioStructureReportTest methodsFor: 'tests' stamp: 'EMI 11/16/2020 16:35:09' prior: 50915390!
+test03ReportOfAListPortfolioStructureHasCorrectNamesAndIdentation
+	| portfolio portfolioChild account report expectedResult |
+	portfolio _ Portfolio new.
+	portfolioChild _ Portfolio new.
+	account _ ReceptiveAccount new.
+	portfolioChild add: account.
+	portfolio add: portfolioChild.
+	report _ PortfolioStructureReport of: portfolio.
+	
+	expectedResult _ OrderedCollection with: 'Portfolio de Unnamed Portfolio' 
+	                                             							    with: (self class identString: 'Portfolio de Unnamed Portfolio'  byLevel: 1) 
+								    with: (self class identString: 'Cuenta de Unnamed Account' byLevel: 2).
+	self assert: report report equals: expectedResult.! !
+!PortfolioStructureReportTest methodsFor: 'tests' stamp: 'EMI 11/16/2020 16:36:16' prior: 50913184!
+test04ReportOfAListOfNamedPortfolioStructureHasCorrectNamesAndIdentation
+	| portfolio portfolioChild account report expectedResult |
+	portfolio _ Portfolio withName: 'Compania 1'.
+	portfolioChild _ Portfolio withName: 'Pepe'.
+	account _ ReceptiveAccount withName: 'Lavado de dinero'.
+	portfolioChild add: account.
+	portfolio add: portfolioChild.
+	report _ PortfolioStructureReport of: portfolio.
+	
+	expectedResult _ OrderedCollection with: 'Portfolio de Compania 1' 
+								    with: (self class identString: 'Portfolio de Pepe' byLevel: 1)
+								    with: (self class identString: 'Cuenta de Lavado de dinero' byLevel: 2).
+	self assert: report report equals: expectedResult.! !
+!PortfolioStructureReportTest methodsFor: 'tests' stamp: 'EMI 11/16/2020 16:37:10' prior: 50913861!
+test05ReportOfAListOfNamedPortfolioStructureHasCorrectNamesAndIdentation
+	| portfolio portfolioChildLeft portfolioChildRight report expectedResult |
+	portfolio _ Portfolio withName: 'Compania 1'.
+	portfolioChildLeft _ Portfolio withName: 'Pepe'.
+	portfolioChildRight _ Portfolio withName: 'Jose'.
+	portfolio add: portfolioChildLeft.
+	portfolio add: portfolioChildRight.
+	report _ PortfolioStructureReport of: portfolio.
+	
+	expectedResult _ OrderedCollection with: 'Portfolio de Compania 1' 
+								    with: (self class identString: 'Portfolio de Pepe' byLevel: 1) 
+								    with: (self class identString: 'Portfolio de Jose' byLevel: 1) .
+	self assert: report report equals: expectedResult.! !
+
+!testRun: #PortfolioStructureReportTest #test05ReportOfAListOfNamedPortfolioStructureHasCorrectNamesAndIdentation stamp: 'EMI 11/16/2020 16:37:11'!
+PASSED!
+
+!testRun: #PortfolioStructureReportTest #test01ReportOfAnEmptyPortfolioStructureHasCorrectName stamp: 'EMI 11/16/2020 16:37:11'!
+PASSED!
+
+!testRun: #PortfolioStructureReportTest #test02ReportOfASimplePortfolioStructureHasCorrectNamesAndIdentation stamp: 'EMI 11/16/2020 16:37:11'!
+PASSED!
+
+!testRun: #PortfolioStructureReportTest #test03ReportOfAListPortfolioStructureHasCorrectNamesAndIdentation stamp: 'EMI 11/16/2020 16:37:11'!
+PASSED!
+
+!testRun: #PortfolioStructureReportTest #test04ReportOfAListOfNamedPortfolioStructureHasCorrectNamesAndIdentation stamp: 'EMI 11/16/2020 16:37:11'!
+PASSED!
+
+!testRun: #PortfolioStructureReportTest #test05ReportOfAListOfNamedPortfolioStructureHasCorrectNamesAndIdentation stamp: 'EMI 11/16/2020 16:37:11'!
+PASSED!
+!AccountSpecialReportTest class methodsFor: 'nil' stamp: 'EMI 11/16/2020 16:37:32'!
+identString: aString byLevel: anIdentationLevel
+	^aString identByAmount: Report identationSpacesPerLevel * anIdentationLevel! !
+!AccountSpecialReportTest methodsFor: 'tests' stamp: 'EMI 11/16/2020 16:38:04' prior: 50915288!
+test01EmptyPortfolioOnlyShowsName
+	| portfolio report expectedResult |
+	portfolio _ Portfolio new.
+	report _ AccountSpecialReport of: portfolio.
+	expectedResult _ OrderedCollection with: 'Portfolio de Unnamed Portfolio'
+								    with: (self class identString: 'Balance = 0' byLevel: 1).
+	self assert: report report equals: expectedResult.! !
+
+!testRun: #AccountSpecialReportTest #test01EmptyPortfolioOnlyShowsName stamp: 'EMI 11/16/2020 16:38:07'!
+PASSED!
+!AccountSpecialReportTest methodsFor: 'tests' stamp: 'EMI 11/16/2020 16:39:30' prior: 50915303!
+test02PortfolioWithAnAccountWithADepositShowsNamesAndIdentation
+	| portfolio account report expectedResult |
+	portfolio _ Portfolio withName: 'Compania de Pepe'.
+	account _ ReceptiveAccount withName: 'Suiza'.
+	Deposit register: 10 on: account.
+	portfolio add: account.
+	report _ AccountSpecialReport of: portfolio.
+	expectedResult _ OrderedCollection with: 'Portfolio de Compania de Pepe' 
+								    with: (self class indentString: 'Cuenta de Suiza' byLevel:1) 
+								    with: ('Depósito por 10.' identByAmount: Report identationSpacesPerLevel * 2) 
+								    with: ('Balance = 10.' identByAmount: Report identationSpacesPerLevel * 2)
+								    with: ('Balance = 10' identByAmount: Report identationSpacesPerLevel * 1).
+	self assert: report report equals: expectedResult.! !
+!AccountSpecialReportTest methodsFor: 'tests' stamp: 'EMI 11/16/2020 16:40:15' prior: 50915604!
+test02PortfolioWithAnAccountWithADepositShowsNamesAndIdentation
+	| portfolio account report expectedResult |
+	portfolio _ Portfolio withName: 'Compania de Pepe'.
+	account _ ReceptiveAccount withName: 'Suiza'.
+	Deposit register: 10 on: account.
+	portfolio add: account.
+	report _ AccountSpecialReport of: portfolio.
+	expectedResult _ OrderedCollection with: 'Portfolio de Compania de Pepe' 
+								    with: (self class identString: 'Cuenta de Suiza' byLevel:1) 
+								    with: (self class identString: 'Depósito por 10.' byLevel: 2) 
+								    with: (self class identString: 'Balance = 10.'  byLevel: 2)
+								    with: ('Balance = 10' identByAmount: Report identationSpacesPerLevel * 1).
+	self assert: report report equals: expectedResult.! !
+!AccountSpecialReportTest methodsFor: 'tests' stamp: 'EMI 11/16/2020 16:40:38' prior: 50915632!
+test02PortfolioWithAnAccountWithADepositShowsNamesAndIdentation
+	| portfolio account report expectedResult |
+	portfolio _ Portfolio withName: 'Compania de Pepe'.
+	account _ ReceptiveAccount withName: 'Suiza'.
+	Deposit register: 10 on: account.
+	portfolio add: account.
+	report _ AccountSpecialReport of: portfolio.
+	expectedResult _ OrderedCollection with: 'Portfolio de Compania de Pepe' 
+								    with: (self class identString: 'Cuenta de Suiza' byLevel:1) 
+								    with: (self class identString: 'Depósito por 10.' byLevel: 2) 
+								    with: (self class identString: 'Balance = 10.' byLevel: 2)
+								    with: (self class identString: 'Balance = 10' byLevel: 1).
+	self assert: report report equals: expectedResult.! !
+
+!testRun: #AccountSpecialReportTest #test02PortfolioWithAnAccountWithADepositShowsNamesAndIdentation stamp: 'EMI 11/16/2020 16:40:39'!
+PASSED!
+
+!testRun: #AccountSpecialReportTest #test01EmptyPortfolioOnlyShowsName stamp: 'EMI 11/16/2020 16:40:39'!
+PASSED!
+
+!testRun: #AccountSpecialReportTest #test02PortfolioWithAnAccountWithADepositShowsNamesAndIdentation stamp: 'EMI 11/16/2020 16:40:39'!
+PASSED!
+!AccountSpecialReportTest methodsFor: 'tests' stamp: 'EMI 11/16/2020 16:41:34'!
+test03PortfolioWithAnEmptyPortfolioAndAnAccountWithADepositShowsNamesAndIdentation
+	| portfolio account report expectedResult |
+	portfolio _ Portfolio withName: 'Compania de Pepe'.
+	account _ ReceptiveAccount withName: 'Suiza'.
+	Deposit register: 10 on: account.
+	portfolio add: account.
+	report _ AccountSpecialReport of: portfolio.
+	expectedResult _ OrderedCollection with: 'Portfolio de Compania de Pepe' 
+								    with: (self class identString: 'Cuenta de Suiza' byLevel:1) 
+								    with: (self class identString: 'Depósito por 10.' byLevel: 2) 
+								    with: (self class identString: 'Balance = 10.' byLevel: 2)
+								    with: (self class identString: 'Balance = 10' byLevel: 1).
+	self assert: report report equals: expectedResult.! !
+!AccountSpecialReportTest methodsFor: 'tests' stamp: 'EMI 11/16/2020 16:41:54' prior: 50915698!
+test03PortfolioWithAnEmptyPortfolioAndAnAccountWithADepositShowsNamesAndIdentation
+	| portfolio portfolioChild account report expectedResult |
+	portfolio _ Portfolio withName: 'Compania de Pepe'.
+	account _ ReceptiveAccount withName: 'Suiza'.
+	Deposit register: 10 on: account.
+	portfolio add: account.
+	report _ AccountSpecialReport of: portfolio.
+	expectedResult _ OrderedCollection with: 'Portfolio de Compania de Pepe' 
+								    with: (self class identString: 'Cuenta de Suiza' byLevel:1) 
+								    with: (self class identString: 'Depósito por 10.' byLevel: 2) 
+								    with: (self class identString: 'Balance = 10.' byLevel: 2)
+								    with: (self class identString: 'Balance = 10' byLevel: 1).
+	self assert: report report equals: expectedResult.! !
+!AccountSpecialReportTest methodsFor: 'tests' stamp: 'EMI 11/16/2020 16:42:40' prior: 50915725!
+test03PortfolioWithAnEmptyPortfolioAndAnAccountWithADepositShowsNamesAndIdentation
+	| portfolio portfolioChild account report expectedResult |
+	portfolio _ Portfolio withName: 'Compania de Pepe'.
+	portfolioChild _ Portfolio withName: 'Testaferro de Pepe'.
+	portfolio add: portfolioChild.
+	account _ ReceptiveAccount withName: 'Suiza'.
+	Deposit register: 10 on: account.
+	portfolio add: account.
+	report _ AccountSpecialReport of: portfolio.
+	expectedResult _ OrderedCollection with: 'Portfolio de Compania de Pepe' 
+								    with: (self class identString: 'Cuenta de Suiza' byLevel:1) 
+								    with: (self class identString: 'Depósito por 10.' byLevel: 2) 
+								    with: (self class identString: 'Balance = 10.' byLevel: 2)
+								    with: (self class identString: 'Balance = 10' byLevel: 1).
+	self assert: report report equals: expectedResult.! !
+!AccountSpecialReportTest methodsFor: 'tests' stamp: 'EMI 11/16/2020 16:44:24' prior: 50915753!
+test03PortfolioWithAnEmptyPortfolioAndAnAccountWithADepositShowsNamesAndIdentation
+	| portfolio portfolioChild account report expectedResult |
+	portfolio _ Portfolio withName: 'Compania de Pepe'.
+	portfolioChild _ Portfolio withName: 'Testaferro de Pepe'.
+	portfolio add: portfolioChild.
+	account _ ReceptiveAccount withName: 'Suiza'.
+	Deposit register: 10 on: account.
+	portfolio add: account.
+	report _ AccountSpecialReport of: portfolio.
+	expectedResult _ OrderedCollection with: 'Portfolio de Compania de Pepe'
+								    with: (self class identString: 'Portfolio de Testaferro de Pepe' byLevel:1) 
+								    with: (self class identString: 'Balance = 0' byLevel:2)
+								    with: (self class identString: 'Cuenta de Suiza' byLevel:1) 
+								    with: (self class identString: 'Depósito por 10.' byLevel: 2) 
+								    with: (self class identString: 'Balance = 10.' byLevel: 2).
+	expectedResult add: (self class identString: 'Balance = 10' byLevel: 1).
+	self assert: report report equals: expectedResult.! !
+
+!testRun: #AccountSpecialReportTest #test03PortfolioWithAnEmptyPortfolioAndAnAccountWithADepositShowsNamesAndIdentation stamp: 'EMI 11/16/2020 16:44:38'!
+PASSED!
+!AccountSpecialReportTest methodsFor: 'tests' stamp: 'EMI 11/16/2020 16:45:01'!
+test04PortfolioWithAPortfolioAndAnAccountWithADepositShowsNamesAndIdentation
+	| portfolio portfolioChild account report expectedResult |
+	portfolio _ Portfolio withName: 'Compania de Pepe'.
+	portfolioChild _ Portfolio withName: 'Testaferro de Pepe'.
+	portfolio add: portfolioChild.
+	account _ ReceptiveAccount withName: 'Suiza'.
+	Deposit register: 10 on: account.
+	portfolio add: account.
+	report _ AccountSpecialReport of: portfolio.
+	expectedResult _ OrderedCollection with: 'Portfolio de Compania de Pepe'
+								    with: (self class identString: 'Portfolio de Testaferro de Pepe' byLevel:1) 
+								    with: (self class identString: 'Balance = 0' byLevel:2)
+								    with: (self class identString: 'Cuenta de Suiza' byLevel:1) 
+								    with: (self class identString: 'Depósito por 10.' byLevel: 2) 
+								    with: (self class identString: 'Balance = 10.' byLevel: 2).
+	expectedResult add: (self class identString: 'Balance = 10' byLevel: 1).
+	self assert: report report equals: expectedResult.! !
+!AccountSpecialReportTest methodsFor: 'tests' stamp: 'EMI 11/16/2020 16:45:14' prior: 50915823!
+test04PortfolioWithAPortfolioAndAnAccountWithADepositShowsNamesAndIdentation
+	| portfolio portfolioChild account report expectedResult |
+	portfolio _ Portfolio withName: 'Compania de Pepe'.
+	portfolioChild _ Portfolio withName: 'Testaferro de Pepe'.
+	portfolio add: portfolioChild.
+	account _ ReceptiveAccount withName: 'Suiza'.
+	Deposit register: 10 on: account.
+	portfolioChild add: account.
+	report _ AccountSpecialReport of: portfolio.
+	expectedResult _ OrderedCollection with: 'Portfolio de Compania de Pepe'
+								    with: (self class identString: 'Portfolio de Testaferro de Pepe' byLevel:1) 
+								    with: (self class identString: 'Balance = 0' byLevel:2)
+								    with: (self class identString: 'Cuenta de Suiza' byLevel:1) 
+								    with: (self class identString: 'Depósito por 10.' byLevel: 2) 
+								    with: (self class identString: 'Balance = 10.' byLevel: 2).
+	expectedResult add: (self class identString: 'Balance = 10' byLevel: 1).
+	self assert: report report equals: expectedResult.! !
+!AccountSpecialReportTest methodsFor: 'tests' stamp: 'EMI 11/16/2020 16:45:46' prior: 50915858!
+test04PortfolioWithAPortfolioAndAnAccountWithADepositShowsNamesAndIdentation
+	| portfolio portfolioChild account report expectedResult |
+	portfolio _ Portfolio withName: 'Compania de Pepe'.
+	portfolioChild _ Portfolio withName: 'Testaferro de Pepe'.
+	portfolio add: portfolioChild.
+	account _ ReceptiveAccount withName: 'Suiza'.
+	Deposit register: 10 on: account.
+	portfolioChild add: account.
+	report _ AccountSpecialReport of: portfolio.
+	expectedResult _ OrderedCollection with: 'Portfolio de Compania de Pepe'
+								    with: (self class identString: 'Portfolio de Testaferro de Pepe' byLevel:1) 
+								    with: (self class identString: 'Cuenta de Suiza' byLevel:1) 
+								    with: (self class identString: 'Depósito por 10.' byLevel: 2)
+								    with: (self class identString: 'Balance = 10.' byLevel: 2)
+								    with: (self class identString: 'Balance = 0' byLevel:2).
+	expectedResult add: (self class identString: 'Balance = 10' byLevel: 1).
+	self assert: report report equals: expectedResult.! !
+!AccountSpecialReportTest methodsFor: 'tests' stamp: 'EMI 11/16/2020 16:46:08' prior: 50915893!
+test04PortfolioWithAPortfolioAndAnAccountWithADepositShowsNamesAndIdentation
+	| portfolio portfolioChild account report expectedResult |
+	portfolio _ Portfolio withName: 'Compania de Pepe'.
+	portfolioChild _ Portfolio withName: 'Testaferro de Pepe'.
+	portfolio add: portfolioChild.
+	account _ ReceptiveAccount withName: 'Suiza'.
+	Deposit register: 10 on: account.
+	portfolioChild add: account.
+	report _ AccountSpecialReport of: portfolio.
+	expectedResult _ OrderedCollection with: 'Portfolio de Compania de Pepe'
+								    with: (self class identString: 'Portfolio de Testaferro de Pepe' byLevel:1) 
+								    with: (self class identString: 'Cuenta de Suiza' byLevel:2) 
+								    with: (self class identString: 'Depósito por 10.' byLevel:3)
+								    with: (self class identString: 'Balance = 10.' byLevel: 3)
+								    with: (self class identString: 'Balance = 10' byLevel:2).
+	expectedResult add: (self class identString: 'Balance = 10' byLevel: 1).
+	self assert: report report equals: expectedResult.! !
+
+!testRun: #AccountSpecialReportTest #test04PortfolioWithAPortfolioAndAnAccountWithADepositShowsNamesAndIdentation stamp: 'EMI 11/16/2020 16:46:11'!
+PASSED!
+
+!testRun: #AccountSpecialReportTest #test01EmptyPortfolioOnlyShowsName stamp: 'EMI 11/16/2020 16:46:13'!
+PASSED!
+
+!testRun: #AccountSpecialReportTest #test02PortfolioWithAnAccountWithADepositShowsNamesAndIdentation stamp: 'EMI 11/16/2020 16:46:13'!
+PASSED!
+
+!testRun: #AccountSpecialReportTest #test03PortfolioWithAnEmptyPortfolioAndAnAccountWithADepositShowsNamesAndIdentation stamp: 'EMI 11/16/2020 16:46:13'!
+PASSED!
+
+!testRun: #AccountSpecialReportTest #test04PortfolioWithAPortfolioAndAnAccountWithADepositShowsNamesAndIdentation stamp: 'EMI 11/16/2020 16:46:13'!
+PASSED!
+
+!testRun: #PortfolioStructureReportTest #test01ReportOfAnEmptyPortfolioStructureHasCorrectName stamp: 'EMI 11/16/2020 16:46:24'!
+PASSED!
+
+!testRun: #PortfolioStructureReportTest #test02ReportOfASimplePortfolioStructureHasCorrectNamesAndIdentation stamp: 'EMI 11/16/2020 16:46:24'!
+PASSED!
+
+!testRun: #PortfolioStructureReportTest #test03ReportOfAListPortfolioStructureHasCorrectNamesAndIdentation stamp: 'EMI 11/16/2020 16:46:24'!
+PASSED!
+
+!testRun: #PortfolioStructureReportTest #test04ReportOfAListOfNamedPortfolioStructureHasCorrectNamesAndIdentation stamp: 'EMI 11/16/2020 16:46:24'!
+PASSED!
+
+!testRun: #PortfolioStructureReportTest #test05ReportOfAListOfNamedPortfolioStructureHasCorrectNamesAndIdentation stamp: 'EMI 11/16/2020 16:46:24'!
+PASSED!
+
+!testRun: #NetTransfersReportTest #test01NetTransferReportOfEmptyAccountReturnsZero stamp: 'EMI 11/16/2020 16:46:27'!
+PASSED!
+
+!testRun: #NetTransfersReportTest #test02NetTransferReportOfAccountWithADepositTransferReturnsCorrectly stamp: 'EMI 11/16/2020 16:46:27'!
+PASSED!
+
+!testRun: #NetTransfersReportTest #test03NetTransferReportOfAccountWithAExtractionTransferReturnsCorrectly stamp: 'EMI 11/16/2020 16:46:27'!
+PASSED!
+
+!testRun: #NetTransfersReportTest #test04NetTransferReportOfAccountWithADepositReturnsZero stamp: 'EMI 11/16/2020 16:46:27'!
+PASSED!
+
+!testRun: #NetTransfersReportTest #test05NetTransferReportOfEmptyPortfolioReturnsZero stamp: 'EMI 11/16/2020 16:46:27'!
+PASSED!
+
+!testRun: #NetTransfersReportTest #test06NetTransferReportOfPortfolioWithAccountAndATransferReturnsCorrectly stamp: 'EMI 11/16/2020 16:46:27'!
+PASSED!
+
+!testRun: #NetTransfersReportTest #test07NetTransferReportOfPortfoliosWithAccountAndATransferReturnsCorrectly stamp: 'EMI 11/16/2020 16:46:27'!
+PASSED!
+
+!testRun: #NetTransfersReportTest #test08NetTransferReportOfPortfolioTreeOfHeightThreeReturnsCorrectly stamp: 'EMI 11/16/2020 16:46:27'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'EMI 11/16/2020 16:46:31'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'EMI 11/16/2020 16:46:31'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'EMI 11/16/2020 16:46:31'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'EMI 11/16/2020 16:46:31'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'EMI 11/16/2020 16:46:31'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'EMI 11/16/2020 16:46:31'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'EMI 11/16/2020 16:46:31'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08AccountCanTransferToAnotherAccountWithPositiveAmount stamp: 'EMI 11/16/2020 16:46:31'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09AccountsWithTransferKnowsOriginAndDestination stamp: 'EMI 11/16/2020 16:46:31'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10AccountsCannotTransferInvalidAmounts stamp: 'EMI 11/16/2020 16:46:31'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11AccountsCannotTransferToThemselves stamp: 'EMI 11/16/2020 16:46:31'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12AccountHasDefaultName stamp: 'EMI 11/16/2020 16:46:31'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13CanCreateAccountWithName stamp: 'EMI 11/16/2020 16:46:31'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test01AccountSummaryOfEmptyAccountOnlyShowsBalance stamp: 'EMI 11/16/2020 16:46:36'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test02AccountSummaryOfAccountWithADepositShowDepositInfo stamp: 'EMI 11/16/2020 16:46:36'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test03AccountSummaryOfAccountWithAWithdrawShowWithdrawInfo stamp: 'EMI 11/16/2020 16:46:36'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test04AccountSummaryOfAccountWithAExtractionTransferShowExtractionTransferInfo stamp: 'EMI 11/16/2020 16:46:36'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test05AccountSummaryOfAccountWithADepositTransferShowDepositTransferInfo stamp: 'EMI 11/16/2020 16:46:36'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test06AccountSummaryOfAccountWithOneOfEachTransactionShowsCorrectInfo stamp: 'EMI 11/16/2020 16:46:36'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test07AccountSummaryOfEmptyPortfolioOnlyShowsBalance stamp: 'EMI 11/16/2020 16:46:36'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test08AccountSummaryOfPortfolioWithADeposit stamp: 'EMI 11/16/2020 16:46:36'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test09AccountSummaryOfPortfolioWithAWithdraw stamp: 'EMI 11/16/2020 16:46:36'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test10AccountSummaryOfPortfolioWithADepositTransfer stamp: 'EMI 11/16/2020 16:46:36'!
+PASSED!
+
+!testRun: #AccountSummaryTest #test11AccountSummaryOfPortfolioWithAExtractionTransfer stamp: 'EMI 11/16/2020 16:46:36'!
+PASSED!
+
+----SNAPSHOT----(16 November 2020 16:46:39) CuisUniversity-4383.image priorSource: 18675646!
+
+----QUIT----(16 November 2020 16:46:41) CuisUniversity-4383.image priorSource: 18703622!
+
+----STARTUP---- (16 November 2020 16:47:28) as /home/doraserver/CuisUniversity/CuisUniversity-4383.image!
+
+
+----QUIT----(16 November 2020 16:47:32) CuisUniversity-4383.image priorSource: 18703716!
+
+----STARTUP---- (16 November 2020 16:46:47) as /home/doraserver/CuisUniversity/CuisUniversity-4383.image!
+
+
+----QUIT----(16 November 2020 16:47:36) CuisUniversity-4383.image priorSource: 18703716!
+
+----STARTUP---- (16 November 2020 16:47:47) as /home/doraserver/CuisUniversity/CuisUniversity-4383.image!
+
+
+----SNAPSHOT----(16 November 2020 16:47:50) CuisUniversity-4383.image priorSource: 18704112!
