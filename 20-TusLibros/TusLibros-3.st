@@ -245,210 +245,239 @@ test03CannotCreateCardWithInvalidDateFormat
 
 !classDefinition: #RESTInterfaceTest category: 'TusLibros'!
 TestCase subclass: #RESTInterfaceTest
-	instanceVariableNames: ''
+	instanceVariableNames: 'factory defaultClock interface'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!RESTInterfaceTest methodsFor: 'tests' stamp: 'EMI 11/30/2020 19:30:45'!
+!RESTInterfaceTest methodsFor: 'tests' stamp: 'EMI 12/2/2020 17:01:38'!
 test01CanCreateEmptyCartUsingValidIDAndPassword
-	| interface cartID |
-	interface _ RESTInterface withAuthenticator: self defaultAuthenticator withPriceList: self defaultPriceList withCashier: self defaultCashier.
-	
-	cartID _ interface createCart: self validClientID withPassword: self validClientPassword.
+	| cartID |	
+	cartID _ interface createCart: factory validClientID withPassword: factory validClientPassword.
 	self assert: (interface listCart: cartID) isEmpty.! !
 
-!RESTInterfaceTest methodsFor: 'tests' stamp: 'EMI 11/30/2020 19:30:45'!
+!RESTInterfaceTest methodsFor: 'tests' stamp: 'EMI 12/2/2020 17:01:53'!
 test02CannotCreateCartUsingInvalidIDOrPassword
-	| interface |
-	interface _ RESTInterface withAuthenticator: self defaultAuthenticator withPriceList: self defaultPriceList withCashier: self defaultCashier.
-	
-	self should: [interface createCart: self invalidClientID withPassword: self validClientPassword.]
+	self should: [interface createCart: factory invalidClientID withPassword: factory validClientPassword.]
 	raise: Error
-	withExceptionDo: [:anError | self assert: anError messageText equals: interface class cannotCreateCartWithInvalidID].
+	withExceptionDo: [:anError | self assert: anError messageText equals: AuthenticatorSimulator cannotOperateUsingInvalidClientIDMessage].
 	
-	self should: [interface createCart: self validClientID withPassword: self invalidClientPassword.]
+	self should: [interface createCart: factory validClientID withPassword: factory invalidClientPassword.]
 	raise: Error
-	withExceptionDo: [:anError | self assert: anError messageText equals: interface class cannotCreateCartWithInvalidPassword].
+	withExceptionDo: [:anError | self assert: anError messageText equals: AuthenticatorSimulator cannotOperateUsingInvalidPasswordMessage].
 	! !
 
-!RESTInterfaceTest methodsFor: 'tests' stamp: 'EMI 11/30/2020 19:30:45'!
+!RESTInterfaceTest methodsFor: 'tests' stamp: 'EMI 12/2/2020 17:02:21'!
 test03CannotListCartUsingInvalidCartID
-	| interface cartID |
-	interface _ RESTInterface withAuthenticator: self defaultAuthenticator withPriceList: self defaultPriceList withCashier: self defaultCashier.
-	cartID _ interface createCart: self validClientID withPassword: self validClientPassword.
+	interface createCart: factory validClientID withPassword: factory validClientPassword.
 	self should: [interface listCart: '2']
 	raise: Error
-	withExceptionDo: [:anError | self assert: anError messageText equals: interface class cannotListCartWithInvalidCartID].
+	withExceptionDo: [:anError | self assert: anError messageText equals: interface class cannotListCartWithInvalidCartIDMessage].
 	! !
 
-!RESTInterfaceTest methodsFor: 'tests' stamp: 'EMI 11/30/2020 19:30:45'!
+!RESTInterfaceTest methodsFor: 'tests' stamp: 'EMI 12/2/2020 17:02:37'!
 test04CanAddOneProductToValidCart
-	| interface cartID |
-	interface _ RESTInterface withAuthenticator: self defaultAuthenticator withPriceList: self defaultPriceList withCashier: self defaultCashier.
-	cartID _ interface createCart: self validClientID withPassword: self validClientPassword.
-	interface addToCart: cartID productName: self validProductName quantity: 1.
+	| cartID |
+	cartID _ interface createCart: factory validClientID withPassword: factory validClientPassword.
+	interface addToCart: cartID productName: factory validProductName quantity: 1.
 	
 	self assert: (interface listCart: cartID) size equals: 1.! !
 
-!RESTInterfaceTest methodsFor: 'tests' stamp: 'EMI 11/30/2020 19:30:45'!
+!RESTInterfaceTest methodsFor: 'tests' stamp: 'EMI 12/2/2020 17:07:10'!
 test05CanHaveMoreThanOneValidCart
-	| interface cartID cartID2 |
-	interface _ RESTInterface withAuthenticator: self defaultAuthenticator withPriceList: self defaultPriceList withCashier: self defaultCashier.
+	| cartID cartID2 |
 	
-	cartID _ interface createCart: self validClientID withPassword: self validClientPassword.
-	interface addToCart: cartID productName: self validProductName quantity: 1.
+	cartID _ interface createCart: factory validClientID withPassword: factory validClientPassword.
+	interface addToCart: cartID productName: factory validProductName quantity: 1.
 	
-	cartID2 _ interface createCart: self anotherValidClientID withPassword: self validClientPassword.
-	interface addToCart: cartID2 productName: self anotherValidProductName quantity: 5.
+	cartID2 _ interface createCart: factory anotherValidClientID withPassword: factory validClientPassword.
+	interface addToCart: cartID2 productName: factory anotherValidProductName quantity: 5.
 	
 	self assert: (interface listCart: cartID) size equals: 1.
-	self assert: ((interface listCart: cartID) includes: self validProductName).
+	self assert: ((interface listCart: cartID) includes: factory validProductName).
 	self assert: (interface listCart: cartID2) size equals: 5.
-	self assert: ((interface listCart: cartID2) includes: self anotherValidProductName).
+	self assert: ((interface listCart: cartID2) includes: factory anotherValidProductName).
 ! !
 
-!RESTInterfaceTest methodsFor: 'tests' stamp: 'EMI 11/30/2020 19:30:45'!
+!RESTInterfaceTest methodsFor: 'tests' stamp: 'EMI 12/2/2020 17:06:36'!
 test06CannotAddProductToCartWithInvalidCartID
-	| interface cartID |
-	interface _ RESTInterface withAuthenticator: self defaultAuthenticator withPriceList: self defaultPriceList withCashier: self defaultCashier.
-	cartID _ interface createCart: self validClientID withPassword: self validClientPassword.
+	interface createCart: factory validClientID withPassword: factory validClientPassword.
 	
-	self should: [interface addToCart: '11111' productName: self validProductName quantity: 1.]
+	self should: [interface addToCart: factory invalidCartID productName: factory validProductName quantity: 1.]
 	raise: Error
-	withExceptionDo: [:anError | self assert: anError messageText equals: RESTInterface cannotAddProductToCartWithInvalidCartID].! !
+	withExceptionDo: [:anError | self assert: anError messageText equals: RESTInterface cannotAddProductToCartWithInvalidCartIDMessage].! !
 
-!RESTInterfaceTest methodsFor: 'tests' stamp: 'EMI 11/30/2020 19:39:28'!
+!RESTInterfaceTest methodsFor: 'tests' stamp: 'EMI 12/2/2020 17:04:18'!
 test07CanCheckoutProductsOfAValidCart
-	| interface cartID |
-	interface _ RESTInterface withAuthenticator: self defaultAuthenticator 
-						    withPriceList: self defaultPriceList 
-						    withCashier: self defaultCashier.
+	| cartID |
+	cartID _ interface createCart: factory validClientID withPassword: factory validClientPassword.
 	
-	cartID _ interface createCart: self validClientID withPassword: self validClientPassword.
+	interface addToCart: cartID productName: factory anotherValidProductName quantity: 1.
 	
-	interface addToCart: cartID productName: self anotherValidProductName quantity: 1.
-	
-	interface checkout: cartID withCardNumber: self validCardNumber withCardExpDate: self validCardDate withCardOwnerName: self validCardOwnerName.
+	interface checkout: cartID withCardNumber: factory validCardNumber withCardExpDate: factory validCardDate withCardOwnerName: factory validCardOwnerName.
 
 	self should: [interface listCart: cartID]
 	raise: Error
-	withExceptionDo: [:anError | self assert: anError messageText equals: RESTInterface cannotListCartWithInvalidCartID].
+	withExceptionDo: [:anError | self assert: anError messageText equals: RESTInterface cannotListCartWithInvalidCartIDMessage].
 	! !
 
-!RESTInterfaceTest methodsFor: 'tests' stamp: 'EMI 11/30/2020 19:43:18'!
+!RESTInterfaceTest methodsFor: 'tests' stamp: 'EMI 12/2/2020 17:06:54'!
 test08CannotCheckoutProductsOfAnInvalidCart
-	| interface cartID |
-	interface _ RESTInterface withAuthenticator: self defaultAuthenticator 
-						    withPriceList: self defaultPriceList 
-						    withCashier: self defaultCashier.
+	| cartID |
+	cartID _ interface createCart: factory validClientID withPassword: factory validClientPassword.
 	
-	cartID _ interface createCart: self validClientID withPassword: self validClientPassword.
-	
-	interface addToCart: cartID productName: self anotherValidProductName quantity: 1.
+	interface addToCart: cartID productName: factory anotherValidProductName quantity: 1.
 
-	self should: [interface checkout: '10000' withCardNumber: self validCardNumber withCardExpDate: self validCardDate withCardOwnerName: self validCardOwnerName.]
+	self should: [interface checkout: factory invalidCartID withCardNumber: factory validCardNumber withCardExpDate: factory validCardDate withCardOwnerName: factory validCardOwnerName.]
 	raise: Error
-	withExceptionDo: [:anError | self assert: anError messageText equals: RESTInterface cannotCheckoutCartWithInvalidCartID].
+	withExceptionDo: [:anError | self assert: anError messageText equals: RESTInterface cannotCheckoutCartWithInvalidCartIDMessage].
 	! !
 
-!RESTInterfaceTest methodsFor: 'tests' stamp: 'EMI 11/30/2020 20:37:07'!
+!RESTInterfaceTest methodsFor: 'tests' stamp: 'EMI 12/2/2020 17:04:50'!
 test09CanListPurchasesMadeBValidUser
-	| interface cartID result |
-	interface _ RESTInterface withAuthenticator: self defaultAuthenticator 
-						    withPriceList: self defaultPriceList 
-						    withCashier: self defaultCashier.
+	| cartID result |
 	
-	cartID _ interface createCart: self validClientID withPassword: self validClientPassword.
+	cartID _ interface createCart: factory validClientID withPassword: factory validClientPassword.
 	
-	interface addToCart: cartID productName: self anotherValidProductName quantity: 1.
+	interface addToCart: cartID productName: factory anotherValidProductName quantity: 1.
 
-	interface checkout: cartID withCardNumber: self validCardNumber withCardExpDate: self validCardDate withCardOwnerName: self validCardOwnerName.
+	interface checkout: cartID withCardNumber: factory validCardNumber withCardExpDate: factory validCardDate withCardOwnerName: factory validCardOwnerName.
 	
-	result _ interface listPurchases: self validClientID withPassword: self validClientPassword.
+	result _ interface listPurchases: factory validClientID withPassword: factory validClientPassword.
 	
 	self deny: result isEmpty.
 
 	! !
 
-!RESTInterfaceTest methodsFor: 'tests' stamp: 'EMI 11/30/2020 21:08:04'!
+!RESTInterfaceTest methodsFor: 'tests' stamp: 'EMI 12/2/2020 17:05:09'!
 test10CannotListPurchasesUsingInvalidClientIDOrPassword
-	| interface cartID |
-	interface _ RESTInterface withAuthenticator: self defaultAuthenticator 
-						    withPriceList: self defaultPriceList 
-						    withCashier: self defaultCashier.
+	| cartID |
+	cartID _ interface createCart: factory validClientID withPassword: factory validClientPassword.
 	
-	cartID _ interface createCart: self validClientID withPassword: self validClientPassword.
-	
-	interface addToCart: cartID productName: self anotherValidProductName quantity: 1.
+	interface addToCart: cartID productName: factory anotherValidProductName quantity: 1.
 
-	interface checkout: cartID withCardNumber: self validCardNumber withCardExpDate: self validCardDate withCardOwnerName: self validCardOwnerName.
+	interface checkout: cartID withCardNumber: factory validCardNumber withCardExpDate: factory validCardDate withCardOwnerName: factory validCardOwnerName.
 	
-	self should: [interface listPurchases: self invalidClientID withPassword: self validClientPassword.]
+	self should: [interface listPurchases: factory invalidClientID withPassword: factory validClientPassword.]
 	raise: Error
-	withExceptionDo: [:anError | self assert: anError messageText equals: RESTInterface cannotListPurchasesUsingInvalidID].
+	withExceptionDo: [:anError | self assert: anError messageText equals: AuthenticatorSimulator cannotOperateUsingInvalidClientIDMessage].
 	
-	self should: [interface listPurchases: self validClientID withPassword: self invalidClientPassword.]
+	self should: [interface listPurchases: factory validClientID withPassword: factory invalidClientPassword.]
 	raise: Error
-	withExceptionDo: [:anError | self assert: anError messageText equals: RESTInterface cannotListPurchasesUsingInvalidPassword].
+	withExceptionDo: [:anError | self assert: anError messageText equals: AuthenticatorSimulator cannotOperateUsingInvalidPasswordMessage].
 
 
 	! !
 
+!RESTInterfaceTest methodsFor: 'tests' stamp: 'EMI 12/2/2020 17:05:20'!
+test11CannotAddProductToExpiredCart
+	| cartID |
+	cartID _ interface createCart: factory validClientID withPassword: factory validClientPassword.
+	
+	defaultClock foward30Minutes.
+	
+	self should: [interface addToCart: cartID productName: factory validProductName quantity: 1.]
+	raise: Error
+	withExceptionDo: [:anError | self assert: anError messageText equals: RESTInterface cannotUseAnExpiredCartIDMessage].
+	
+	self should: [interface addToCart: cartID productName: factory validProductName quantity: 1.]
+	raise: Error
+	withExceptionDo: [:anError | self assert: anError messageText equals: RESTInterface cannotAddProductToCartWithInvalidCartIDMessage].
+	! !
 
-!RESTInterfaceTest methodsFor: 'aux' stamp: 'EMI 11/30/2020 18:55:25'!
-anotherValidClientID
-	^'2'.! !
+!RESTInterfaceTest methodsFor: 'tests' stamp: 'EMI 12/2/2020 17:05:36'!
+test12CannotCheckoutAnExpiredCart
+	| cartID |
+	cartID _ interface createCart: factory validClientID withPassword: factory validClientPassword.
+	interface addToCart: cartID productName: factory validProductName quantity: 1.
+	
+	defaultClock foward30Minutes.
+	
+	self should: [interface checkout: cartID withCardNumber: factory validCardNumber withCardExpDate: factory validCardDate withCardOwnerName: factory validCardOwnerName]
+	raise: Error
+	withExceptionDo: [:anError | self assert: anError messageText equals: RESTInterface cannotUseAnExpiredCartIDMessage].
+	
+	self should: [interface addToCart: cartID productName: factory validProductName quantity: 1.]
+	raise: Error
+	withExceptionDo: [:anError | self assert: anError messageText equals: RESTInterface cannotAddProductToCartWithInvalidCartIDMessage].
+	! !
 
-!RESTInterfaceTest methodsFor: 'aux' stamp: 'EMI 11/30/2020 18:56:35'!
-anotherValidProductName
-	^'El principito'.! !
+!RESTInterfaceTest methodsFor: 'tests' stamp: 'EMI 12/2/2020 17:05:45'!
+test13CannotListAnExpiredCart
+	| cartID |
+	cartID _ interface createCart: factory validClientID withPassword: factory validClientPassword.
+	interface addToCart: cartID productName: factory validProductName quantity: 1.
+	
+	defaultClock foward30Minutes.
+	
+	self should: [interface listCart: cartID]
+	raise: Error
+	withExceptionDo: [:anError | self assert: anError messageText equals: RESTInterface cannotUseAnExpiredCartIDMessage].
+	
+	self should: [interface addToCart: cartID productName: factory validProductName quantity: 1.]
+	raise: Error
+	withExceptionDo: [:anError | self assert: anError messageText equals: RESTInterface cannotAddProductToCartWithInvalidCartIDMessage].
+	! !
 
-!RESTInterfaceTest methodsFor: 'aux' stamp: 'EMI 11/30/2020 18:55:52'!
-defaultAuthenticator
-	^Dictionary with: self validClientID -> self validClientPassword with: self anotherValidClientID -> self validClientPassword.! !
+!RESTInterfaceTest methodsFor: 'tests' stamp: 'EMI 12/2/2020 17:05:53'!
+test14UsingCartResetsClockExpiration
+	| cartID |
+	cartID _ interface createCart: factory validClientID withPassword: factory validClientPassword.
 
-!RESTInterfaceTest methodsFor: 'aux' stamp: 'EMI 11/30/2020 19:40:16'!
-defaultCashier
-	^Cashier withPriceList: self defaultPriceList withMerchantProcessor: AlwaysValidMerchantProcessorSimulator new.! !
+	defaultClock fowardMinutes: 15.
+	
+	interface addToCart: cartID productName: factory validProductName quantity: 1.
+	
+	defaultClock fowardMinutes: 15.
+	
+	self deny: (interface listCart: cartID) isEmpty.
 
-!RESTInterfaceTest methodsFor: 'aux' stamp: 'EMI 11/30/2020 18:57:03'!
-defaultPriceList
-	^Dictionary with: 'El Principote' -> 50 with: 'El principito' -> 100.! !
+	! !
 
-!RESTInterfaceTest methodsFor: 'aux' stamp: 'EMI 11/30/2020 18:22:08'!
-invalidClientID
-	^Object new.! !
 
-!RESTInterfaceTest methodsFor: 'aux' stamp: 'EMI 11/30/2020 18:22:16'!
-invalidClientPassword
-	^Object new.! !
+!RESTInterfaceTest methodsFor: 'setup' stamp: 'EMI 12/2/2020 17:01:20'!
+setUp
+	factory _ TestObjectsFactory new.
+	defaultClock _ factory defaultClock.
+	interface _ RESTInterface withAuthenticator: factory defaultAuthenticator withPriceList: factory defaultPriceList withCashier: factory defaultCashier withClock: defaultClock.! !
 
-!RESTInterfaceTest methodsFor: 'aux' stamp: 'EMI 11/30/2020 19:26:33'!
-validCardDate
-	| date |
-	date _ (GregorianMonthOfYear current) next.
-	^date monthNumber asString, date year number asString.! !
+
+!classDefinition: #AuthenticatorSimulator category: 'TusLibros'!
+Object subclass: #AuthenticatorSimulator
+	instanceVariableNames: 'validIdentities'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
 
-!RESTInterfaceTest methodsFor: 'aux' stamp: 'EMI 11/30/2020 19:23:16'!
-validCardNumber
-	^'123456789'! !
+!AuthenticatorSimulator methodsFor: 'initialization' stamp: 'EMI 12/1/2020 20:46:25'!
+initializeWithUsers: aUsersDictionary 
+	validIdentities _ aUsersDictionary.! !
 
-!RESTInterfaceTest methodsFor: 'aux' stamp: 'EMI 11/30/2020 19:26:57'!
-validCardOwnerName
-	^'El Principe'.! !
 
-!RESTInterfaceTest methodsFor: 'aux' stamp: 'EMI 11/30/2020 18:10:54'!
-validClientID
-	^'1'.! !
+!AuthenticatorSimulator methodsFor: 'testing' stamp: 'EMI 12/2/2020 16:37:37'!
+checkUser: aClientID withPassword: aPassword
+	| password |
+	password _ validIdentities at: aClientID ifAbsent:[^Error signal: self class cannotOperateUsingInvalidClientIDMessage].
+	(password = aPassword ) ifFalse: [^Error signal: self class cannotOperateUsingInvalidPasswordMessage.].! !
 
-!RESTInterfaceTest methodsFor: 'aux' stamp: 'EMI 11/30/2020 18:10:01'!
-validClientPassword
-	^'1234'.! !
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!RESTInterfaceTest methodsFor: 'aux' stamp: 'EMI 11/30/2020 18:40:44'!
-validProductName
-	^'El Principote'.! !
+!classDefinition: 'AuthenticatorSimulator class' category: 'TusLibros'!
+AuthenticatorSimulator class
+	instanceVariableNames: ''!
+
+!AuthenticatorSimulator class methodsFor: 'instance creation' stamp: 'EMI 12/1/2020 20:45:29'!
+withUsers: aUsersDictionary 
+	^self new initializeWithUsers: aUsersDictionary. ! !
+
+
+!AuthenticatorSimulator class methodsFor: 'error messages' stamp: 'EMI 12/2/2020 16:37:25'!
+cannotOperateUsingInvalidClientIDMessage
+	^'Cannot operate using invalid Client ID'.! !
+
+!AuthenticatorSimulator class methodsFor: 'error messages' stamp: 'EMI 12/2/2020 16:37:37'!
+cannotOperateUsingInvalidPasswordMessage
+	^'Cannot operate using invalid password'.! !
 
 
 !classDefinition: #Cart category: 'TusLibros'!
@@ -585,6 +614,42 @@ withPriceList: aPriceListDictionary withMerchantProcessor: aMerchantProcessor
 	^self new initializeWithPriceList: aPriceListDictionary withMerchantProcessor: aMerchantProcessor ! !
 
 
+!classDefinition: #Clock category: 'TusLibros'!
+Object subclass: #Clock
+	instanceVariableNames: 'time'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!Clock methodsFor: 'initialization' stamp: 'EMI 12/1/2020 20:09:23'!
+initialize
+	time _ [DateAndTime now].! !
+
+
+!Clock methodsFor: 'clock operations' stamp: 'EMI 12/1/2020 20:09:53'!
+foward30Minutes
+	time _ [DateAndTime now + 30 minutes].! !
+
+!Clock methodsFor: 'clock operations' stamp: 'EMI 12/1/2020 20:36:02'!
+fowardMinutes: aMinutesAmount
+	(aMinutesAmount > 0 and:[aMinutesAmount isInteger]) ifFalse: [^Error signal: self class minutesAmountMustBePositiveInteger.].
+	time _ [DateAndTime now + aMinutesAmount minutes].! !
+
+!Clock methodsFor: 'clock operations' stamp: 'EMI 12/1/2020 20:09:59'!
+now
+	^time value.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'Clock class' category: 'TusLibros'!
+Clock class
+	instanceVariableNames: ''!
+
+!Clock class methodsFor: 'instance creation' stamp: 'EMI 12/1/2020 20:07:29'!
+now
+	^self new initialize.! !
+
+
 !classDefinition: #CreditCard category: 'TusLibros'!
 Object subclass: #CreditCard
 	instanceVariableNames: 'id expirationDate name'
@@ -650,6 +715,74 @@ cannotCreateCardWithInvalidNameMessage
 !CreditCard class methodsFor: 'instance creation' stamp: 'EMI 11/19/2020 19:57:48'!
 of: aName withID: anID withExpirationDate: aDate
 	^self new initializeWithID: anID withExpirationDate: aDate ofOwner: aName. ! !
+
+
+!classDefinition: #Market category: 'TusLibros'!
+Object subclass: #Market
+	instanceVariableNames: 'priceList merchantProcessor cashier carts currentCartID'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!Market methodsFor: 'initialization' stamp: 'EMI 12/2/2020 18:44:00'!
+initializeWith: aPriceList withMerchantProcessor: aMerchantProcessor
+	priceList _ aPriceList.
+	merchantProcessor _ aMerchantProcessor.
+	cashier _ Cashier withPriceList: aPriceList withMerchantProcessor: aMerchantProcessor.
+	currentCartID _ 1.
+	carts _ Dictionary new.! !
+
+
+!Market methodsFor: 'as yet unclassified' stamp: 'EMI 12/2/2020 18:46:44'!
+addToCart: aCartID productName: aProductName quantity: aProductAmount
+	| cart |
+	cart _ carts at: aCartID.
+	cart add: aProductName amount: aProductAmount.! !
+
+!Market methodsFor: 'as yet unclassified' stamp: 'EMI 12/2/2020 18:36:36'!
+cartContents: aCartID
+	(self isCart: aCartID) ifFalse:[^Error signal: self class cannotGetCartContentsWithInvalidCartID].
+	^(carts at: aCartID) contents.! !
+
+!Market methodsFor: 'as yet unclassified' stamp: 'EMI 12/2/2020 18:25:37'!
+checkoutCart: aCartID usingCard: aCard
+	| cart salesBook |
+	salesBook _ OrderedCollection new.
+	cart _ carts at: aCartID.
+	cashier checkout: cart usingCard: aCard onDate: (GregorianMonthOfYear current) usingSalesBook: salesBook.! !
+
+!Market methodsFor: 'as yet unclassified' stamp: 'EMI 12/2/2020 18:37:32'!
+generateCartID
+	| res |
+	res _ currentCartID.
+	currentCartID _ currentCartID + 1.
+	^res.! !
+
+!Market methodsFor: 'as yet unclassified' stamp: 'EMI 12/2/2020 18:34:47'!
+isCart: aCartID
+	^carts includesKey: aCartID.! !
+
+!Market methodsFor: 'as yet unclassified' stamp: 'EMI 12/2/2020 17:15:00'!
+lendCart
+	| cartID |
+	cartID _ self generateCartID.
+	carts add: cartID->(Cart createUsingPriceList: priceList).
+	^cartID! !
+
+!Market methodsFor: 'as yet unclassified' stamp: 'EMI 12/2/2020 17:15:33'!
+returnCart: aCartID
+	carts removeKey: aCartID.
+	! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'Market class' category: 'TusLibros'!
+Market class
+	instanceVariableNames: ''!
+
+!Market class methodsFor: 'as yet unclassified' stamp: 'EMI 12/1/2020 21:07:27'!
+withPriceList: aPriceList withMerchantProcessor: aMerchantProcessor
+	^self new initializeWith: aPriceList withMerchantProcessor: aMerchantProcessor.! !
 
 
 !classDefinition: #MerchantProcessorSimulator category: 'TusLibros'!
@@ -784,51 +917,64 @@ initialize: aSetOfValidIDs
 
 !classDefinition: #RESTInterface category: 'TusLibros'!
 Object subclass: #RESTInterface
-	instanceVariableNames: 'authenticator priceList carts currentCartID cashier purchasesByClient clientIDbyCartID'
+	instanceVariableNames: 'authenticator priceList carts currentCartID cashier purchasesByClient clientIDbyCartID clock cartIDLastTimeUsed market'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!RESTInterface methodsFor: 'API' stamp: 'EMI 11/30/2020 19:13:23'!
+!RESTInterface methodsFor: 'API' stamp: 'EMI 12/2/2020 18:39:05'!
 addToCart: aCartID productName: aProductName quantity: aProductAmount
-	| cart |
-	cart _ carts at: aCartID ifAbsent:[^Error signal: self class cannotAddProductToCartWithInvalidCartID.].
-	cart add: aProductName amount: aProductAmount.! !
+	(market isCart: aCartID) ifFalse: [^Error signal: self class cannotAddProductToCartWithInvalidCartIDMessage.].
+	(self isCartExpired: aCartID) ifTrue: [^Error signal: self class cannotUseAnExpiredCartIDMessage.].
+	
+	cartIDLastTimeUsed at: aCartID put: clock now.
+	
+	market addToCart: aCartID productName: aProductName quantity: aProductAmount.! !
 
-!RESTInterface methodsFor: 'API' stamp: 'EMI 11/30/2020 20:49:59'!
-checkout: aCartID withCardNumber: aCardNumber withCardExpDate: aCardDateString withCardOwnerName: aCardOwnerName
-	| cart card date salesBook clientID|
-	salesBook _ OrderedCollection new.
-	cart _ carts at: aCartID ifAbsent:[^Error signal: self class cannotCheckoutCartWithInvalidCartID.].
-	date _ GregorianMonthOfYear current.
-	card _ CreditCard of: aCardOwnerName withID: aCardNumber withExpirationDate: (self formatDate: aCardDateString).
-	cashier checkout: cart usingCard: card onDate: date usingSalesBook: salesBook.
+!RESTInterface methodsFor: 'API' stamp: 'EMI 12/2/2020 18:40:13'!
+checkout: aCartID withCardNumber: aCardNumber withCardExpDate: aCardDate withCardOwnerName: aCardOwnerName
+	| card clientID|
+	
+	(market isCart: aCartID) ifFalse: [^Error signal: self class cannotCheckoutCartWithInvalidCartIDMessage.].
+	(self isCartExpired: aCartID) ifTrue: [^Error signal: self class cannotUseAnExpiredCartIDMessage.].
+	
+	card _ CreditCard of: aCardOwnerName withID: aCardNumber withExpirationDate: aCardDate.
+	market checkoutCart: aCartID usingCard: card.
+	
 	clientID _ clientIDbyCartID at: aCartID.
-	(purchasesByClient at: clientID) addAll: cart contents.
-	carts removeKey: aCartID.
-	clientIDbyCartID removeKey: aCartID.! !
+	(purchasesByClient at: clientID) addAll: (market cartContents: aCartID).
+	
+	market returnCart: aCartID.
+	
+	clientIDbyCartID removeKey: aCartID.
+	cartIDLastTimeUsed removeKey: aCartID.! !
 
-!RESTInterface methodsFor: 'API' stamp: 'EMI 11/30/2020 20:50:40'!
+!RESTInterface methodsFor: 'API' stamp: 'EMI 12/2/2020 18:29:38'!
 createCart: anID withPassword: aPassword
-	| password cartID |
-	password _ authenticator at:anID ifAbsent:[^Error signal: self class cannotCreateCartWithInvalidID.].
-	password = aPassword ifFalse:[^Error signal: self class cannotCreateCartWithInvalidPassword.].
-	cartID _ self newCartID.
-	carts add: cartID -> (Cart createUsingPriceList: priceList).
+	| cartID |
+	authenticator checkUser: anID withPassword: aPassword.
+	
+	cartID _ market lendCart.
+
 	clientIDbyCartID add: cartID->anID.
 	(purchasesByClient includesKey: anID) ifFalse: [purchasesByClient add: anID->(Bag new)].
+	cartIDLastTimeUsed add: (cartID -> (clock now)).
 	^cartID.! !
 
-!RESTInterface methodsFor: 'API' stamp: 'EMI 11/30/2020 19:03:24'!
+!RESTInterface methodsFor: 'API' stamp: 'EMI 12/2/2020 18:41:04'!
 listCart: aCartID
-	(carts includesKey: aCartID) ifFalse: [^Error signal: RESTInterface cannotListCartWithInvalidCartID].
-	^(carts at: aCartID) contents.! !
+	(market isCart: aCartID) ifFalse: [^Error signal: RESTInterface cannotListCartWithInvalidCartIDMessage].
+	
+	(self isCartExpired: aCartID) ifTrue: [^Error signal: self class cannotUseAnExpiredCartIDMessage.].
+	
+	cartIDLastTimeUsed at: aCartID put: clock now.
+	
+	^(market cartContents: aCartID).! !
 
-!RESTInterface methodsFor: 'API' stamp: 'EMI 11/30/2020 21:10:19'!
+!RESTInterface methodsFor: 'API' stamp: 'EMI 12/1/2020 20:44:53'!
 listPurchases: aClientID withPassword: aPassword
-	| password purchases bill products result|
-	password _ authenticator at: aClientID ifAbsent:[^Error signal: self class cannotListPurchasesUsingInvalidID.].
-	(password = aPassword) ifFalse: [^Error signal: self class cannotListPurchasesUsingInvalidPassword.].
+	| purchases bill products result|
+	authenticator checkUser: aClientID withPassword: aPassword.
 	
 	result _ OrderedCollection new.
 	purchases _ purchasesByClient at: aClientID ifAbsent:[^result].
@@ -845,30 +991,29 @@ listPurchases: aClientID withPassword: aPassword
 	! !
 
 
-!RESTInterface methodsFor: 'private' stamp: 'EMI 11/30/2020 19:38:51'!
-formatDate: aDateString
-	| monthNumber yearNumber |
-	monthNumber _ (aDateString copyFrom: 1 to: 2) asInteger. 
-	yearNumber _ (aDateString copyFrom: 3 to: 6) asInteger.
-	^GregorianMonthOfYear yearNumber: yearNumber monthNumber: monthNumber.! !
-
-!RESTInterface methodsFor: 'private' stamp: 'EMI 11/30/2020 19:01:07'!
-newCartID
-	| cartID |
-	cartID _ currentCartID.
-	currentCartID _ currentCartID + 1.
-	^cartID.! !
+!RESTInterface methodsFor: 'private' stamp: 'EMI 12/2/2020 18:41:41'!
+isCartExpired: aCartID
+	| lastUsed |
+	lastUsed _ cartIDLastTimeUsed at: aCartID.
+	(clock now > (lastUsed + 30 minutes)) ifTrue: [
+		cartIDLastTimeUsed removeKey: aCartID.
+		market returnCart: aCartID.
+		clientIDbyCartID removeKey: aCartID.
+		^true.
+	].
+	^false.! !
 
 
-!RESTInterface methodsFor: 'initialization' stamp: 'EMI 11/30/2020 20:42:51'!
-initializeWithAuthenticator: anAuthenticator withPriceList: aPriceList withCashier: aCashier   
+!RESTInterface methodsFor: 'initialization' stamp: 'EMI 12/2/2020 18:43:10'!
+initializeWithAuthenticator: anAuthenticator withPriceList: aPriceList withCashier: aCashier withClock: aClock    
 	authenticator _ anAuthenticator.
 	priceList _ aPriceList.
-	currentCartID _ 1.
-	carts _ Dictionary new.
 	purchasesByClient _ Dictionary new.
 	clientIDbyCartID _ Dictionary new.
-	cashier _ aCashier.! !
+	cartIDLastTimeUsed _ Dictionary new.
+	cashier _ aCashier.
+	clock _ aClock.
+	market _ Market withPriceList: aPriceList withMerchantProcessor: AlwaysValidMerchantProcessorSimulator new.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -876,35 +1021,110 @@ initializeWithAuthenticator: anAuthenticator withPriceList: aPriceList withCashi
 RESTInterface class
 	instanceVariableNames: ''!
 
-!RESTInterface class methodsFor: 'error messages' stamp: 'EMI 11/30/2020 19:12:40'!
-cannotAddProductToCartWithInvalidCartID
+!RESTInterface class methodsFor: 'error messages' stamp: 'EMI 12/2/2020 16:39:03'!
+cannotAddProductToCartWithInvalidCartIDMessage
 	^'Cannot add product to cart with invalid CartID'.! !
 
-!RESTInterface class methodsFor: 'error messages' stamp: 'EMI 11/30/2020 19:44:13'!
-cannotCheckoutCartWithInvalidCartID
+!RESTInterface class methodsFor: 'error messages' stamp: 'EMI 12/2/2020 16:39:16'!
+cannotCheckoutCartWithInvalidCartIDMessage
 	^'Cannot checkout cart with invalid cartID'.! !
 
-!RESTInterface class methodsFor: 'error messages' stamp: 'EMI 11/30/2020 18:20:24'!
-cannotCreateCartWithInvalidID
+!RESTInterface class methodsFor: 'error messages' stamp: 'EMI 12/2/2020 16:39:25'!
+cannotCreateCartWithInvalidIDMessage
 	^'Cannot create cart with invalid ID'.! !
 
-!RESTInterface class methodsFor: 'error messages' stamp: 'EMI 11/30/2020 18:22:35'!
-cannotCreateCartWithInvalidPassword
+!RESTInterface class methodsFor: 'error messages' stamp: 'EMI 12/2/2020 16:39:37'!
+cannotCreateCartWithInvalidPasswordMessage
 	^'Cannot create cart with invalid password'.! !
 
-!RESTInterface class methodsFor: 'error messages' stamp: 'EMI 11/30/2020 18:34:19'!
-cannotListCartWithInvalidCartID
+!RESTInterface class methodsFor: 'error messages' stamp: 'EMI 12/2/2020 16:39:49'!
+cannotListCartWithInvalidCartIDMessage
 	^'Cannot list cart using invalid cart ID'.! !
 
-!RESTInterface class methodsFor: 'error messages' stamp: 'EMI 11/30/2020 21:08:41'!
-cannotListPurchasesUsingInvalidID
+!RESTInterface class methodsFor: 'error messages' stamp: 'EMI 12/2/2020 16:39:57'!
+cannotListPurchasesUsingInvalidIDMessage
 	^'Cannot ListPurchases using invalid ID'.! !
 
-!RESTInterface class methodsFor: 'error messages' stamp: 'EMI 11/30/2020 21:09:18'!
-cannotListPurchasesUsingInvalidPassword
+!RESTInterface class methodsFor: 'error messages' stamp: 'EMI 12/2/2020 16:40:05'!
+cannotListPurchasesUsingInvalidPasswordMessage
 	^'Cannot ListPurchases using invalid password'.! !
 
+!RESTInterface class methodsFor: 'error messages' stamp: 'EMI 12/2/2020 16:40:17'!
+cannotUseAnExpiredCartIDMessage
+	^'Cannot use an expired cart ID.'.! !
 
-!RESTInterface class methodsFor: 'instance creation' stamp: 'EMI 11/30/2020 19:31:20'!
-withAuthenticator: anAuthenticator withPriceList: aPriceList withCashier: aCashier   
-	^self new initializeWithAuthenticator: anAuthenticator withPriceList: aPriceList withCashier: aCashier ! !
+
+!RESTInterface class methodsFor: 'instance creation' stamp: 'EMI 12/1/2020 19:54:42'!
+withAuthenticator: anAuthenticator withPriceList: aPriceList withCashier: aCashier withClock: aClock    
+	^self new initializeWithAuthenticator: anAuthenticator withPriceList: aPriceList withCashier: aCashier withClock: aClock ! !
+
+
+!classDefinition: #TestObjectsFactory category: 'TusLibros'!
+Object subclass: #TestObjectsFactory
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!TestObjectsFactory methodsFor: 'object creation' stamp: 'EMI 12/2/2020 16:43:11'!
+anotherValidClientID
+	^'2'.! !
+
+!TestObjectsFactory methodsFor: 'object creation' stamp: 'EMI 12/2/2020 16:43:22'!
+anotherValidProductName
+	^'El principito'.! !
+
+!TestObjectsFactory methodsFor: 'object creation' stamp: 'EMI 12/2/2020 16:43:38'!
+defaultAuthenticator
+	| validUsers |
+	validUsers _ Dictionary with: self validClientID -> self validClientPassword with: self anotherValidClientID -> self validClientPassword.
+	^AuthenticatorSimulator withUsers: validUsers.! !
+
+!TestObjectsFactory methodsFor: 'object creation' stamp: 'EMI 12/2/2020 16:43:52'!
+defaultCashier
+	^Cashier withPriceList: self defaultPriceList withMerchantProcessor: AlwaysValidMerchantProcessorSimulator new.! !
+
+!TestObjectsFactory methodsFor: 'object creation' stamp: 'EMI 12/2/2020 16:44:02'!
+defaultClock
+	^Clock now.! !
+
+!TestObjectsFactory methodsFor: 'object creation' stamp: 'EMI 12/2/2020 16:44:13'!
+defaultPriceList
+	^Dictionary with: 'El Principote' -> 50 with: 'El principito' -> 100.! !
+
+!TestObjectsFactory methodsFor: 'object creation' stamp: 'EMI 12/2/2020 17:06:13'!
+invalidCartID
+	^Object new.! !
+
+!TestObjectsFactory methodsFor: 'object creation' stamp: 'EMI 12/2/2020 16:44:23'!
+invalidClientID
+	^Object new.! !
+
+!TestObjectsFactory methodsFor: 'object creation' stamp: 'EMI 12/2/2020 16:44:33'!
+invalidClientPassword
+	^Object new.! !
+
+!TestObjectsFactory methodsFor: 'object creation' stamp: 'EMI 12/2/2020 18:14:47'!
+validCardDate
+	^(GregorianMonthOfYear current) next.
+	! !
+
+!TestObjectsFactory methodsFor: 'object creation' stamp: 'EMI 12/2/2020 16:44:50'!
+validCardNumber
+	^'123456789'! !
+
+!TestObjectsFactory methodsFor: 'object creation' stamp: 'EMI 12/2/2020 16:45:04'!
+validCardOwnerName
+	^'El Principe'.! !
+
+!TestObjectsFactory methodsFor: 'object creation' stamp: 'EMI 12/2/2020 16:45:14'!
+validClientID
+	^'1'.! !
+
+!TestObjectsFactory methodsFor: 'object creation' stamp: 'EMI 12/2/2020 16:49:49'!
+validClientPassword
+	^'1234'.! !
+
+!TestObjectsFactory methodsFor: 'object creation' stamp: 'EMI 12/2/2020 16:50:00'!
+validProductName
+	^'El Principote'.! !
