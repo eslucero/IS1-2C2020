@@ -589,45 +589,6 @@ itemNotFoundInCatalogueMessage
 	^'Cannot find requested item in catalogue.'! !
 
 
-!classDefinition: #CartSession category: 'TusLibros'!
-Object subclass: #CartSession
-	instanceVariableNames: 'cart clock lastUsed'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TusLibros'!
-
-!CartSession methodsFor: 'as yet unclassified' stamp: 'EMI 12/2/2020 22:54:49'!
-add: anItem
-	self isExpired.
-	self updateLastUse.
-	cart add: anItem.! !
-
-!CartSession methodsFor: 'as yet unclassified' stamp: 'EMI 12/2/2020 22:58:02'!
-add: anItem amount: aNumberOfItems
-	cart add: anItem amount: aNumberOfItems.! !
-
-!CartSession methodsFor: 'as yet unclassified' stamp: 'EMI 12/2/2020 22:53:05'!
-initialize: aCart withClock: aClock
-	cart _ aCart.
-	clock _ aClock.
-	lastUsed _ aClock now.
-	! !
-
-!CartSession methodsFor: 'as yet unclassified' stamp: 'EMI 12/2/2020 22:58:17'!
-isExpired
-	! !
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'CartSession class' category: 'TusLibros'!
-CartSession class
-	instanceVariableNames: ''!
-
-!CartSession class methodsFor: 'as yet unclassified' stamp: 'EMI 12/2/2020 22:53:44'!
-of: aCart withClock: aClock
-	^self new initialize: aCart withClock: aClock.! !
-
-
 !classDefinition: #Cashier category: 'TusLibros'!
 Object subclass: #Cashier
 	instanceVariableNames: 'priceListDictionary merchantProcessor'
@@ -825,9 +786,9 @@ addToCart: aCartID productName: aProductName quantity: aProductAmount
 	cart _ carts at: aCartID.
 	cart add: aProductName amount: aProductAmount.! !
 
-!Market methodsFor: 'cart managment' stamp: 'EMI 12/2/2020 18:36:36'!
+!Market methodsFor: 'cart managment' stamp: 'EMI 12/3/2020 16:30:36'!
 cartContents: aCartID
-	(self isCart: aCartID) ifFalse:[^Error signal: self class cannotGetCartContentsWithInvalidCartID].
+	(self isCart: aCartID) ifFalse:[^Error signal: self class cannotGetCartContentsWithInvalidCartIDMessage].
 	^(carts at: aCartID) contents.! !
 
 !Market methodsFor: 'cart managment' stamp: 'EMI 12/2/2020 18:25:37'!
@@ -861,8 +822,8 @@ withPriceList: aPriceList withMerchantProcessor: aMerchantProcessor
 	^self new initializeWith: aPriceList withMerchantProcessor: aMerchantProcessor.! !
 
 
-!Market class methodsFor: 'error messages' stamp: 'EMI 12/2/2020 22:56:33'!
-cannotGetCartContentsWithInvalidCartID
+!Market class methodsFor: 'error messages' stamp: 'EMI 12/3/2020 16:30:36'!
+cannotGetCartContentsWithInvalidCartIDMessage
 	^'Cannot get cart contents with invalid CartID'.! !
 
 
@@ -998,68 +959,70 @@ initialize: aSetOfValidIDs
 
 !classDefinition: #RESTInterface category: 'TusLibros'!
 Object subclass: #RESTInterface
-	instanceVariableNames: 'authenticator currentCartID purchasesByClient clientIDbyCartID clock cartIDLastTimeUsed market lastTransactionID'
+	instanceVariableNames: 'authenticator currentCartID purchasesByClient clientIDbyCartID clock cartSessions market lastTransactionID'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!RESTInterface methodsFor: 'API' stamp: 'EMI 12/2/2020 18:39:05'!
+!RESTInterface methodsFor: 'API' stamp: 'EMI 12/3/2020 16:17:15'!
 addToCart: aCartID productName: aProductName quantity: aProductAmount
 	(market isCart: aCartID) ifFalse: [^Error signal: self class cannotAddProductToCartWithInvalidCartIDMessage.].
-	(self isCartExpired: aCartID) ifTrue: [^Error signal: self class cannotUseAnExpiredCartIDMessage.].
 	
-	cartIDLastTimeUsed at: aCartID put: clock now.
+	self checkHasCartExpired: aCartID.
+	self updateCartSession: aCartID.
 	
 	market addToCart: aCartID productName: aProductName quantity: aProductAmount.! !
 
-!RESTInterface methodsFor: 'API' stamp: 'EMI 12/2/2020 22:12:39'!
+!RESTInterface methodsFor: 'API' stamp: 'EMI 12/3/2020 16:28:40'!
 checkout: aCartID withCardNumber: aCardNumber withCardExpDate: aCardDate withCardOwnerName: aCardOwnerName
 	| card clientID|
 	
 	(market isCart: aCartID) ifFalse: [^Error signal: self class cannotCheckoutCartWithInvalidCartIDMessage.].
-	(self isCartExpired: aCartID) ifTrue: [^Error signal: self class cannotUseAnExpiredCartIDMessage.].
+	self checkHasCartExpired: aCartID.
 	
 	card _ CreditCard of: aCardOwnerName withID: aCardNumber withExpirationDate: aCardDate.
 	market checkoutCart: aCartID usingCard: card.
 	
-	clientID _ clientIDbyCartID at: aCartID.
-	(purchasesByClient at: clientID) addAll: (market cartContents: aCartID).
+	clientID _ self clientUsingCart: aCartID.
+	self registePurchaseMadeBy: clientID of: aCartID.
 	
+	self endCartSession: aCartID.
+	self fromClientTakeCart: aCartID.
 	market returnCart: aCartID.
 	
-	clientIDbyCartID removeKey: aCartID.
-	cartIDLastTimeUsed removeKey: aCartID.
 	^self nextTransactionID.! !
 
-!RESTInterface methodsFor: 'API' stamp: 'EMI 12/2/2020 18:29:38'!
+!RESTInterface methodsFor: 'API' stamp: 'EMI 12/3/2020 16:32:33'!
 createCart: anID withPassword: aPassword
 	| cartID |
 	authenticator checkUser: anID withPassword: aPassword.
 	
 	cartID _ market lendCart.
 
-	clientIDbyCartID add: cartID->anID.
-	(purchasesByClient includesKey: anID) ifFalse: [purchasesByClient add: anID->(Bag new)].
-	cartIDLastTimeUsed add: (cartID -> (clock now)).
+	self giveCart: cartID to: anID.
+	
+	(self hasClientMadeAPurchase: anID) ifFalse: [self clientHasNoPurchases: anID].
+	
+	self beginCartSession: cartID.
+	
 	^cartID.! !
 
-!RESTInterface methodsFor: 'API' stamp: 'EMI 12/2/2020 18:41:04'!
+!RESTInterface methodsFor: 'API' stamp: 'EMI 12/3/2020 16:17:27'!
 listCart: aCartID
-	(market isCart: aCartID) ifFalse: [^Error signal: RESTInterface cannotListCartWithInvalidCartIDMessage].
+	(market isCart: aCartID) ifFalse: [^Error signal: self class cannotListCartWithInvalidCartIDMessage].
 	
-	(self isCartExpired: aCartID) ifTrue: [^Error signal: self class cannotUseAnExpiredCartIDMessage.].
-	
-	cartIDLastTimeUsed at: aCartID put: clock now.
+	self checkHasCartExpired: aCartID.
+	self updateCartSession: aCartID.
 	
 	^(market cartContents: aCartID).! !
 
-!RESTInterface methodsFor: 'API' stamp: 'EMI 12/2/2020 22:22:00'!
+!RESTInterface methodsFor: 'API' stamp: 'EMI 12/3/2020 16:22:31'!
 listPurchases: aClientID withPassword: aPassword
 	| purchases bill products result|
 	authenticator checkUser: aClientID withPassword: aPassword.
 	
 	result _ OrderedCollection new.
-	purchases _ purchasesByClient at: aClientID ifAbsent:[^result].
+	purchases _ purchasesByClient at: aClientID ifAbsent:[result add: 0.^result].
 	
 	bill _ 0.
 	purchases do: [:anItem | bill _ bill + (market priceOf: anItem)].
@@ -1073,17 +1036,51 @@ listPurchases: aClientID withPassword: aPassword
 	! !
 
 
-!RESTInterface methodsFor: 'private' stamp: 'EMI 12/2/2020 18:41:41'!
-isCartExpired: aCartID
+!RESTInterface methodsFor: 'private' stamp: 'EMI 12/3/2020 16:33:27'!
+beginCartSession: cartID
+
+	^ cartSessions add: (cartID -> (clock now))! !
+
+!RESTInterface methodsFor: 'private' stamp: 'EMI 12/3/2020 16:33:27'!
+checkHasCartExpired: aCartID
 	| lastUsed |
-	lastUsed _ cartIDLastTimeUsed at: aCartID.
+	lastUsed _ cartSessions at: aCartID.
 	(clock now > (lastUsed + 30 minutes)) ifTrue: [
-		cartIDLastTimeUsed removeKey: aCartID.
+		cartSessions removeKey: aCartID.
 		market returnCart: aCartID.
 		clientIDbyCartID removeKey: aCartID.
-		^true.
-	].
-	^false.! !
+		^Error signal: self class cannotUseAnExpiredCartIDMessage.
+	].! !
+
+!RESTInterface methodsFor: 'private' stamp: 'EMI 12/3/2020 16:32:33'!
+clientHasNoPurchases: anID
+
+	^ purchasesByClient add: anID->(Bag new)! !
+
+!RESTInterface methodsFor: 'private' stamp: 'EMI 12/3/2020 16:20:57'!
+clientUsingCart: aCartID
+
+	^ clientIDbyCartID at: aCartID! !
+
+!RESTInterface methodsFor: 'private' stamp: 'EMI 12/3/2020 16:33:27'!
+endCartSession: aCartID
+
+	^ cartSessions removeKey: aCartID! !
+
+!RESTInterface methodsFor: 'private' stamp: 'EMI 12/3/2020 16:21:49'!
+fromClientTakeCart: aCartID
+
+	^ clientIDbyCartID removeKey: aCartID! !
+
+!RESTInterface methodsFor: 'private' stamp: 'EMI 12/3/2020 16:29:42'!
+giveCart: cartID to: anID
+
+	^ clientIDbyCartID add: cartID->anID! !
+
+!RESTInterface methodsFor: 'private' stamp: 'EMI 12/3/2020 16:23:57'!
+hasClientMadeAPurchase: anID
+
+	^ purchasesByClient includesKey: anID! !
 
 !RESTInterface methodsFor: 'private' stamp: 'EMI 12/2/2020 22:11:55'!
 nextTransactionID
@@ -1092,13 +1089,22 @@ nextTransactionID
 	lastTransactionID _ lastTransactionID + 1.
 	^transactionID.! !
 
+!RESTInterface methodsFor: 'private' stamp: 'EMI 12/3/2020 16:28:17'!
+registePurchaseMadeBy: aClientID of: aCartID
+	(purchasesByClient at: aClientID) addAll: (market cartContents: aCartID).! !
 
-!RESTInterface methodsFor: 'initialization' stamp: 'EMI 12/2/2020 22:16:08'!
+!RESTInterface methodsFor: 'private' stamp: 'EMI 12/3/2020 16:33:27'!
+updateCartSession: aCartID
+
+	^ cartSessions at: aCartID put: clock now! !
+
+
+!RESTInterface methodsFor: 'initialization' stamp: 'EMI 12/3/2020 16:33:27'!
 initializeWithAuthenticator: anAuthenticator withMarket: aMarket withClock: aClock    
 	authenticator _ anAuthenticator.
 	purchasesByClient _ Dictionary new.
 	clientIDbyCartID _ Dictionary new.
-	cartIDLastTimeUsed _ Dictionary new.
+	cartSessions _ Dictionary new.
 	clock _ aClock.
 	market _ aMarket.
 	lastTransactionID _ 1.! !
